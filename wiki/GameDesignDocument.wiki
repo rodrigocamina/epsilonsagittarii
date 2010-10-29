@@ -7,7 +7,11 @@
 
     Jogo de nave 3D(Shooter Espacial), onde o objetivo do jogador é defender uma estação espacial do ataque de naves inimigas de diversos tipos, utilizando para isso vários tipos de armas.
 
+    O jogador irá pilotar a nave tendo que combater os inimigos e desviar de asteróides, tendo a sua disposição vários tipos de armas, como guns(laser, plasma, etc...) e mísseis(heatseakers, magnetic, etc...), por exemplo.
 
+    O jogador enfrentará diversos tipos de naves inimigas(naves interceptadoras, naves de ataque, naves bombardeiras, etc...) e ganhará pontos e recursos que poderão ser trocados por upgrades e munição na estação ao final de cada onda de ataque.
+
+    O jogo acaba se o jogador derrotar todas as ondas de ataque ou se o jogador morrer.
 
 = História =
 
