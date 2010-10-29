@@ -3,3 +3,5 @@
 = Documentação do Projeto =
 
   * [GameOverviewDocument Documento de Visão Geral do Jogo]
+  * [GameDesignDocument Documento de Design do Jogo]
+  * [TechnicalDesignDocument Documento de Design Técnico]
