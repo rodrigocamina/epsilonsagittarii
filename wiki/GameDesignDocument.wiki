@@ -43,7 +43,7 @@
 
     Os esquadrões de combate a bordo da Sculptor são os esquadrões Aries(caças), Cetus(resgate), Serpens(interceptadores) e Monoceros(patrulha).
 
-    Também fazem parte da terceira frota quatro Cruzadores(Atlantis, Gibraltar,  e ), a Nave de Suprimentos Corsair, a Nave de Pesquisa Gagarin e a Nave de Colonização Asimov.
+    Também fazem parte da terceira frota quatro Cruzadores(Atlantis, Gibraltar, Poseidon e Leonidas), a Nave de Suprimentos Corsair, a Nave de Pesquisa Gagarin e a Nave de Colonização Asimov.
 
 ==== Segunda Frota ====
 
