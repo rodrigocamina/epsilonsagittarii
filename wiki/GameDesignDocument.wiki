@@ -17,7 +17,7 @@
 
 == História Completa ==
 
-    A frota estava realizando exercícios próximo a Delta Sagittarii quando um dos caças do Esquadrão Draco foi atingido por estilhaços de um drone de treinamento e necessitou de reparos que não poderiam ser feitos sem material e ferramentas especiais, os quais não poderiam ser encontrados no Cruzador Lindbergh.
+    A frota estava realizando exercícios próximo a Delta Sagittarii quando um dos caças do Esquadrão Draco foi atingido por estilhaços de um drone de treinamento e necessitou de reparos que não poderiam ser feitos sem material e ferramentas especiais, os quais não poderiam ser encontrados na Battleship Prometheus.
 
     O Almirante Ross ordena então que seu caça(Draco 03) se desloque até a Estação de Pesquisa em Epsilon Sagittarii(Estação de Pesquisa Apollo), onde seria possível realizar os reparos. Seu caça chega em Epsilon Sagittarii e pousa na doca número 7 onde a equipe de reparos da estação já o aguardava, após ter sido informada pela frota.
 
@@ -27,9 +27,32 @@
 
     Sua missão é impedir a destruição da Estação Apollo e se possível, sobreviver!  
 
-
-
 == História de Suporte ==
+
+    Terra, 2247. Após séculos de conflitos e guerras sem sentido, os habitantes da Terra se uniram sob uma única bandeira e decidiram iniciar a exploração do espaço para obter recursos naturais e para espalhar a presença humana pela galáxia, iniciando a colonização de planetas e sistemas capazes de suportar vida.
+
+    Cinco frotas foram formadas com os diversos tipos de naves dos outrora países inimigos. Nasceu assim a Armada Terrestre, composta por estas frotas.
+
+    Primeira Frota
+
+    Segunda Frota
+
+    Liderada pela Battleship Prometheus esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Sagittarius.
+
+
+    Terceira Frota
+
+    Liderada pela Battleship Prometheus esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Sagittarius.
+
+
+    Quarta Frota
+
+    Liderada pela Battleship Prometheus esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Sagittarius.
+
+    Quinta Frota
+
+    Liderada pela Battleship Archangel esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Gemini.
+
 
 == Diálogos ==
 
