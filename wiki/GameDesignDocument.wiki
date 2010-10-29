@@ -31,7 +31,9 @@
 
 == História de Suporte ==
 
-    Terra, 2247. Após séculos de conflitos e guerras sem sentido, os habitantes da Terra se uniram sob uma única bandeira e decidiram iniciar a exploração do espaço para obter recursos naturais e para espalhar a presença humana pela galáxia, iniciando a colonização de planetas e sistemas capazes de suportar vida.
+    Terra, 2147. Após séculos de conflitos e guerras sem sentido, os habitantes da Terra decidiram se unir sob uma única bandeira e iniciar a exploração do espaço para obter recursos naturais e para espalhar a presença humana pela galáxia, iniciando a colonização de planetas e sistemas capazes de suportar vida.
+
+    2175. Após várias décadas de preparação, finalmente as frotas partem em direção aos sistemas estelares escolhidos, na busca por planetas habitáveis ou que possuam resursos importantes.
 
     Cinco frotas foram formadas com os diversos tipos de naves dos outrora países inimigos. Nasceu assim a Armada Terrestre, composta por estas frotas.
 
@@ -53,12 +55,15 @@
 
     Liderada pela Battleship Prometheus, esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Sagittarius.
 
-    Os esquadrões de combate a bordo da Prometheus são os esquadrões Draco(caças), Phoenix(resgate), Centaurus(interceptadores) e Aquila(patrulha).
+    Os esquadrões de combate a bordo da Prometheus são os esquadrões Draco(caças), Phoenix(resgate), Centaurus(interceptadores) e Pegasus(patrulha).
 
 ==== Quinta Frota ====
 
     Liderada pela Battleship Archangel, esta frota ficou responsável pela defesa do Sistema Solar.
 
+==== A colonização ====
+
+    
 
 == Diálogos ==
 
