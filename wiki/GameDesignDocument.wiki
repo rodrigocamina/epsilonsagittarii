@@ -47,7 +47,7 @@
 
     Os esquadrões de combate a bordo da S.S.Orion são os esquadrões Gemini(caças), Cygnus(resgate), Scorpius(interceptadores) e Lynx(patrulha).
 
-    Também fazem parte da terceira frota quatro Cruzadores(S.S.Titan, S.S.Zeus, S.S.Alexander e S.S.Musashi), a Nave de Suprimentos S.S.Nilo, a Nave de Pesquisa S.S.Galileo e a Nave de Colonização S.S.Nikolai.
+    Também fazem parte da terceira frota quatro Cruzadores(S.S.Titan, S.S.Zeus, S.S.Alexander e S.S.Musashi), a Nave de Suprimentos S.S.Nikolai, a Nave de Pesquisa S.S.Galileo e a Nave de Colonização S.S.Antartida.
 
 ==== Quarta Frota ====
 
