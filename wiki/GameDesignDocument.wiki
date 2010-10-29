@@ -35,13 +35,15 @@
 
     2175. Após várias décadas de preparação, finalmente as frotas partem em direção aos sistemas estelares escolhidos, na busca por planetas habitáveis ou que possuam resursos importantes.
 
-    Cinco frotas foram formadas com os diversos tipos de naves dos outrora países inimigos. Nasceu assim a Armada Terrestre, composta por estas frotas.
+    Cinco frotas foram formadas com os diversos tipos de naves dos outrora países inimigos, que foram todas aperfeiçoadas e rebatizadas para evitar que antigas rivalidades surgissem. Nasceu assim a Armada Terrestre, composta por estas frotas.
 
 ==== Primeira Frota ====
 
     Liderada pela Battleship Sculptor, esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Eridanus.
 
     Os esquadrões de combate a bordo da Sculptor são os esquadrões Aries(caças), Cetus(resgate), Serpens(interceptadores) e Monoceros(patrulha).
+
+    Também fazem parte da terceira frota quatro Cruzadores(Atlantis, Gibraltar,  e ), a Nave de Suprimentos Corsair, a Nave de Pesquisa Gagarin e a Nave de Colonização Asimov.
 
 ==== Segunda Frota ====
 
