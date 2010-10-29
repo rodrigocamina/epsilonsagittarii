@@ -41,19 +41,19 @@
 
     Liderada pela Battleship Sculptor, esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Eridanus.
 
-    Os esquadrões de combate a bordo da Prometheus são os esquadrões Aries(caças), Cetus(resgate), Serpens(interceptadores) e Monoceros(patrulha).
+    Os esquadrões de combate a bordo da Sculptor são os esquadrões Aries(caças), Cetus(resgate), Serpens(interceptadores) e Monoceros(patrulha).
 
 ==== Segunda Frota ====
 
     Liderada pela Battleship Hercules, esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Pyxis.
 
-    Os esquadrões de combate a bordo da Prometheus são os esquadrões Taurus(caças), Perseus(resgate), Auriga(interceptadores) e Andromeda(patrulha).
+    Os esquadrões de combate a bordo da Hercules são os esquadrões Taurus(caças), Perseus(resgate), Auriga(interceptadores) e Andromeda(patrulha).
 
 ==== Terceira Frota ====
 
     Liderada pela Battleship Orion, esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Ursa Maior.
 
-    Os esquadrões de combate a bordo da Prometheus são os esquadrões Gemini(caças), Cygnus(resgate), Scorpius(interceptadores) e Lynx(patrulha).
+    Os esquadrões de combate a bordo da Orion são os esquadrões Gemini(caças), Cygnus(resgate), Scorpius(interceptadores) e Lynx(patrulha).
 
 
 ==== Quarta Frota ====
@@ -68,7 +68,7 @@
 
     Liderada pela Battleship Archangel, esta frota ficou responsável pela defesa do Sistema Solar.
 
-    Os esquadrões de combate a bordo da Prometheus são os esquadrões Aquila(caças), Delphinus(resgate), Leo(interceptadores) e Hydra(patrulha).
+    Os esquadrões de combate a bordo da Archangel são os esquadrões Aquila(caças), Delphinus(resgate), Leo(interceptadores) e Hydra(patrulha).
 
 ==== A colonização ====
 
