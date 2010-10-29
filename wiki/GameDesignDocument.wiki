@@ -27,43 +27,43 @@
 
 ==== Primeira Frota ====
 
-    Liderada pela Battleship Sculptor, esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Eridanus.
+    Liderada pela Battleship S.S.Sculptor, esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Eridanus.
 
-    Os esquadrões de combate a bordo da Sculptor são os esquadrões Aries(caças), Cetus(resgate), Serpens(interceptadores) e Monoceros(patrulha).
+    Os esquadrões de combate a bordo da S.S.Sculptor são os esquadrões Aries(caças), Cetus(resgate), Serpens(interceptadores) e Monoceros(patrulha).
 
-    Também fazem parte da terceira frota quatro Cruzadores(Atlantis, Gibraltar, Poseidon e Leonidas), a Nave de Suprimentos Corsair, a Nave de Pesquisa Gagarin e a Nave de Colonização Asimov.
+    Também fazem parte da terceira frota quatro Cruzadores(S.S.Atlantis, S.S.Gibraltar, S.S.Poseidon e S.S.Leonidas), a Nave de Suprimentos S.S.Corsair, a Nave de Pesquisa S.S.Gagarin e a Nave de Colonização S.S.Asimov.
 
 ==== Segunda Frota ====
 
-    Liderada pela Battleship Hercules, esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Pyxis.
+    Liderada pela Battleship S.S.Hercules, esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Pyxis.
 
-    Os esquadrões de combate a bordo da Hercules são os esquadrões Taurus(caças), Perseus(resgate), Auriga(interceptadores) e Andromeda(patrulha).
+    Os esquadrões de combate a bordo da S.S.Hercules são os esquadrões Taurus(caças), Perseus(resgate), Auriga(interceptadores) e Andromeda(patrulha).
 
-    Também fazem parte da segunda frota quatro Cruzadores(Spartan, Hector, Achilles e Dumont), a Nave de Suprimentos Agamemnon, a Nave de Pesquisa Alexandria e a Nave de Colonização Armstrong.
+    Também fazem parte da segunda frota quatro Cruzadores(S.S.Spartan, S.S.Hector, S.S.Achilles e S.S.Dumont), a Nave de Suprimentos S.S.Agamemnon, a Nave de Pesquisa S.S.Alexandria e a Nave de Colonização S.S.Armstrong.
 
 ==== Terceira Frota ====
 
-    Liderada pela Battleship Orion, esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Ursa Maior.
+    Liderada pela Battleship S.S.Orion, esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Ursa Maior.
 
-    Os esquadrões de combate a bordo da Orion são os esquadrões Gemini(caças), Cygnus(resgate), Scorpius(interceptadores) e Lynx(patrulha).
+    Os esquadrões de combate a bordo da S.S.Orion são os esquadrões Gemini(caças), Cygnus(resgate), Scorpius(interceptadores) e Lynx(patrulha).
 
-    Também fazem parte da terceira frota quatro Cruzadores(Titan, Zeus, Alexander e Genghis Khan), a Nave de Suprimentos Nilo, a Nave de Pesquisa Galileo e a Nave de Colonização Nikolai.
+    Também fazem parte da terceira frota quatro Cruzadores(S.S.Titan, S.S.Zeus, S.S.Alexander e S.S.Musashi), a Nave de Suprimentos S.S.Nilo, a Nave de Pesquisa S.S.Galileo e a Nave de Colonização S.S.Nikolai.
 
 ==== Quarta Frota ====
 
-    Liderada pela Battleship Prometheus, esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Sagittarius.
+    Liderada pela Battleship S.S.Prometheus, esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Sagittarius.
 
-    Os esquadrões de combate a bordo da Prometheus são os esquadrões Draco(caças), Phoenix(resgate), Centaurus(interceptadores) e Pegasus(patrulha).
+    Os esquadrões de combate a bordo da S.S.Prometheus são os esquadrões Draco(caças), Phoenix(resgate), Centaurus(interceptadores) e Pegasus(patrulha).
 
-    Também fazem parte da quarta frota quatro Cruzadores(Guardian, Colossus, Horizon e Shadow), a Nave de Suprimentos Amazon, a Nave de Pesquisa Hawking e a Nave de Colonização Columbus.
+    Também fazem parte da quarta frota quatro Cruzadores(S.S.Guardian, S.S.Colossus, S.S.Horizon e S.S.Shadow), a Nave de Suprimentos S.S.Amazon, a Nave de Pesquisa S.S.Hawking e a Nave de Colonização S.S.Columbus.
 
 ==== Quinta Frota ====
 
-    Liderada pela Battleship Archangel, esta frota ficou responsável pela defesa do Sistema Solar que engloba a Terra, o Estaleiro Espacial Homeland em sua órbita, a Base Lunar Jules Verne, Marte(Já terraformado e colonizado) e o Estaleiro Espacial Highlands em sua órbita, a Estação de Pesquisa Kepler(Orbita de Netuno).
+    Liderada pela Battleship S.S.Archangel, esta frota ficou responsável pela defesa do Sistema Solar que engloba a Terra, o Estaleiro Espacial Homeland em sua órbita, a Base Lunar Jules Verne, Marte(Já terraformado e colonizado) e o Estaleiro Espacial Highlands em sua órbita, a Estação de Pesquisa Kepler(Orbita de Netuno).
 
     Os esquadrões de combate a bordo da Archangel são os esquadrões Aquila(caças), Delphinus(resgate), Leo(interceptadores) e Hydra(patrulha).
 
-    Também fazem parte da quarta frota 6 Cruzadores(Omega, Antares, Aldebaran, Knight, Grasshopper e Limit, os dois últimos ainda em construção nos Estaleiros Espaciais) a Nave de Suprimentos Mekong, a Nave de Pesquisa Copernicus e a Nave de Colonização Cesar.
+    Também fazem parte da quarta frota 6 Cruzadores(S.S.Omega, S.S.Antares, S.S.Aldebaran, S.S.Knight, S.S.Grasshopper e S.S.Limit, os dois últimos ainda em construção nos Estaleiros Espaciais) a Nave de Suprimentos S.S.Mekong, a Nave de Pesquisa S.S.Copernicus e a Nave de Colonização S.S.Cesar.
 
 ==== Primeiro Contato ====
 
@@ -85,7 +85,7 @@
 
 == História do Jogo ==
 
-    A frota estava realizando exercícios próximo a Delta Sagittarii quando um dos caças do Esquadrão Draco foi atingido por estilhaços de um drone de treinamento, que colidiu com um asteróide, e necessitou de reparos que não poderiam ser feitos sem material e ferramentas especiais, os quais não poderiam ser encontrados na Battleship Prometheus.
+    A frota estava realizando exercícios próximo a Delta Sagittarii quando um dos caças do Esquadrão Draco foi atingido por estilhaços de um drone de treinamento, que colidiu com um asteróide, e necessitou de reparos que não poderiam ser feitos sem material e ferramentas especiais, os quais não poderiam ser encontrados na Battleship S.S.Prometheus.
 
     O Almirante Ross ordena então que seu caça(Draco 03) se desloque até a Estação de Pesquisa em Epsilon Sagittarii(Estação de Pesquisa Apollo), onde seria possível realizar os reparos. Seu caça chega em Epsilon Sagittarii e pousa na doca número 7 onde a equipe de reparos da estação já o aguardava, após ter sido informada pela frota.
 
