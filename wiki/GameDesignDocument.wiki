@@ -50,6 +50,8 @@
 
     Liderada pela Battleship Orion, esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Ursa Maior.
 
+    Os esquadrões de combate a bordo da Prometheus são os esquadrões Gemini(caças), Cygnus(resgate), Scorpius(interceptadores) e Lynx(patrulha).
+
 
 ==== Quarta Frota ====
 
@@ -60,6 +62,8 @@
 ==== Quinta Frota ====
 
     Liderada pela Battleship Archangel, esta frota ficou responsável pela defesa do Sistema Solar.
+
+    Os esquadrões de combate a bordo da Prometheus são os esquadrões Aquila(caças), Delphinus(resgate), Leo(interceptadores) e Hydra(patrulha).
 
 ==== A colonização ====
 
