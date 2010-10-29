@@ -35,23 +35,27 @@
 
     Primeira Frota
 
+    Liderada pela Battleship Sculptor, esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Eridanus.
+
     Segunda Frota
 
-    Liderada pela Battleship Prometheus esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Sagittarius.
+    Liderada pela Battleship Hercules, esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Pyxis.
 
 
     Terceira Frota
 
-    Liderada pela Battleship Prometheus esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Sagittarius.
+    Liderada pela Battleship Orion, esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Ursa Maior.
 
 
     Quarta Frota
 
-    Liderada pela Battleship Prometheus esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Sagittarius.
+    Liderada pela Battleship Prometheus, esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Sagittarius.
+
+    Os esquadrões de combate a bordo da Prometheus são os esquadrões Draco(caças), Phoenix(resgate), Centaurus(interceptadores) e Aquila(patrulha).
 
     Quinta Frota
 
-    Liderada pela Battleship Archangel esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Gemini.
+    Liderada pela Battleship Archangel, esta frota ficou responsável pela do Sistema Solar, onde concentra-se a maior parte das bases e colonias.
 
 
 == Diálogos ==
