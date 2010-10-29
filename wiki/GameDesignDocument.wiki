@@ -55,6 +55,7 @@
 
     Os esquadrões de combate a bordo da Orion são os esquadrões Gemini(caças), Cygnus(resgate), Scorpius(interceptadores) e Lynx(patrulha).
 
+    Também fazem parte da terceira frota quatro Cruzadores(Titan, Zeus, Alexander e Genghis Khan), a Nave de Suprimentos Nilo, a Nave de Pesquisa Galileo e a Nave de Colonização Nikolai.
 
 ==== Quarta Frota ====
 
@@ -62,11 +63,11 @@
 
     Os esquadrões de combate a bordo da Prometheus são os esquadrões Draco(caças), Phoenix(resgate), Centaurus(interceptadores) e Pegasus(patrulha).
 
-    Também fazem parte da quarta frota os Cruzadores Guardian, Colossus, Horizon, Shadow, a Nave de Suprimentos Amazon, a Nave de Pesquisa Hawking e a Nave de Colonização Columbus.
+    Também fazem parte da quarta frota quatro Cruzadores(Guardian, Colossus, Horizon e Shadow), a Nave de Suprimentos Amazon, a Nave de Pesquisa Hawking e a Nave de Colonização Columbus.
 
 ==== Quinta Frota ====
 
-    Liderada pela Battleship Archangel, esta frota ficou responsável pela defesa do Sistema Solar que engloba a Terra, a Base Lunar Jules Verne, Marte(Já terraformado e colonizado) e o Estaleiro Espacial em sua órbita, a Estação de Pesquisa Kepler(Orbita de Netuno).
+    Liderada pela Battleship Archangel, esta frota ficou responsável pela defesa do Sistema Solar que engloba a Terra, a Base Lunar Jules Verne, Marte(Já terraformado e colonizado) e o Estaleiro Espacial  em sua órbita, a Estação de Pesquisa Kepler(Orbita de Netuno).
 
     Os esquadrões de combate a bordo da Archangel são os esquadrões Aquila(caças), Delphinus(resgate), Leo(interceptadores) e Hydra(patrulha).
 
