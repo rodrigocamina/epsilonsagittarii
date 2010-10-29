@@ -1,3 +1,6 @@
 #summary Documentação do Projeto.
+<wiki:toc max_depth="4" />
+----
+= Documentação do Projeto =
 
   * [GameOverviewDocument Documento de Visão Geral do Jogo]
