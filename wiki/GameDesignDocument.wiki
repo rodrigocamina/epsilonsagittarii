@@ -41,10 +41,13 @@
 
     Liderada pela Battleship Sculptor, esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Eridanus.
 
+    Os esquadrões de combate a bordo da Prometheus são os esquadrões Aries(caças), Cetus(resgate), Serpens(interceptadores) e Monoceros(patrulha).
+
 ==== Segunda Frota ====
 
     Liderada pela Battleship Hercules, esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Pyxis.
 
+    Os esquadrões de combate a bordo da Prometheus são os esquadrões Taurus(caças), Perseus(resgate), Auriga(interceptadores) e Andromeda(patrulha).
 
 ==== Terceira Frota ====
 
