@@ -5,6 +5,10 @@
 
 == Conceito ==
 
+    Jogo de nave 3D(Shooter Espacial), onde o objetivo do jogador é defender uma estação espacial do ataque de naves inimigas de diversos tipos, utilizando para isso vários tipos de armas.
+
+
+
 = História =
 
 == História Completa ==
