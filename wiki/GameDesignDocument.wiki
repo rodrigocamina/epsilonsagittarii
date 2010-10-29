@@ -13,6 +13,8 @@
 
     O jogo acaba se o jogador derrotar todas as ondas de ataque ou se o jogador morrer.
 
+----
+
 = História =
 
 == História Completa ==
@@ -60,11 +62,15 @@
 
 == Diálogos ==
 
+----
+
 = Audiência, Plataforma =
 
 == Público Alvo ==
 
 == Plataforma ==
+
+----
 
 = Gameplay =
 
@@ -82,12 +88,18 @@
 
 == Fluxograma ==
 
+----
+
 = Personagens(Naves) =
 
 == Player ==
 
 == NPC ==
 
+----
+
 = Cenários =
+
+----
 
 = Referências =
