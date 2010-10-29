@@ -1,1 +1,46 @@
 #summary Documento de Design do Jogo.
+<wiki:toc max_depth="4" />
+----
+= Visão Geral =
+
+== Conceito ==
+
+= História =
+
+== História Completa ==
+
+== História de Suporte ==
+
+== Diálogos ==
+
+= Audiência, Plataforma =
+
+== Público Alvo ==
+
+== Plataforma ==
+
+= Gameplay =
+
+== Visão Geral ==
+
+== Controles ==
+
+=== Interfaces ===
+
+=== Regras ===
+
+=== Pontuação e Condição de Vitória ===
+
+== Níveis ==
+
+== Fluxograma ==
+
+= Personagens(Naves) =
+
+== Player ==
+
+== NPC ==
+
+= Cenários =
+
+= Referências =
