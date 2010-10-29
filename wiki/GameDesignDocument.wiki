@@ -62,7 +62,7 @@
 
     Os esquadrões de combate a bordo da Prometheus são os esquadrões Draco(caças), Phoenix(resgate), Centaurus(interceptadores) e Pegasus(patrulha).
 
-    Também fazem parte da quarta frota os Cruzadores dddd,bbbb,zzzz,eeee, a Nave de Suprimentos ssss, a Nave de Pesquisa xxxx e a Nave de Colonização aaaa.
+    Também fazem parte da quarta frota os Cruzadores Guardian, Colossus, Intruder, Shadow, a Nave de Suprimentos Amazon, a Nave de Pesquisa Hawking e a Nave de Colonização Columbus.
 
 ==== Quinta Frota ====
 
