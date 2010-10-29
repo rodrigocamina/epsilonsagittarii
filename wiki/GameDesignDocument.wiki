@@ -15,21 +15,7 @@
 
 ----
 
-= História =
-
-== História Completa ==
-
-    A frota estava realizando exercícios próximo a Delta Sagittarii quando um dos caças do Esquadrão Draco foi atingido por estilhaços de um drone de treinamento, que colidiu com um asteróide, e necessitou de reparos que não poderiam ser feitos sem material e ferramentas especiais, os quais não poderiam ser encontrados na Battleship Prometheus.
-
-    O Almirante Ross ordena então que seu caça(Draco 03) se desloque até a Estação de Pesquisa em Epsilon Sagittarii(Estação de Pesquisa Apollo), onde seria possível realizar os reparos. Seu caça chega em Epsilon Sagittarii e pousa na doca número 7 onde a equipe de reparos da estação já o aguardava, após ter sido informada pela frota.
-
-    Os reparos foram executados durante 14 horas, tempo suficiente para que seu caça fosse reabastecido e rearmado, e para que você pudesse descansar. Está tudo pronto para a sua partida. Você recebe autorização do controle da estação para decolar e retornar a frota.
-
-    Logo após sua partida, o controle da estação chama pelo rádio e pede que você intercepte alguns alvos que não respondem aos chamados e não possuem identificador, os quais apareceram nos sensores de longo alcançe. Você se dirige a posição informada pelo controle e quando chega encontra uma armada de naves que imediatamente o atacam.
-
-    Após uma primeira passagem você tenta identificar as naves e percebe que se tratam de naves com caracteristicas muito semelhantes as das naves da civilização Trinidi, que controla os sistemas estelares da constelação Corona Australis, o que lhe causa espanto já que os Trinidi fizeram contato de forma pacífica a alguns anos.
-
-    Sua missão é impedir a destruição da Estação Apollo e se possível, sobreviver!  
+= História = 
 
 == História de Suporte ==
 
@@ -86,6 +72,20 @@
     Em alguns sistemas estelares foram construídas estações de pesquisa e apoio, como no caso de Epsilon Sagittarii, a Estação de Pesquisa Apollo.
 
     2179. Dias atuais.
+
+== História Completa ==
+
+    A frota estava realizando exercícios próximo a Delta Sagittarii quando um dos caças do Esquadrão Draco foi atingido por estilhaços de um drone de treinamento, que colidiu com um asteróide, e necessitou de reparos que não poderiam ser feitos sem material e ferramentas especiais, os quais não poderiam ser encontrados na Battleship Prometheus.
+
+    O Almirante Ross ordena então que seu caça(Draco 03) se desloque até a Estação de Pesquisa em Epsilon Sagittarii(Estação de Pesquisa Apollo), onde seria possível realizar os reparos. Seu caça chega em Epsilon Sagittarii e pousa na doca número 7 onde a equipe de reparos da estação já o aguardava, após ter sido informada pela frota.
+
+    Os reparos foram executados durante 14 horas, tempo suficiente para que seu caça fosse reabastecido e rearmado, e para que você pudesse descansar. Está tudo pronto para a sua partida. Você recebe autorização do controle da estação para decolar e retornar a frota.
+
+    Logo após sua partida, o controle da estação chama pelo rádio e pede que você intercepte alguns alvos que não respondem aos chamados e não possuem identificador, os quais apareceram nos sensores de longo alcançe. Você se dirige a posição informada pelo controle e quando chega encontra uma armada de naves que imediatamente o atacam.
+
+    Após uma primeira passagem você tenta identificar as naves e percebe que se tratam de naves com caracteristicas muito semelhantes as das naves da civilização Trinidi, que controla os sistemas estelares da constelação Corona Australis, o que lhe causa espanto já que os Trinidi fizeram contato de forma pacífica a alguns anos.
+
+    Sua missão é impedir a destruição da Estação Apollo e se possível, sobreviver! 
 
 == Diálogos ==
 
