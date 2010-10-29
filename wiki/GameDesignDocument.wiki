@@ -49,6 +49,8 @@
 
     Os esquadrões de combate a bordo da Hercules são os esquadrões Taurus(caças), Perseus(resgate), Auriga(interceptadores) e Andromeda(patrulha).
 
+    Também fazem parte da segunda frota quatro Cruzadores(Spartan, Hector, Achilles e Dumont), a Nave de Suprimentos Agamemnon, a Nave de Pesquisa Alexandria e a Nave de Colonização Armstrong.
+
 ==== Terceira Frota ====
 
     Liderada pela Battleship Orion, esta frota ficou responsável pela exploração de novos planetas nos sistemas estelares da constelação Ursa Maior.
