@@ -336,12 +336,15 @@ public class CanvasGame extends PS_3DCanvas{
 	       glu.gluLookAt (X, Y, Z, X+v.x, Y+v.y, Z+v.z, v1.x, v1.y, v1.z);
 	       
 	       gl.glPushMatrix();
-	       
-	       
-	       gl.glTranslatef(X+v.x*5, Y+v.y*5, Z+v.z*5);
-	       
-	       OBJTest.desenhase(gl);
-	       
+	       {
+	    	   /*
+	    	   gl.glRotatef(x?, 1, 0, 0);
+	    	   gl.glRotatef(y?, 0, 1, 0);
+	    	   gl.glRotatef(z?, 0, 0, 1);
+	    	   */
+	    	   gl.glTranslatef(X+v.x*5, Y+v.y*5, Z+v.z*5);
+	    	   OBJTest.desenhase(gl);
+	       }
 	       gl.glPopMatrix();
 	       
 	       if(staticFrustum){
