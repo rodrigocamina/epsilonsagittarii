@@ -8,11 +8,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.media.opengl.GL;
 
+import matematcbase.Matrix4x4;
 import matematcbase.Vector2f;
 import matematcbase.Vector3f;
 
 
 public class ObjModel {
+	public Matrix4x4 rotacao = new Matrix4x4().setIdentity();
 	public ArrayList<Vector3f> v;
 	public ArrayList<Vector3f> vn;
 	public ArrayList<Vector2f> vt;	
