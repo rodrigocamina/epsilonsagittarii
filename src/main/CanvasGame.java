@@ -11,14 +11,17 @@ import matematcbase.Matrix4x4;
 import matematcbase.Vector3f;
 import obj.ObjModel;
 import octtree.Obj8T;
-import octtree.TesteObj;
 import octtree.Tree;
 
 import com.sun.opengl.util.texture.Texture;
 import com.sun.opengl.util.texture.TextureData;
 import com.sun.opengl.util.texture.TextureIO;
 
+import effects.CameraAnimator;
+import effects.CameraFrame;
 import frustum.FrustumV2;
+import gameobjects.GameObj;
+import gameobjects.Nave;
 
 /*
  * Created on 21/03/2010
@@ -50,11 +53,7 @@ public class CanvasGame extends PS_3DCanvas{
 	FrustumV2 camera = new FrustumV2(); 
 	GL gl = null;
 
-	Vector3f frontV  = new Vector3f(0,0,5);
-	Vector3f upV  = new Vector3f(0,5,0);	
-	Vector3f rightV  = new Vector3f(5,0,0);
-	Vector3f posNave  = new Vector3f(0,-3,10);
-	float[] anguloNave = new float[16];;
+	long timer = 50;
 	
 	Vector3f staticVectorPosition = new Vector3f(0, 0, 0.35f);
 	Vector3f staticVectorDirection = new Vector3f(0, 0, -1);
@@ -70,14 +69,13 @@ public class CanvasGame extends PS_3DCanvas{
 	
 	//public static ArrayList<Obj8T> objetos = new ArrayList<Obj8T>();
 	
-	float X,Y,Z;
-
+	
+	public static float X,Y,Z;
     public static float rotAngleX, rotAngleY, rotAngleZ;
-    public static float rotAngleXNave, rotAngleYNave, rotAngleZNave;
 	public static final float ANGLESTEP = (float)(Math.PI/90);
 	
 	
-	ObjModel OBJTest;
+	private Nave nave;
 	
 	
 	public CanvasGame() {
@@ -92,7 +90,6 @@ public class CanvasGame extends PS_3DCanvas{
 	       
 	       gl.glEnable (GL.GL_LIGHTING);
 	       
-
 	       // Initialize rotation accumulator and increment variables.
 
 	       
@@ -108,13 +105,17 @@ public class CanvasGame extends PS_3DCanvas{
 
 	       X = Y = 0;
 	       
-	       OBJTest = new ObjModel();
-	       OBJTest.loadObj("/res/nave.obj");
+	       ObjModel model = new ObjModel();
+	       model.loadObj("/res/nave.obj");
+	       nave = new Nave(0, -1, 5, 1, 1, 1, 0, 0, 0, model);
+	       CameraAnimator.startFrame(new Vector3f(nave.getFrontV()), new Vector3f(nave.getUpV()), new Vector3f(nave.getRightV()));
+	       
 	       
 	       camera.setCamInternals((float)FOVY, (float)(WIDTH * 1.0/ HEIGHT), (float)NEAR, (float)FAR);
 	        
+	       //Adiciona elementos de cenario, estaticos
 	        for (int i = 0; i < 400000; i++) {
-	        	Obj8T obj = new TesteObj(rnd.nextFloat()*1000-500, rnd.nextFloat()*1000-500, rnd.nextFloat()*1000-500, 1, 1, 1,rnd.nextFloat()*6-3,rnd.nextFloat()*6-3,rnd.nextFloat()*6-3);
+	        	Obj8T obj = new GameObj(rnd.nextFloat()*1000-500, rnd.nextFloat()*1000-500, rnd.nextFloat()*1000-500, 1, 1, 1,rnd.nextFloat()*6-3,rnd.nextFloat()*6-3,rnd.nextFloat()*6-3,null);
 		        treemap.addElement(obj);
 		        //objetos.add(obj);
 			}
@@ -122,306 +123,51 @@ public class CanvasGame extends PS_3DCanvas{
 	}
 
     @Override
-    public void SimulaSe(long diftime) {
-        // TODO Auto-generated method stub  
-    	if(UP){
-    		rotAngleX = (float)(90.0f*diftime/1000.0f);
-			Matrix4x4 m = new Matrix4x4();
-			m.setRotate(rotAngleX, rightV.x, rightV.y, rightV.z);
-			m.transform(frontV);
-			m.transform(upV);
-			m.transform(rightV);
-			m.transform(posNave);
-			frontV.normalize();
-			upV.normalize();
-			rightV.normalize();
-    	}
-    	if(DOWN){
-    		rotAngleX = -(float)(90.0f*diftime/1000.0f);
-			Matrix4x4 m = new Matrix4x4();
-			m.setRotate(rotAngleX, rightV.x, rightV.y, rightV.z);
-			m.transform(frontV);
-			m.transform(upV);
-			m.transform(rightV);
-			m.transform(posNave);
-			frontV.normalize();
-			upV.normalize();
-			rightV.normalize();    	}
+    public void SimulaSe(long diffTime) {
+        // TODO Auto-generated method stub 
+    	simulacaoDeTeclas(diffTime);
     	
+    	timer -= diffTime;
+    	if(timer<0){
+    		timer+=100;
+    		CameraAnimator.addFrame(new Vector3f(nave.getFrontV()), new Vector3f(nave.getUpV()), new Vector3f(nave.getRightV()));
+    	}
     	
-    	
-    	if(RIGHT){
-    		rotAngleY =(float)(90.0f*diftime/1000.0f);
-			Matrix4x4 m = new Matrix4x4();
-			m.setRotate(rotAngleY, upV.x, upV.y, upV.z);
-			m.transform(frontV);
-			m.transform(upV);
-			m.transform(rightV);
-			m.transform(posNave);
-			frontV.normalize();
-			upV.normalize();
-			rightV.normalize();    	
-			}
-    	if(LEFT){
-    		rotAngleY = -(float)(90.0f*diftime/1000.0f);
-			Matrix4x4 m = new Matrix4x4();
-			m.setRotate(rotAngleY, upV.x, upV.y, upV.z);
-			m.transform(frontV);
-			m.transform(upV);
-			m.transform(rightV);
-			m.transform(posNave);
-			frontV.normalize();
-			upV.normalize();
-			rightV.normalize();    	
-		}    	
-    	if(Q){
-    		rotAngleZ =(float)(90.0f*diftime/1000.0f);
-			Matrix4x4 m = new Matrix4x4();
-			m.setRotate(rotAngleZ, frontV.x, frontV.y, frontV.z);
-			m.transform(frontV);
-			m.transform(upV);
-			m.transform(rightV);
-			m.transform(posNave);
-			frontV.normalize();
-			upV.normalize();
-			rightV.normalize();
-    	}
-    	if(E){
-    		rotAngleZ = -(float)(90.0f*diftime/1000.0f);
-			Matrix4x4 m = new Matrix4x4();
-			m.setRotate(rotAngleZ, frontV.x, frontV.y, frontV.z);
-			m.transform(frontV);
-			m.transform(upV);
-			m.transform(rightV);
-			m.transform(posNave);
-			frontV.normalize();
-			upV.normalize();
-			rightV.normalize();
-    	}
-    	if(W){
-    		X+=frontV.x*4*diftime/1000.0f;
-			Y+=frontV.y*4*diftime/1000.0f;
-			Z+=frontV.z*4*diftime/1000.0f;
-    	}
-    	if(S){
-    		X-=frontV.x*4*diftime/1000.0f;
-			Y-=frontV.y*4*diftime/1000.0f;
-			Z-=frontV.z*4*diftime/1000.0f;
-    	}
-    	if(D){
-
-			Matrix4x4 m = new Matrix4x4();
-			m.setRotate(90, upV.x, upV.y, upV.z);
-			m.transform(frontV);
-			m.transform(upV);
-			m.transform(rightV);
-			m.transform(posNave);
-			frontV.normalize();
-			upV.normalize();
-			rightV.normalize(); 
-
-    		X+=frontV.x*4*diftime/1000.0f;
-			Y+=frontV.y*4*diftime/1000.0f;
-			Z+=frontV.z*4*diftime/1000.0f;
-
-			m = new Matrix4x4();
-			
-			m.setRotate(-90, upV.x, upV.y, upV.z);
-			m.transform(frontV);
-			m.transform(upV);
-			m.transform(rightV);
-			m.transform(posNave);
-			frontV.normalize();
-			upV.normalize();
-			rightV.normalize();
-    	}
-    	if(A){
-
-			Matrix4x4 m = new Matrix4x4();
-			m.setRotate(-90, upV.x, upV.y, upV.z);
-			m.transform(frontV);
-			m.transform(upV);
-			m.transform(rightV);
-			m.transform(posNave);
-			frontV.normalize();
-			upV.normalize();
-			rightV.normalize(); 
-
-    		X+=frontV.x*4*diftime/1000.0f;
-			Y+=frontV.y*4*diftime/1000.0f;
-			Z+=frontV.z*4*diftime/1000.0f;
-
-			m = new Matrix4x4();
-			
-			m.setRotate(90, upV.x, upV.y, upV.z);
-			m.transform(frontV);
-			m.transform(upV);
-			m.transform(rightV);
-			m.transform(posNave);
-			frontV.normalize();
-			upV.normalize();
-			rightV.normalize();
-    		
-    	}
-    	rotAngleXNave = (float)Math.toDegrees(Math.atan2(frontV.z, frontV.y));
-    	rotAngleYNave = -(float)Math.toDegrees(Math.atan2(frontV.z, frontV.x));
-    	rotAngleZNave = -(float)Math.toDegrees(Math.atan2(upV.x, upV.y));
-//    	Matrix4x4 m = new Matrix4x4().setRotate(rotAngleX, 1,0,0);
-//    	Matrix4x4 m2 = new Matrix4x4().setRotate(rotAngleX, 0,1,0);
-//    	Matrix4x4 m3 = new Matrix4x4().setRotate(rotAngleX, 0,0,1);
-//		m.combine(m2).combine(m3);
-    	System.out.println("Cordenada X "+frontV.x+" / Y "+frontV.y+" / Z "+frontV.z);
-    	System.out.println("Angulos   X "+rotAngleXNave+" / Y "+rotAngleYNave+" / Z "+rotAngleZNave);
-    	
-    	/*
-    	if(!P){
-    		if(quadtree){
-    			treemap.simulate(diftime);
-    		}else{
-    			for (int i = 0; i < objetos.size(); i++) {
-    				objetos.get(i).simulate(diftime);
-    			}
-    		}
+    	/*if(!P){
+    		treemap.simulate(diffTime);
     	}*/
     }
     
-    float soma = 0;
 	@Override
 	public void DesenhaSe(GLAutoDrawable drawable) {
 	       // Compute total rotations around X, Y, and Z axes.
 	       gl = drawable.getGL ();
-
 	       // Clear the drawing surface to the background color, which defaults to
 	       // black.
-	       
-	       //gl.glClearColor(1, 1, 1, 1);
-
 	       gl.glClear (GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
-
 	       // Reset the modelview matrix.
-	       
 	       gl.glLoadIdentity ();
-	       
-	       soma+=0.1;
-	       
+	       //Ambient light component
 	       float[] lightDiffuse = {1.0f, 1.0f, 1.0f, 1.0f};    //yellow diffuse : color where light hit directly the object's surface
 	       float[] lightAmbient = {1.0f, 1.0f, 1.0f, 1.0f};    //red ambient : color applied everywhere
 	       float[] lightPosition = {0f, 10.0f, -8.0f, 1.0f};
-	       //Ambient light component
-	       
-	       
 	       gl.glLightfv(GL.GL_LIGHT0, GL.GL_AMBIENT, lightAmbient,0);
 	       //Diffuse light component
 	       gl.glLightfv(GL.GL_LIGHT0, GL.GL_DIFFUSE, lightDiffuse,0);
 	       //Light position
 	       //System.out.println(" "+lightPosition[2]);
 	       gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, lightPosition,0);
-	       
 	       gl.glEnable(GL.GL_LIGHT0);
-	       
-	       
-	       
-
-	       /*float[] lightDiffuse2 = {1.0f, 1.0f, 1.0f, 1.0f};    //yellow diffuse : color where light hit directly the object's surface
-	       float[] lightAmbient2 = {1.0f, 1.0f, 1.0f, 1.0f};    //red ambient : color applied everywhere
-	       float[] lightPosition2= {0f, 10f, -20.0f, 0.0f};
-	       
-	       gl.glLightfv(GL.GL_LIGHT1, GL.GL_AMBIENT, lightAmbient2,0);
-	       //Diffuse light component
-	       gl.glLightfv(GL.GL_LIGHT1, GL.GL_DIFFUSE, lightDiffuse2,0);
-	       //Light position
-	       gl.glLightfv(GL.GL_LIGHT1, GL.GL_POSITION, lightPosition2,0);
-	       
-	       gl.glEnable(GL.GL_LIGHT1);	    */   
-	       // The camera is currently positioned at the (0, 0, 0) origin, its lens
-	       // is pointing along the negative Z axis (0, 0, -1) into the screen, and
-	       // its orientation up-vector is (0, 1, 0). The following call positions
-	       // the camera at (0, 0, CAMERA_Z), points the lens towards the origin,
-	       // and keeps the same up-vector.
-
-
-
-	       
-	       
-		   
-		   //glu.gluLookAt (X, Y, 0, anguloCamera.x+X, anguloCamera.y+Y, anguloCamera.z,anguloTopoCamera.x, anguloTopoCamera.y, anguloTopoCamera.z);
-
-	       glu.gluLookAt (X, Y, Z, X+frontV.x, Y+frontV.y, Z+frontV.z, upV.x, upV.y, upV.z);
-	       
+	       CameraFrame frame = CameraAnimator.getActualFrame();
+	       //System.out.println("Frame "+frame);
+	       glu.gluLookAt (X, Y, Z, X+frame.frontV.x, Y+frame.frontV.y, Z+frame.frontV.z, frame.upV.x, frame.upV.y, frame.upV.z);
 	       gl.glPushMatrix();
 	       {
-
-	    	   
-	    	   
-	    	   gl.glTranslatef(X+posNave.x, Y+posNave.y, Z+posNave.z);
-//	    	   gl.glRotatef(rotAngleXNave, 1, 0, 0);
-//	    	   gl.glRotatef(rotAngleYNave, 0, 1, 0);
-//	    	   gl.glRotatef(rotAngleZNave, 0, 0, 1);
-	    	   /*
-	    	   float[] matrix2 = new float[16];
-	    	   
-	    	   matrix2[0] = v2.x;
-	    	   matrix2[4] = v2.y;
-	    	   matrix2[8] = v2.z;
-	    	   matrix2[12] = 0.0f;
-	    	   //------------------
-	    	   matrix2[1] = v1.x;
-	    	   matrix2[5] = v1.y;
-	    	   matrix2[9] = v1.z;
-	    	   matrix2[13] = 0.0f;
-	    	   //------------------
-	    	   matrix2[2] = v.x;
-	    	   matrix2[6] = v.y;
-	    	   matrix2[10] = v.z;
-	    	   matrix2[14] = 0.0f;
-	    	   //------------------
-	    	   
-	    	   matrix2[3] = matrix2[7] = matrix2[11] = 0.0f;
-	    	   matrix2[15] = 1.0f;
-	    	   gl.glMultMatrixf(matrix2, 0);
-	    	   
-	    	   
-	    	   
-	    	   
-	Vector3f v  = new Vector3f(0,0,5);
-	Vector3f v1  = new Vector3f(0,5,0);	
-	Vector3f v2  = new Vector3f(5,0,0);
-	
-	up
-	right 
-	front
-	    	   */
-	    	   
-	    	   
-	    	   anguloNave[0] = upV.x;
-	    	   anguloNave[1] = upV.y;
-	    	   anguloNave[2] = upV.z;
-	    	   anguloNave[3] = 0.0f;
-	    	   //------------------
-	    	   anguloNave[4] = rightV.x;
-	    	   anguloNave[5] = rightV.y;
-	    	   anguloNave[6] = rightV.z;
-	    	   anguloNave[7] = 0.0f;
-	    	   //------------------
-	    	   anguloNave[8] = frontV.x;
-	    	   anguloNave[9] = frontV.y;
-	    	   anguloNave[10] = frontV.z;
-	    	   anguloNave[11] = 0.0f;
-	    	   //------------------
-	    	   
-	    	   anguloNave[12] = anguloNave[13] = anguloNave[14] = 0.0f;
-	    	   anguloNave[15] = 1.0f;
-	    	   // float[] -> matrix de rotacao
-	    	   // int -> offset(primeiro representante da matrix)
-	    	   gl.glMultMatrixf(anguloNave, 0);
-	    	   
-	    	   
-	    	   
 //	    	   Matrix4x4 m = new Matrix4x4().setRotate(rotAngleX, 1,0,0);
 //	    	   Matrix4x4 m2 = new Matrix4x4().setRotate(rotAngleX, 0,1,0);
 //	    	   Matrix4x4 m3 = new Matrix4x4().setRotate(rotAngleX, 0,0,1);
 //	    	   gl.glMultMatrixf(m.combine(m2).combine(m3).toFloatArray(), 0);
-	    	   OBJTest.desenhase(gl);
+	    	   nave.draw(gl, camera);
 	       }
 	       gl.glPopMatrix();
 	       
@@ -433,25 +179,11 @@ public class CanvasGame extends PS_3DCanvas{
 	    	   camera.drawPoints(gl);
 	       }else{
 	    	   staticVectorPosition.set3P(X, Y, Z);
-	    	   staticVectorDirection.set3P(X+frontV.x, Y+frontV.y, Z+frontV.z);
-	    	   staticVectorHelper.set3P(upV.x, upV.y, upV.z);
+	    	   staticVectorDirection.set3P(X+frame.frontV.x, Y+frame.frontV.y, Z+frame.frontV.z);
+	    	   staticVectorHelper.set3P(frame.upV.x, frame.upV.y, frame.upV.z);
 	       }
 	       camera.setCamDef(staticVectorPosition, staticVectorDirection, staticVectorHelper);
-	       
-	       //if(quadtree){
-	    	   treemap.draw(gl, camera);
-	       /*}else{
-   				for (int i = 0; i < objetos.size(); i++) {
-   					objetos.get(i).draw(gl, camera);
-   				}
-	       }*/
-	       
-
-	       
-	       /*
-           gl.glColor3f(1.0f,1.0f,1.0f); 
-	       gl.glEnable(GL.GL_COLOR_MATERIAL);
-	       */
+	       treemap.draw(gl, camera);
 
 	}
 	
@@ -489,6 +221,156 @@ public class CanvasGame extends PS_3DCanvas{
 			
 		}	    
 
+	    
+	    
+	    
+	private void simulacaoDeTeclas(long diffTime){
+		Vector3f rightV = nave.getRightV();
+		Vector3f frontV = nave.getFrontV();
+		Vector3f upV = nave.getUpV();
+		
+		if(UP){
+    		rotAngleX = (float)(30.0f*diffTime/1000.0f);
+			Matrix4x4 m = new Matrix4x4();
+			m.setRotate(rotAngleX, rightV.x, rightV.y, rightV.z);
+			m.transform(frontV);
+			m.transform(upV);
+			m.transform(rightV);
+			m.transform(nave.getPosition());
+			frontV.normalize();
+			upV.normalize();
+			rightV.normalize();
+    	}
+    	if(DOWN){
+    		rotAngleX = -(float)(30.0f*diffTime/1000.0f);
+			Matrix4x4 m = new Matrix4x4();
+			m.setRotate(rotAngleX, rightV.x, rightV.y, rightV.z);
+			m.transform(frontV);
+			m.transform(upV);
+			m.transform(rightV);
+			m.transform(nave.getPosition());
+			frontV.normalize();
+			upV.normalize();
+			rightV.normalize();    	}
+    	
+    	
+    	
+    	if(RIGHT){
+    		rotAngleY =(float)(30.0f*diffTime/1000.0f);
+			Matrix4x4 m = new Matrix4x4();
+			m.setRotate(rotAngleY, upV.x, upV.y, upV.z);
+			m.transform(frontV);
+			m.transform(upV);
+			m.transform(rightV);
+			m.transform(nave.getPosition());
+			frontV.normalize();
+			upV.normalize();
+			rightV.normalize();    	
+			}
+    	if(LEFT){
+    		rotAngleY = -(float)(30.0f*diffTime/1000.0f);
+			Matrix4x4 m = new Matrix4x4();
+			m.setRotate(rotAngleY, upV.x, upV.y, upV.z);
+			m.transform(frontV);
+			m.transform(upV);
+			m.transform(rightV);
+			m.transform(nave.getPosition());
+			frontV.normalize();
+			upV.normalize();
+			rightV.normalize();    	
+		}    	
+    	if(Q){
+    		rotAngleZ =(float)(30.0f*diffTime/1000.0f);
+			Matrix4x4 m = new Matrix4x4();
+			m.setRotate(rotAngleZ, frontV.x, frontV.y, frontV.z);
+			m.transform(frontV);
+			m.transform(upV);
+			m.transform(rightV);
+			m.transform(nave.getPosition());
+			frontV.normalize();
+			upV.normalize();
+			rightV.normalize();
+    	}
+    	if(E){
+    		rotAngleZ = -(float)(30.0f*diffTime/1000.0f);
+			Matrix4x4 m = new Matrix4x4();
+			m.setRotate(rotAngleZ, frontV.x, frontV.y, frontV.z);
+			m.transform(frontV);
+			m.transform(upV);
+			m.transform(rightV);
+			m.transform(nave.getPosition());
+			frontV.normalize();
+			upV.normalize();
+			rightV.normalize();
+    	}
+    	if(W){
+    		X+=frontV.x*4*diffTime/1000.0f;
+			Y+=frontV.y*4*diffTime/1000.0f;
+			Z+=frontV.z*4*diffTime/1000.0f;
+    	}
+    	if(S){
+    		X-=frontV.x*4*diffTime/1000.0f;
+			Y-=frontV.y*4*diffTime/1000.0f;
+			Z-=frontV.z*4*diffTime/1000.0f;
+    	}
+    	if(D){
+
+			Matrix4x4 m = new Matrix4x4();
+			m.setRotate(90, upV.x, upV.y, upV.z);
+			m.transform(frontV);
+			m.transform(upV);
+			m.transform(rightV);
+			m.transform(nave.getPosition());
+			frontV.normalize();
+			upV.normalize();
+			rightV.normalize(); 
+
+    		X+=frontV.x*4*diffTime/1000.0f;
+			Y+=frontV.y*4*diffTime/1000.0f;
+			Z+=frontV.z*4*diffTime/1000.0f;
+
+			m = new Matrix4x4();
+			
+			m.setRotate(-90, upV.x, upV.y, upV.z);
+			m.transform(frontV);
+			m.transform(upV);
+			m.transform(rightV);
+			m.transform(nave.getPosition());
+			frontV.normalize();
+			upV.normalize();
+			rightV.normalize();
+    	}
+    	if(A){
+
+			Matrix4x4 m = new Matrix4x4();
+			m.setRotate(-90, upV.x, upV.y, upV.z);
+			m.transform(frontV);
+			m.transform(upV);
+			m.transform(rightV);
+			m.transform(nave.getPosition());
+			frontV.normalize();
+			upV.normalize();
+			rightV.normalize(); 
+
+    		X+=frontV.x*4*diffTime/1000.0f;
+			Y+=frontV.y*4*diffTime/1000.0f;
+			Z+=frontV.z*4*diffTime/1000.0f;
+
+			m = new Matrix4x4();
+			
+			m.setRotate(90, upV.x, upV.y, upV.z);
+			m.transform(frontV);
+			m.transform(upV);
+			m.transform(rightV);
+			m.transform(nave.getPosition());
+			frontV.normalize();
+			upV.normalize();
+			rightV.normalize();
+    		
+    	}
+	}
+	    
+	    
     @Override
     public void TratadorDoMouseClic(int x, int y, int c) {
     	System.out.println("CLICK");
