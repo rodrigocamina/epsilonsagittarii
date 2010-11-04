@@ -50,10 +50,11 @@ public class CanvasGame extends PS_3DCanvas{
 	FrustumV2 camera = new FrustumV2(); 
 	GL gl = null;
 
-	Vector3f v  = new Vector3f(0,0,5);
-	Vector3f v1  = new Vector3f(0,5,0);	
-	Vector3f v2  = new Vector3f(5,0,0);
-	Vector3f posNave  = new Vector3f(0,2,2);
+	Vector3f frontV  = new Vector3f(0,0,5);
+	Vector3f upV  = new Vector3f(0,5,0);	
+	Vector3f rightV  = new Vector3f(5,0,0);
+	Vector3f posNave  = new Vector3f(0,-3,10);
+	float[] anguloNave = new float[16];;
 	
 	Vector3f staticVectorPosition = new Vector3f(0, 0, 0.35f);
 	Vector3f staticVectorDirection = new Vector3f(0, 0, -1);
@@ -72,6 +73,7 @@ public class CanvasGame extends PS_3DCanvas{
 	float X,Y,Z;
 
     public static float rotAngleX, rotAngleY, rotAngleZ;
+    public static float rotAngleXNave, rotAngleYNave, rotAngleZNave;
 	public static final float ANGLESTEP = (float)(Math.PI/90);
 	
 	
@@ -125,142 +127,153 @@ public class CanvasGame extends PS_3DCanvas{
     	if(UP){
     		rotAngleX = (float)(90.0f*diftime/1000.0f);
 			Matrix4x4 m = new Matrix4x4();
-			m.setRotate(rotAngleX, v2.x, v2.y, v2.z);
-			m.transform(v);
-			m.transform(v1);
-			m.transform(v2);
+			m.setRotate(rotAngleX, rightV.x, rightV.y, rightV.z);
+			m.transform(frontV);
+			m.transform(upV);
+			m.transform(rightV);
 			m.transform(posNave);
-			v.normalize();
-			v1.normalize();
-			v2.normalize();
+			frontV.normalize();
+			upV.normalize();
+			rightV.normalize();
     	}
     	if(DOWN){
     		rotAngleX = -(float)(90.0f*diftime/1000.0f);
 			Matrix4x4 m = new Matrix4x4();
-			m.setRotate(rotAngleX, v2.x, v2.y, v2.z);
-			m.transform(v);
-			m.transform(v1);
-			m.transform(v2);
+			m.setRotate(rotAngleX, rightV.x, rightV.y, rightV.z);
+			m.transform(frontV);
+			m.transform(upV);
+			m.transform(rightV);
 			m.transform(posNave);
-			v.normalize();
-			v1.normalize();
-			v2.normalize();    	}
+			frontV.normalize();
+			upV.normalize();
+			rightV.normalize();    	}
     	
     	
     	
     	if(RIGHT){
     		rotAngleY =(float)(90.0f*diftime/1000.0f);
 			Matrix4x4 m = new Matrix4x4();
-			m.setRotate(rotAngleY, v1.x, v1.y, v1.z);
-			m.transform(v);
-			m.transform(v1);
-			m.transform(v2);
+			m.setRotate(rotAngleY, upV.x, upV.y, upV.z);
+			m.transform(frontV);
+			m.transform(upV);
+			m.transform(rightV);
 			m.transform(posNave);
-			v.normalize();
-			v1.normalize();
-			v2.normalize();    	
+			frontV.normalize();
+			upV.normalize();
+			rightV.normalize();    	
 			}
     	if(LEFT){
     		rotAngleY = -(float)(90.0f*diftime/1000.0f);
 			Matrix4x4 m = new Matrix4x4();
-			m.setRotate(rotAngleY, v1.x, v1.y, v1.z);
-			m.transform(v);
-			m.transform(v1);
-			m.transform(v2);
+			m.setRotate(rotAngleY, upV.x, upV.y, upV.z);
+			m.transform(frontV);
+			m.transform(upV);
+			m.transform(rightV);
 			m.transform(posNave);
-			v.normalize();
-			v1.normalize();
-			v2.normalize();    	
+			frontV.normalize();
+			upV.normalize();
+			rightV.normalize();    	
 		}    	
     	if(Q){
     		rotAngleZ =(float)(90.0f*diftime/1000.0f);
 			Matrix4x4 m = new Matrix4x4();
-			m.setRotate(rotAngleZ, v.x, v.y, v.z);
-			m.transform(v);
-			m.transform(v1);
-			m.transform(v2);
+			m.setRotate(rotAngleZ, frontV.x, frontV.y, frontV.z);
+			m.transform(frontV);
+			m.transform(upV);
+			m.transform(rightV);
 			m.transform(posNave);
-			v.normalize();
-			v1.normalize();
-			v2.normalize();
+			frontV.normalize();
+			upV.normalize();
+			rightV.normalize();
     	}
     	if(E){
     		rotAngleZ = -(float)(90.0f*diftime/1000.0f);
 			Matrix4x4 m = new Matrix4x4();
-			m.setRotate(rotAngleZ, v.x, v.y, v.z);
-			m.transform(v);
-			m.transform(v1);
-			m.transform(v2);
+			m.setRotate(rotAngleZ, frontV.x, frontV.y, frontV.z);
+			m.transform(frontV);
+			m.transform(upV);
+			m.transform(rightV);
 			m.transform(posNave);
-			v.normalize();
-			v1.normalize();
-			v2.normalize();
+			frontV.normalize();
+			upV.normalize();
+			rightV.normalize();
     	}
     	if(W){
-    		X+=v.x*4*diftime/1000.0f;
-			Y+=v.y*4*diftime/1000.0f;
-			Z+=v.z*4*diftime/1000.0f;
+    		X+=frontV.x*4*diftime/1000.0f;
+			Y+=frontV.y*4*diftime/1000.0f;
+			Z+=frontV.z*4*diftime/1000.0f;
     	}
     	if(S){
-    		X-=v.x*4*diftime/1000.0f;
-			Y-=v.y*4*diftime/1000.0f;
-			Z-=v.z*4*diftime/1000.0f;
+    		X-=frontV.x*4*diftime/1000.0f;
+			Y-=frontV.y*4*diftime/1000.0f;
+			Z-=frontV.z*4*diftime/1000.0f;
     	}
     	if(D){
 
 			Matrix4x4 m = new Matrix4x4();
-			m.setRotate(90, v1.x, v1.y, v1.z);
-			m.transform(v);
-			m.transform(v1);
-			m.transform(v2);
+			m.setRotate(90, upV.x, upV.y, upV.z);
+			m.transform(frontV);
+			m.transform(upV);
+			m.transform(rightV);
 			m.transform(posNave);
-			v.normalize();
-			v1.normalize();
-			v2.normalize(); 
+			frontV.normalize();
+			upV.normalize();
+			rightV.normalize(); 
 
-    		X+=v.x*4*diftime/1000.0f;
-			Y+=v.y*4*diftime/1000.0f;
-			Z+=v.z*4*diftime/1000.0f;
+    		X+=frontV.x*4*diftime/1000.0f;
+			Y+=frontV.y*4*diftime/1000.0f;
+			Z+=frontV.z*4*diftime/1000.0f;
 
 			m = new Matrix4x4();
 			
-			m.setRotate(-90, v1.x, v1.y, v1.z);
-			m.transform(v);
-			m.transform(v1);
-			m.transform(v2);
+			m.setRotate(-90, upV.x, upV.y, upV.z);
+			m.transform(frontV);
+			m.transform(upV);
+			m.transform(rightV);
 			m.transform(posNave);
-			v.normalize();
-			v1.normalize();
-			v2.normalize();
+			frontV.normalize();
+			upV.normalize();
+			rightV.normalize();
     	}
     	if(A){
 
 			Matrix4x4 m = new Matrix4x4();
-			m.setRotate(-90, v1.x, v1.y, v1.z);
-			m.transform(v);
-			m.transform(v1);
-			m.transform(v2);
+			m.setRotate(-90, upV.x, upV.y, upV.z);
+			m.transform(frontV);
+			m.transform(upV);
+			m.transform(rightV);
 			m.transform(posNave);
-			v.normalize();
-			v1.normalize();
-			v2.normalize(); 
+			frontV.normalize();
+			upV.normalize();
+			rightV.normalize(); 
 
-    		X+=v.x*4*diftime/1000.0f;
-			Y+=v.y*4*diftime/1000.0f;
-			Z+=v.z*4*diftime/1000.0f;
+    		X+=frontV.x*4*diftime/1000.0f;
+			Y+=frontV.y*4*diftime/1000.0f;
+			Z+=frontV.z*4*diftime/1000.0f;
 
 			m = new Matrix4x4();
 			
-			m.setRotate(90, v1.x, v1.y, v1.z);
-			m.transform(v);
-			m.transform(v1);
-			m.transform(v2);
+			m.setRotate(90, upV.x, upV.y, upV.z);
+			m.transform(frontV);
+			m.transform(upV);
+			m.transform(rightV);
 			m.transform(posNave);
-			v.normalize();
-			v1.normalize();
-			v2.normalize();
+			frontV.normalize();
+			upV.normalize();
+			rightV.normalize();
     		
-    	}/*
+    	}
+    	rotAngleXNave = (float)Math.toDegrees(Math.atan2(frontV.z, frontV.y));
+    	rotAngleYNave = -(float)Math.toDegrees(Math.atan2(frontV.z, frontV.x));
+    	rotAngleZNave = -(float)Math.toDegrees(Math.atan2(upV.x, upV.y));
+//    	Matrix4x4 m = new Matrix4x4().setRotate(rotAngleX, 1,0,0);
+//    	Matrix4x4 m2 = new Matrix4x4().setRotate(rotAngleX, 0,1,0);
+//    	Matrix4x4 m3 = new Matrix4x4().setRotate(rotAngleX, 0,0,1);
+//		m.combine(m2).combine(m3);
+    	System.out.println("Cordenada X "+frontV.x+" / Y "+frontV.y+" / Z "+frontV.z);
+    	System.out.println("Angulos   X "+rotAngleXNave+" / Y "+rotAngleYNave+" / Z "+rotAngleZNave);
+    	
+    	/*
     	if(!P){
     		if(quadtree){
     			treemap.simulate(diftime);
@@ -333,16 +346,81 @@ public class CanvasGame extends PS_3DCanvas{
 		   
 		   //glu.gluLookAt (X, Y, 0, anguloCamera.x+X, anguloCamera.y+Y, anguloCamera.z,anguloTopoCamera.x, anguloTopoCamera.y, anguloTopoCamera.z);
 
-	       glu.gluLookAt (X, Y, Z, X+v.x, Y+v.y, Z+v.z, v1.x, v1.y, v1.z);
+	       glu.gluLookAt (X, Y, Z, X+frontV.x, Y+frontV.y, Z+frontV.z, upV.x, upV.y, upV.z);
 	       
 	       gl.glPushMatrix();
 	       {
+
+	    	   
+	    	   
+	    	   gl.glTranslatef(X+posNave.x, Y+posNave.y, Z+posNave.z);
+//	    	   gl.glRotatef(rotAngleXNave, 1, 0, 0);
+//	    	   gl.glRotatef(rotAngleYNave, 0, 1, 0);
+//	    	   gl.glRotatef(rotAngleZNave, 0, 0, 1);
 	    	   /*
-	    	   gl.glRotatef(x?, 1, 0, 0);
-	    	   gl.glRotatef(y?, 0, 1, 0);
-	    	   gl.glRotatef(z?, 0, 0, 1);
+	    	   float[] matrix2 = new float[16];
+	    	   
+	    	   matrix2[0] = v2.x;
+	    	   matrix2[4] = v2.y;
+	    	   matrix2[8] = v2.z;
+	    	   matrix2[12] = 0.0f;
+	    	   //------------------
+	    	   matrix2[1] = v1.x;
+	    	   matrix2[5] = v1.y;
+	    	   matrix2[9] = v1.z;
+	    	   matrix2[13] = 0.0f;
+	    	   //------------------
+	    	   matrix2[2] = v.x;
+	    	   matrix2[6] = v.y;
+	    	   matrix2[10] = v.z;
+	    	   matrix2[14] = 0.0f;
+	    	   //------------------
+	    	   
+	    	   matrix2[3] = matrix2[7] = matrix2[11] = 0.0f;
+	    	   matrix2[15] = 1.0f;
+	    	   gl.glMultMatrixf(matrix2, 0);
+	    	   
+	    	   
+	    	   
+	    	   
+	Vector3f v  = new Vector3f(0,0,5);
+	Vector3f v1  = new Vector3f(0,5,0);	
+	Vector3f v2  = new Vector3f(5,0,0);
+	
+	up
+	right 
+	front
 	    	   */
-	    	   gl.glTranslatef(X+v.x*5, Y+v.y*5, Z+v.z*5);
+	    	   
+	    	   
+	    	   anguloNave[0] = upV.x;
+	    	   anguloNave[1] = upV.y;
+	    	   anguloNave[2] = upV.z;
+	    	   anguloNave[3] = 0.0f;
+	    	   //------------------
+	    	   anguloNave[4] = rightV.x;
+	    	   anguloNave[5] = rightV.y;
+	    	   anguloNave[6] = rightV.z;
+	    	   anguloNave[7] = 0.0f;
+	    	   //------------------
+	    	   anguloNave[8] = frontV.x;
+	    	   anguloNave[9] = frontV.y;
+	    	   anguloNave[10] = frontV.z;
+	    	   anguloNave[11] = 0.0f;
+	    	   //------------------
+	    	   
+	    	   anguloNave[12] = anguloNave[13] = anguloNave[14] = 0.0f;
+	    	   anguloNave[15] = 1.0f;
+	    	   // float[] -> matrix de rotacao
+	    	   // int -> offset(primeiro representante da matrix)
+	    	   gl.glMultMatrixf(anguloNave, 0);
+	    	   
+	    	   
+	    	   
+//	    	   Matrix4x4 m = new Matrix4x4().setRotate(rotAngleX, 1,0,0);
+//	    	   Matrix4x4 m2 = new Matrix4x4().setRotate(rotAngleX, 0,1,0);
+//	    	   Matrix4x4 m3 = new Matrix4x4().setRotate(rotAngleX, 0,0,1);
+//	    	   gl.glMultMatrixf(m.combine(m2).combine(m3).toFloatArray(), 0);
 	    	   OBJTest.desenhase(gl);
 	       }
 	       gl.glPopMatrix();
@@ -355,8 +433,8 @@ public class CanvasGame extends PS_3DCanvas{
 	    	   camera.drawPoints(gl);
 	       }else{
 	    	   staticVectorPosition.set3P(X, Y, Z);
-	    	   staticVectorDirection.set3P(X+v.x, Y+v.y, Z+v.z);
-	    	   staticVectorHelper.set3P(v1.x, v1.y, v1.z);
+	    	   staticVectorDirection.set3P(X+frontV.x, Y+frontV.y, Z+frontV.z);
+	    	   staticVectorHelper.set3P(upV.x, upV.y, upV.z);
 	       }
 	       camera.setCamDef(staticVectorPosition, staticVectorDirection, staticVectorHelper);
 	       
