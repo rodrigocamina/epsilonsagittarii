@@ -26,7 +26,7 @@
 	
 === tiros ===
 
-  * modos de disparo(upgrades)
+  * modos de disparo (upgrades)
   * tipos:
     * laser
     * plasma
