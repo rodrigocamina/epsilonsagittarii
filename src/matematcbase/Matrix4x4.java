@@ -576,6 +576,14 @@ public class Matrix4x4 {
 	   m32 = tmp;
    }
    
+   public float[] toFloatArray(){
+	   return new float[]{
+			   (float)m00,(float)m01,(float)m02,(float)m03,
+			   (float)m10,(float)m11,(float)m12,(float)m13,
+			   (float)m20,(float)m21,(float)m22,(float)m23,
+			   (float)m30,(float)m31,(float)m32,(float)m33};
+   }
+   
    /** calculates the affine determinant of this matrix.
    * for theory see:
    * http://www.euclideanspace.com/maths/algebra/matrix/arithmetic/index.htm
