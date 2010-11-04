@@ -1,0 +1,212 @@
+package projetIG.elements3d;
+
+import java.io.File;
+import java.io.IOException;
+
+import javax.media.opengl.GL;
+import javax.media.opengl.GLException;
+
+import com.sun.opengl.util.texture.Texture;
+import com.sun.opengl.util.texture.TextureCoords;
+import com.sun.opengl.util.texture.TextureIO;
+
+public class SkyBox extends Element {
+
+
+	private TextureCoords coordsSkyUP, coordsSkyNORD,
+			coordsSkyEST, coordsSkySUD, coordsSkyOUEST;
+
+	private Texture textureSkyUP, textureSkyNORD,
+			textureSkyEST, textureSkySUD, textureSkyOUEST;
+	public SkyBox(GL GL_Arg) {
+		super(GL_Arg, true);
+		// TODO Auto-generated constructor stub
+	}
+	protected void build(GL GL_Arg) {
+		callList = GL_Arg.glGenLists(1);
+
+		GL_Arg.glNewList(callList, GL.GL_COMPILE);
+		GL_Arg.glColor3f(1f, 1f, 1f);
+		// SKYBOX NORD
+		textureSkyNORD.enable();
+		textureSkyNORD.bind();
+
+		GL_Arg.glBegin(GL.GL_QUADS);
+		{
+			GL_Arg.glNormal3f(0, -1, 0);
+			GL_Arg.glTexCoord2f(coordsSkyNORD.left(), coordsSkyNORD.bottom());
+			GL_Arg.glVertex3f(-512f, 512f, -300f);
+
+			GL_Arg.glNormal3f(0, -1, 0);
+			GL_Arg.glTexCoord2f(coordsSkyNORD.right(), coordsSkyNORD.bottom());
+			GL_Arg.glVertex3f(512f, 512f, -300f);
+
+			GL_Arg.glNormal3f(0, -1, 0);
+			GL_Arg.glTexCoord2f(coordsSkyNORD.right(), coordsSkyNORD.top());
+			GL_Arg.glVertex3f(512f, 512f, 512f);
+
+			GL_Arg.glNormal3f(0, -1, 0);
+			GL_Arg.glTexCoord2f(coordsSkyNORD.left(), coordsSkyNORD.top());
+			GL_Arg.glVertex3f(-512f, 512f, 512f);
+
+		}
+		GL_Arg.glEnd();
+
+		// SKYBOX EST
+		textureSkyEST.enable();
+		textureSkyEST.bind();
+
+		GL_Arg.glBegin(GL.GL_QUADS);
+		{
+			GL_Arg.glNormal3f(-1, 0, 0);
+			GL_Arg.glTexCoord2f(coordsSkyEST.left(), coordsSkyEST.bottom());
+			GL_Arg.glVertex3f(512f, 512f, -300f);
+
+			GL_Arg.glNormal3f(-1, 0, 0);
+			GL_Arg.glTexCoord2f(coordsSkyEST.right(), coordsSkyEST.bottom());
+			GL_Arg.glVertex3f(512f, -512f, -300f);
+
+			GL_Arg.glNormal3f(-1, 0, 0);
+			GL_Arg.glTexCoord2f(coordsSkyEST.right(), coordsSkyEST.top());
+			GL_Arg.glVertex3f(512f, -512f, 512f);
+
+			GL_Arg.glNormal3f(-1, 0, 0);
+			GL_Arg.glTexCoord2f(coordsSkyEST.left(), coordsSkyEST.top());
+			GL_Arg.glVertex3f(512f, 512f, 512f);
+		}
+		GL_Arg.glEnd();
+
+		textureSkyEST.disable();
+
+		// SKYBOX SUD
+		textureSkySUD.enable();
+		textureSkyEST.bind();
+
+		GL_Arg.glBegin(GL.GL_QUADS);
+		{
+			GL_Arg.glNormal3f(0, 1, 0);
+			GL_Arg.glTexCoord2f(coordsSkySUD.left(), coordsSkySUD.bottom());
+			GL_Arg.glVertex3f(512f, -512f, -300f);
+
+			GL_Arg.glNormal3f(0, 1, 0);
+			GL_Arg.glTexCoord2f(coordsSkySUD.right(), coordsSkySUD.bottom());
+			GL_Arg.glVertex3f(-512f, -512f, -300f);
+
+			GL_Arg.glNormal3f(0, 1, 0);
+			GL_Arg.glTexCoord2f(coordsSkySUD.right(), coordsSkySUD.top());
+			GL_Arg.glVertex3f(-512f, -512f, 512f);
+
+			GL_Arg.glNormal3f(0, 1, 0);
+			GL_Arg.glTexCoord2f(coordsSkyEST.left(), coordsSkyEST.top());
+			GL_Arg.glVertex3f(512f, -512f, 512f);
+		}
+		GL_Arg.glEnd();
+
+		textureSkyEST.disable();
+
+		// SKYBOX OUEST
+		textureSkyOUEST.enable();
+		textureSkyOUEST.bind();
+
+		GL_Arg.glBegin(GL.GL_QUADS);
+		{
+			GL_Arg.glNormal3f(1, 0, 0);
+			GL_Arg.glTexCoord2f(coordsSkyOUEST.left(), coordsSkyOUEST.bottom());
+			GL_Arg.glVertex3f(-512f, -512f, -300f);
+
+			GL_Arg.glNormal3f(1, 0, 0);
+			GL_Arg
+					.glTexCoord2f(coordsSkyOUEST.right(), coordsSkyOUEST
+							.bottom());
+			GL_Arg.glVertex3f(-512f, 512f, -300f);
+
+			GL_Arg.glNormal3f(1, 0, 0);
+			GL_Arg.glTexCoord2f(coordsSkyOUEST.right(), coordsSkyOUEST.top());
+			GL_Arg.glVertex3f(-512f, 512f, 512f);
+
+			GL_Arg.glNormal3f(1, 0, 0);
+			GL_Arg.glTexCoord2f(coordsSkyOUEST.left(), coordsSkyOUEST.top());
+			GL_Arg.glVertex3f(-512f, -512f, 512f);
+		}
+		GL_Arg.glEnd();
+
+		textureSkyOUEST.disable();
+
+		// SKYBOX UP
+		textureSkyUP.enable();
+		textureSkyUP.bind();
+
+		GL_Arg.glBegin(GL.GL_QUADS);
+		{
+			GL_Arg.glNormal3f(0, 0, -1);
+			GL_Arg.glTexCoord2f(coordsSkyUP.left(), coordsSkyUP.bottom());
+			GL_Arg.glVertex3f(-512f, 512f, 512f);
+
+			GL_Arg.glNormal3f(0, 0, -1);
+			GL_Arg.glTexCoord2f(coordsSkyUP.right(), coordsSkyUP.bottom());
+			GL_Arg.glVertex3f(512f, 512f, 512f);
+
+			GL_Arg.glNormal3f(0, 0, -1);
+			GL_Arg.glTexCoord2f(coordsSkyUP.right(), coordsSkyUP.top());
+			GL_Arg.glVertex3f(512f, -512f, 512f);
+
+			GL_Arg.glNormal3f(0, 0, -1);
+			GL_Arg.glTexCoord2f(coordsSkyUP.left(), coordsSkyUP.top());
+			GL_Arg.glVertex3f(-512f, -512f, 512f);
+		}
+		GL_Arg.glEnd();
+
+		textureSkyUP.disable();
+		GL_Arg.glEndList();
+
+
+	}
+
+	protected void loadTextures(GL GL_Arg) {
+		File file;
+		// NORD
+		try {
+			file = new File("image/nord.png");
+			textureSkyNORD = TextureIO.newTexture(file, true);
+			GL_Arg.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER,
+					GL.GL_LINEAR_MIPMAP_LINEAR);
+			coordsSkyNORD = textureSkyNORD.getImageTexCoords();
+
+			// SUD
+			file = new File("image/sud.png");
+			textureSkySUD = TextureIO.newTexture(file, true);
+			GL_Arg.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER,
+					GL.GL_LINEAR_MIPMAP_LINEAR);
+			coordsSkySUD = textureSkySUD.getImageTexCoords();
+
+			// EST
+			file = new File("image/est.png");
+			textureSkyEST = TextureIO.newTexture(file, true);
+			GL_Arg.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER,
+					GL.GL_LINEAR_MIPMAP_LINEAR);
+			coordsSkyEST = textureSkyEST.getImageTexCoords();
+
+			// OUEST
+			file = new File("image/ouest.png");
+			textureSkyOUEST = TextureIO.newTexture(file, true);
+			GL_Arg.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER,
+					GL.GL_LINEAR_MIPMAP_LINEAR);
+			coordsSkyOUEST = textureSkyOUEST.getImageTexCoords();
+
+			// UP
+			file = new File("image/UP.png");
+			textureSkyUP = TextureIO.newTexture(file, true);
+			GL_Arg.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER,
+					GL.GL_LINEAR_MIPMAP_LINEAR);
+			coordsSkyUP = textureSkyUP.getImageTexCoords();
+		} catch (GLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+}
