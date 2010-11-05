@@ -12,6 +12,7 @@ import matematcbase.Vector3f;
 import obj.ObjModel;
 import octtree.Obj8T;
 import octtree.Tree;
+import util.ConfigTeclado;
 
 import com.sun.opengl.util.texture.Texture;
 import com.sun.opengl.util.texture.TextureData;
@@ -59,9 +60,9 @@ public class CanvasGame extends PS_3DCanvas{
 	Vector3f staticVectorDirection = new Vector3f(0, 0, -1);
 	Vector3f staticVectorHelper = new Vector3f(0, 1, 0);
 	
-	boolean UP,DOWN,LEFT,RIGHT,A,D,W,S,Q,E,P;
+	boolean UP,DOWN,LEFT,RIGHT,A,D,W,S,SPACE,SHIFT,ESC;
 	private boolean staticFrustum = false;
-	public static boolean frustumCulling = false;
+	public static boolean frustumCulling = true;
 	//public static boolean quadtree = false;
 	boolean MatrixOpengl = true;
 	
@@ -106,8 +107,8 @@ public class CanvasGame extends PS_3DCanvas{
 	       X = Y = 0;
 	       
 	       ObjModel model = new ObjModel();
-	       model.loadObj("/res/nave.obj");
-	       nave = new Nave(0, -1, 5, 1, 1, 1, 0, 0, 0, model);
+	       model.loadObj("/res/NaveR.obj");
+	       nave = new Nave(0, -2, 15, 10, 10, 10, 5, 5, 5, model);
 	       CameraAnimator.startFrame(new Vector3f(nave.getFrontV()), new Vector3f(nave.getUpV()), new Vector3f(nave.getRightV()));
 	       
 	       
@@ -124,18 +125,15 @@ public class CanvasGame extends PS_3DCanvas{
 
     @Override
     public void SimulaSe(long diffTime) {
-        // TODO Auto-generated method stub 
     	simulacaoDeTeclas(diffTime);
     	
     	timer -= diffTime;
     	if(timer<0){
-    		timer+=100;
+    		timer+=95;
     		CameraAnimator.addFrame(new Vector3f(nave.getFrontV()), new Vector3f(nave.getUpV()), new Vector3f(nave.getRightV()));
     	}
+    	nave.simulate(diffTime);
     	
-    	/*if(!P){
-    		treemap.simulate(diffTime);
-    	}*/
     }
     
 	@Override
@@ -255,8 +253,8 @@ public class CanvasGame extends PS_3DCanvas{
     	
     	
     	
-    	if(RIGHT){
-    		rotAngleY =(float)(30.0f*diffTime/1000.0f);
+    	if(A){
+    		rotAngleY =(float)(20.0f*diffTime/1000.0f);
 			Matrix4x4 m = new Matrix4x4();
 			m.setRotate(rotAngleY, upV.x, upV.y, upV.z);
 			m.transform(frontV);
@@ -267,8 +265,8 @@ public class CanvasGame extends PS_3DCanvas{
 			upV.normalize();
 			rightV.normalize();    	
 			}
-    	if(LEFT){
-    		rotAngleY = -(float)(30.0f*diffTime/1000.0f);
+    	if(D){
+    		rotAngleY = -(float)(20.0f*diffTime/1000.0f);
 			Matrix4x4 m = new Matrix4x4();
 			m.setRotate(rotAngleY, upV.x, upV.y, upV.z);
 			m.transform(frontV);
@@ -279,8 +277,8 @@ public class CanvasGame extends PS_3DCanvas{
 			upV.normalize();
 			rightV.normalize();    	
 		}    	
-    	if(Q){
-    		rotAngleZ =(float)(30.0f*diffTime/1000.0f);
+    	if(LEFT){
+    		rotAngleZ =(float)(60.0f*diffTime/1000.0f);
 			Matrix4x4 m = new Matrix4x4();
 			m.setRotate(rotAngleZ, frontV.x, frontV.y, frontV.z);
 			m.transform(frontV);
@@ -291,8 +289,8 @@ public class CanvasGame extends PS_3DCanvas{
 			upV.normalize();
 			rightV.normalize();
     	}
-    	if(E){
-    		rotAngleZ = -(float)(30.0f*diffTime/1000.0f);
+    	if(RIGHT){
+    		rotAngleZ = -(float)(90.0f*diffTime/1000.0f);
 			Matrix4x4 m = new Matrix4x4();
 			m.setRotate(rotAngleZ, frontV.x, frontV.y, frontV.z);
 			m.transform(frontV);
@@ -304,17 +302,23 @@ public class CanvasGame extends PS_3DCanvas{
 			rightV.normalize();
     	}
     	if(W){
+    		//SPEED UP
+    		/*
     		X+=frontV.x*4*diffTime/1000.0f;
 			Y+=frontV.y*4*diffTime/1000.0f;
-			Z+=frontV.z*4*diffTime/1000.0f;
+			Z+=frontV.z*4*diffTime/1000.0f;*/
+    		nave.addSpeed(diffTime/100.0f);
     	}
     	if(S){
+    		//SPEED DOWN
+    		/*
     		X-=frontV.x*4*diffTime/1000.0f;
 			Y-=frontV.y*4*diffTime/1000.0f;
-			Z-=frontV.z*4*diffTime/1000.0f;
+			Z-=frontV.z*4*diffTime/1000.0f;*/
+    		nave.addSpeed(-diffTime/100.0f);
     	}
+    	/*
     	if(D){
-
 			Matrix4x4 m = new Matrix4x4();
 			m.setRotate(90, upV.x, upV.y, upV.z);
 			m.transform(frontV);
@@ -367,7 +371,8 @@ public class CanvasGame extends PS_3DCanvas{
 			upV.normalize();
 			rightV.normalize();
     		
-    	}
+    	}*/
+    	
 	}
 	    
 	    
@@ -384,45 +389,47 @@ public class CanvasGame extends PS_3DCanvas{
     @Override
     public void TratadorDeTecladoPressed(KeyEvent e) {
     	int key = e.getKeyCode();
-    	if(key == KeyEvent.VK_UP){
+    	if(key == ConfigTeclado.teclas[0]){
     		UP = true;
     	}
-    	if(key == KeyEvent.VK_DOWN){
+    	if(key == ConfigTeclado.teclas[1]){
     		DOWN = true;
     	}
-    	if(key == KeyEvent.VK_LEFT){
+    	if(key == ConfigTeclado.teclas[3]){
     		LEFT = true;
     	}
-    	if(key == KeyEvent.VK_RIGHT){
+    	if(key == ConfigTeclado.teclas[2]){
     		RIGHT = true;
     	}
-    	if(key == KeyEvent.VK_A){
+    	if(key == ConfigTeclado.teclas[7]){
     		A = true;
     	}
-    	if(key == KeyEvent.VK_D){
+    	if(key == ConfigTeclado.teclas[6]){
     		D = true;
     	}
-    	if(key == KeyEvent.VK_W){
+    	if(key == ConfigTeclado.teclas[4]){
     		W = true;
     	} 
-    	if(key == KeyEvent.VK_S){
+    	if(key == ConfigTeclado.teclas[5]){
     		S = true;
     	}
-    	if(key == KeyEvent.VK_Q){
-    		Q = true;
+    	if(key == ConfigTeclado.teclas[8]){
+    		SPACE = true;
     	} 
-    	if(key == KeyEvent.VK_E){
-    		E = true;
+    	if(key == ConfigTeclado.teclas[9]){
+    		SHIFT = true;
     	} 
-    	if(key == KeyEvent.VK_P){
-    		P = !P;
-    	}
+    	if(key == ConfigTeclado.teclas[10]){
+    		ESC = !ESC;
+    	} 
+    	
+    	/*
     	if(key == KeyEvent.VK_O){
     		staticFrustum = !staticFrustum;
     	}
     	if(key == KeyEvent.VK_I){
     		frustumCulling = !frustumCulling;
-    	}
+    	}*/
     	
     	if(key == KeyEvent.VK_1){
     		MatrixOpengl=!MatrixOpengl;
@@ -432,36 +439,36 @@ public class CanvasGame extends PS_3DCanvas{
     @Override
     public void TratadorDeTecladoReleased(KeyEvent e) {
     	int key = e.getKeyCode();
-    	if(key == KeyEvent.VK_UP){
+    	if(key == ConfigTeclado.teclas[0]){
     		UP = false;
     	}
-    	if(key == KeyEvent.VK_DOWN){
+    	if(key == ConfigTeclado.teclas[1]){
     		DOWN = false;
     	}
-    	if(key == KeyEvent.VK_LEFT){
+    	if(key == ConfigTeclado.teclas[3]){
     		LEFT = false;
     	}
-    	if(key == KeyEvent.VK_RIGHT){
+    	if(key == ConfigTeclado.teclas[2]){
     		RIGHT = false;
     	}
-    	if(key == KeyEvent.VK_A){
+    	if(key == ConfigTeclado.teclas[7]){
     		A = false;
     	}
-    	if(key == KeyEvent.VK_D){
+    	if(key == ConfigTeclado.teclas[6]){
     		D = false;
     	}
-    	if(key == KeyEvent.VK_W){
+    	if(key == ConfigTeclado.teclas[4]){
     		W = false;
     	}
-    	if(key == KeyEvent.VK_S){
+    	if(key == ConfigTeclado.teclas[5]){
     		S = false;
     	}
-    	if(key == KeyEvent.VK_Q){
-    		Q = false;
-    	}
-    	if(key == KeyEvent.VK_E){
-    		E = false;
-    	}
+    	if(key == ConfigTeclado.teclas[8]){
+    		SPACE = false;
+    	} 
+    	if(key == ConfigTeclado.teclas[9]){
+    		SHIFT = false;
+    	} 
     	
     }
     
