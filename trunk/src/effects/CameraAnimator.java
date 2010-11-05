@@ -27,25 +27,28 @@ public class CameraAnimator {
 	
 	public static void addFrame(Vector3f front, Vector3f up, Vector3f right){
 		frames.addLast(new CameraFrame(front, up, right));
-		System.out.println("Adicionar");
 	}
 	
 	public static CameraFrame getActualFrame(){
 		CameraFrame start = frames.getFirst();
-		CameraFrame end = frames.get(1);
-		long actTime = System.currentTimeMillis()-300;
-		while(end.time<actTime){
-			frames.remove();
-			start = end;
-			end = frames.get(1);
+		if(frames.size()>1){
+			CameraFrame end = frames.get(1);
+			long actTime = System.currentTimeMillis()-200;
+			while(end.time<actTime){
+				frames.remove();
+				start = end;
+				end = frames.get(1);
+			}
+			float peso = (actTime-start.time)/(float)(end.time-start.time);
+			float peso2 = 1-peso;
+			//System.out.println((actTime-start.time)+"/"+(end.time-start.time));
+			//System.out.println(start);
+			//System.out.println(end);
+			//System.out.println("getAct "+peso);
+			return new CameraFrame(vetorMedia(start.frontV,peso,end.frontV,peso2), vetorMedia(start.upV,peso,end.upV,peso2), vetorMedia(start.rightV,peso,end.rightV,peso2));
+		}else{
+			return start;
 		}
-		float peso = (actTime-start.time)/(float)(end.time-start.time);
-		float peso2 = 1-peso;
-		//System.out.println((actTime-start.time)+"/"+(end.time-start.time));
-		//System.out.println(start);
-		//System.out.println(end);
-		//System.out.println("getAct "+peso);
-		return new CameraFrame(vetorMedia(start.frontV,peso,end.frontV,peso2), vetorMedia(start.upV,peso,end.upV,peso2), vetorMedia(start.rightV,peso,end.rightV,peso2));
 	}
 	
 	public static Vector3f vetorMedia(Vector3f v1, float peso, Vector3f v2, float peso2){

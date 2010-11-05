@@ -107,10 +107,10 @@ public class GameObj implements Obj8T{
 	}
 
 	@Override
-	public void simulate(long difftime) {
-		
-		
-		
+	public void simulate(long diffTime) {
+		position.x+=frontV.x*speed.x*diffTime/1000.0f;
+		position.y+=frontV.y*speed.y*diffTime/1000.0f;
+		position.z+=frontV.z*speed.z*diffTime/1000.0f;
 	}
 	
 	public boolean checkColision(Obj8T obj){
