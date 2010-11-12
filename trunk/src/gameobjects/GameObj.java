@@ -49,7 +49,7 @@ public class GameObj implements Obj8T{
 			float depth = size.z;
 			canvas.glPushMatrix();
 			{
-				canvas.glTranslatef(0,0,0);
+				
 				//frente
 				canvas.glBegin(GL.GL_QUADS);
 				canvas.glVertex3f(position.x, position.y, position.z);
@@ -230,6 +230,13 @@ public class GameObj implements Obj8T{
 			
 		}
 	}
+	public void setRotation(Vector3f front, Vector3f right, Vector3f up){
+		frontV = new Vector3f(front);
+		rightV = new Vector3f(right);
+		upV = new Vector3f(up);
+	}
 	
-	
+	public Vector3f getSpeed() {
+		return speed;
+	}
 }

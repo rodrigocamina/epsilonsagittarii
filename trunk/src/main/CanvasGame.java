@@ -1,6 +1,8 @@
 package main;
 import java.awt.event.KeyEvent;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.media.opengl.GL;
@@ -22,7 +24,8 @@ import effects.CameraAnimator;
 import effects.CameraFrame;
 import frustum.FrustumV2;
 import gameobjects.GameObj;
-import gameobjects.Nave;
+import gameobjects.PlayerShip;
+import gameobjects.Weapon;
 
 /*
  * Created on 21/03/2010
@@ -60,6 +63,7 @@ public class CanvasGame extends PS_3DCanvas{
 	Vector3f staticVectorDirection = new Vector3f(0, 0, -1);
 	Vector3f staticVectorHelper = new Vector3f(0, 1, 0);
 	
+	
 	boolean UP,DOWN,LEFT,RIGHT,A,D,W,S,SPACE,SHIFT,ESC;
 	private boolean staticFrustum = false;
 	public static boolean frustumCulling = true;
@@ -76,7 +80,8 @@ public class CanvasGame extends PS_3DCanvas{
 	public static final float ANGLESTEP = (float)(Math.PI/90);
 	
 	
-	private Nave nave;
+	private PlayerShip nave;
+	public static List<Weapon> shots = new ArrayList<Weapon>();
 	
 	
 	public CanvasGame() {
@@ -99,23 +104,24 @@ public class CanvasGame extends PS_3DCanvas{
 	       // Load six 2D textures to decal the cube. If the image file on which the
 	       // texture is based does not exist, load() returns null.
 
-	       textures = new Texture [3];
+	       textures = new Texture [4];
 	       textures [0] = load ("Logo  - UNIVALI.png",gl);
 	       textures [1] = load ("textura-tanque.png",gl);
 	       textures [2] = load ("TileMap.png",gl);
+	       textures [3] = load ("NovaUVMap copy.png",gl);
 
 	       X = Y = 0;
 	       
 	       ObjModel model = new ObjModel();
-	       model.loadObj("/res/NaveR.obj");
-	       nave = new Nave(0, -2, 15, 10, 10, 10, 5, 5, 5, model);
+	       model.loadObj("/res/NaveManeira.obj");
+	       nave = new PlayerShip(0, -0.15f, 1f, 10, 10, 10, 5, 5, 5, model);
 	       CameraAnimator.startFrame(new Vector3f(nave.getFrontV()), new Vector3f(nave.getUpV()), new Vector3f(nave.getRightV()));
 	       
 	       
 	       camera.setCamInternals((float)FOVY, (float)(WIDTH * 1.0/ HEIGHT), (float)NEAR, (float)FAR);
 	        
 	       //Adiciona elementos de cenario, estaticos
-	        for (int i = 0; i < 400000; i++) {
+	        for (int i = 0; i < 40000; i++) {
 	        	Obj8T obj = new GameObj(rnd.nextFloat()*1000-500, rnd.nextFloat()*1000-500, rnd.nextFloat()*1000-500, 1, 1, 1,rnd.nextFloat()*6-3,rnd.nextFloat()*6-3,rnd.nextFloat()*6-3,null);
 		        treemap.addElement(obj);
 		        //objetos.add(obj);
@@ -133,7 +139,22 @@ public class CanvasGame extends PS_3DCanvas{
     		CameraAnimator.addFrame(new Vector3f(nave.getFrontV()), new Vector3f(nave.getUpV()), new Vector3f(nave.getRightV()));
     	}
     	nave.simulate(diffTime);
-    	
+    	System.out.println("N"+nave.getPosition());
+    	int sz = shots.size();
+    	for (int i = 0; i < sz; i++) {
+    		try{
+			Weapon w = shots.get(i);
+			System.out.println(i+" "+w.getSpeed());
+			System.out.println(i+" "+w.getFrontV());
+    		w.simulate(diffTime);
+			if(w.isDead()){
+				CanvasGame.shots.remove(i);
+				i--;
+			}
+    		}catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
     }
     
 	@Override
@@ -182,6 +203,10 @@ public class CanvasGame extends PS_3DCanvas{
 	       }
 	       camera.setCamDef(staticVectorPosition, staticVectorDirection, staticVectorHelper);
 	       treemap.draw(gl, camera);
+	    	int sz = shots.size();
+	    	for (int i = 0; i < sz; i++) {
+				shots.get(i).draw(gl, camera);
+			}
 
 	}
 	
@@ -228,25 +253,25 @@ public class CanvasGame extends PS_3DCanvas{
 		Vector3f upV = nave.getUpV();
 		
 		if(UP){
-    		rotAngleX = (float)(30.0f*diffTime/1000.0f);
+    		rotAngleX = (float)(60.0f*diffTime/1000.0f);
 			Matrix4x4 m = new Matrix4x4();
 			m.setRotate(rotAngleX, rightV.x, rightV.y, rightV.z);
 			m.transform(frontV);
 			m.transform(upV);
 			m.transform(rightV);
-			m.transform(nave.getPosition());
+  			m.transform(nave.getPosition());
 			frontV.normalize();
 			upV.normalize();
 			rightV.normalize();
     	}
     	if(DOWN){
-    		rotAngleX = -(float)(30.0f*diffTime/1000.0f);
+    		rotAngleX = -(float)(60.0f*diffTime/1000.0f);
 			Matrix4x4 m = new Matrix4x4();
 			m.setRotate(rotAngleX, rightV.x, rightV.y, rightV.z);
 			m.transform(frontV);
 			m.transform(upV);
 			m.transform(rightV);
-			m.transform(nave.getPosition());
+  			m.transform(nave.getPosition());
 			frontV.normalize();
 			upV.normalize();
 			rightV.normalize();    	}
@@ -254,49 +279,49 @@ public class CanvasGame extends PS_3DCanvas{
     	
     	
     	if(A){
-    		rotAngleY =(float)(20.0f*diffTime/1000.0f);
+    		rotAngleY =(float)(40.0f*diffTime/1000.0f);
 			Matrix4x4 m = new Matrix4x4();
 			m.setRotate(rotAngleY, upV.x, upV.y, upV.z);
 			m.transform(frontV);
 			m.transform(upV);
 			m.transform(rightV);
-			m.transform(nave.getPosition());
+  			m.transform(nave.getPosition());
 			frontV.normalize();
 			upV.normalize();
 			rightV.normalize();    	
 			}
     	if(D){
-    		rotAngleY = -(float)(20.0f*diffTime/1000.0f);
+    		rotAngleY = -(float)(40.0f*diffTime/1000.0f);
 			Matrix4x4 m = new Matrix4x4();
 			m.setRotate(rotAngleY, upV.x, upV.y, upV.z);
 			m.transform(frontV);
 			m.transform(upV);
 			m.transform(rightV);
-			m.transform(nave.getPosition());
+  			m.transform(nave.getPosition());
 			frontV.normalize();
 			upV.normalize();
 			rightV.normalize();    	
 		}    	
     	if(LEFT){
-    		rotAngleZ =(float)(60.0f*diffTime/1000.0f);
+    		rotAngleZ =(float)(150.0f*diffTime/1000.0f);
 			Matrix4x4 m = new Matrix4x4();
 			m.setRotate(rotAngleZ, frontV.x, frontV.y, frontV.z);
 			m.transform(frontV);
 			m.transform(upV);
 			m.transform(rightV);
-			m.transform(nave.getPosition());
+  			m.transform(nave.getPosition());
 			frontV.normalize();
 			upV.normalize();
 			rightV.normalize();
     	}
     	if(RIGHT){
-    		rotAngleZ = -(float)(90.0f*diffTime/1000.0f);
+    		rotAngleZ = -(float)(150.0f*diffTime/1000.0f);
 			Matrix4x4 m = new Matrix4x4();
 			m.setRotate(rotAngleZ, frontV.x, frontV.y, frontV.z);
 			m.transform(frontV);
 			m.transform(upV);
 			m.transform(rightV);
-			m.transform(nave.getPosition());
+  			m.transform(nave.getPosition());
 			frontV.normalize();
 			upV.normalize();
 			rightV.normalize();
@@ -324,7 +349,7 @@ public class CanvasGame extends PS_3DCanvas{
 			m.transform(frontV);
 			m.transform(upV);
 			m.transform(rightV);
-			m.transform(nave.getPosition());
+  			m.transform(nave.getPosition());
 			frontV.normalize();
 			upV.normalize();
 			rightV.normalize(); 
@@ -339,7 +364,7 @@ public class CanvasGame extends PS_3DCanvas{
 			m.transform(frontV);
 			m.transform(upV);
 			m.transform(rightV);
-			m.transform(nave.getPosition());
+  			m.transform(nave.getPosition());
 			frontV.normalize();
 			upV.normalize();
 			rightV.normalize();
@@ -351,7 +376,7 @@ public class CanvasGame extends PS_3DCanvas{
 			m.transform(frontV);
 			m.transform(upV);
 			m.transform(rightV);
-			m.transform(nave.getPosition());
+  			m.transform(nave.getPosition());
 			frontV.normalize();
 			upV.normalize();
 			rightV.normalize(); 
@@ -366,7 +391,7 @@ public class CanvasGame extends PS_3DCanvas{
 			m.transform(frontV);
 			m.transform(upV);
 			m.transform(rightV);
-			m.transform(nave.getPosition());
+  			m.transform(nave.getPosition());
 			frontV.normalize();
 			upV.normalize();
 			rightV.normalize();
@@ -389,10 +414,10 @@ public class CanvasGame extends PS_3DCanvas{
     @Override
     public void TratadorDeTecladoPressed(KeyEvent e) {
     	int key = e.getKeyCode();
-    	if(key == ConfigTeclado.teclas[0]){
+    	if(key == ConfigTeclado.teclas[1]){
     		UP = true;
     	}
-    	if(key == ConfigTeclado.teclas[1]){
+    	if(key == ConfigTeclado.teclas[0]){
     		DOWN = true;
     	}
     	if(key == ConfigTeclado.teclas[3]){
@@ -414,7 +439,7 @@ public class CanvasGame extends PS_3DCanvas{
     		S = true;
     	}
     	if(key == ConfigTeclado.teclas[8]){
-    		SPACE = true;
+    		nave.setShooting(true);
     	} 
     	if(key == ConfigTeclado.teclas[9]){
     		SHIFT = true;
@@ -439,10 +464,10 @@ public class CanvasGame extends PS_3DCanvas{
     @Override
     public void TratadorDeTecladoReleased(KeyEvent e) {
     	int key = e.getKeyCode();
-    	if(key == ConfigTeclado.teclas[0]){
+    	if(key == ConfigTeclado.teclas[1]){
     		UP = false;
     	}
-    	if(key == ConfigTeclado.teclas[1]){
+    	if(key == ConfigTeclado.teclas[0]){
     		DOWN = false;
     	}
     	if(key == ConfigTeclado.teclas[3]){
@@ -464,7 +489,7 @@ public class CanvasGame extends PS_3DCanvas{
     		S = false;
     	}
     	if(key == ConfigTeclado.teclas[8]){
-    		SPACE = false;
+    		nave.setShooting(false);
     	} 
     	if(key == ConfigTeclado.teclas[9]){
     		SHIFT = false;

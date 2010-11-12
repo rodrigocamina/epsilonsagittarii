@@ -11,18 +11,8 @@ public class CameraAnimator {
 	
 	public static void startFrame(Vector3f front, Vector3f up, Vector3f right){
 		CameraFrame cf = new CameraFrame(front, up, right);
-		cf.time = System.currentTimeMillis()+8000;
+		cf.time = System.currentTimeMillis();
 		frames.addLast(cf);
-		cf = new CameraFrame(front, up, right);
-		cf.time = System.currentTimeMillis()+8500;
-		frames.addLast(cf);
-		cf = new CameraFrame(front, up, right);
-		cf.time = System.currentTimeMillis()+9000;
-		frames.addLast(cf);
-		cf = new CameraFrame(front, up, right);
-		cf.time = System.currentTimeMillis()+9500;
-		frames.addLast(cf);
-		System.out.println("TOTAL "+frames.size());
 	}
 	
 	public static void addFrame(Vector3f front, Vector3f up, Vector3f right){
@@ -37,7 +27,11 @@ public class CameraAnimator {
 			while(end.time<actTime){
 				frames.remove();
 				start = end;
-				end = frames.get(1);
+				if(frames.size()>1){
+					end = frames.get(1);
+				}else{
+					return start;
+				}
 			}
 			float peso = (actTime-start.time)/(float)(end.time-start.time);
 			float peso2 = 1-peso;
