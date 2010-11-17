@@ -23,7 +23,7 @@ public class CameraAnimator {
 		CameraFrame start = frames.getFirst();
 		if(frames.size()>1){
 			CameraFrame end = frames.get(1);
-			long actTime = System.currentTimeMillis()-200;
+			long actTime = System.currentTimeMillis()-100;
 			while(end.time<actTime){
 				frames.remove();
 				start = end;
