@@ -6,7 +6,6 @@ import javax.media.opengl.GL;
 
 import main.CanvasGame;
 import matematcbase.Util;
-import matematcbase.Vector3f;
 import obj.ObjModel;
 
 public class PlayerShip extends GameObj {
@@ -52,6 +51,21 @@ public class PlayerShip extends GameObj {
 			Util.rotacionaGLViaVetores(canvas, frontV, rightV, upV);
 			canvas.glRotatef(90, 0, 0, 1);
 			canvas.glRotatef(10, 1, 0, 0);
+			weaponMain.target.draw(canvas, camera);
+			//TODO extra, talvez seja retirado
+			if(CanvasGame.UP){
+				canvas.glRotatef(10, 1, 0, 0);
+			}else
+			if(CanvasGame.DOWN){
+				canvas.glRotatef(-10, 1, 0, 0);
+			}
+			if(CanvasGame.RIGHT){
+				canvas.glRotatef(10, 0, 0, 1);
+			}else
+			if(CanvasGame.LEFT){
+				canvas.glRotatef(-10, 0, 0, 1);
+			}
+			//TODO fim do extra
 			model.desenhase(canvas);
 		}
 		canvas.glPopMatrix();

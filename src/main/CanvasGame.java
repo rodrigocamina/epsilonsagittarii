@@ -64,7 +64,7 @@ public class CanvasGame extends PS_3DCanvas{
 	Vector3f staticVectorHelper = new Vector3f(0, 1, 0);
 	
 	
-	boolean UP,DOWN,LEFT,RIGHT,A,D,W,S,SPACE,SHIFT,ESC;
+	public static boolean UP,DOWN,LEFT,RIGHT,A,D,W,S,SPACE,SHIFT,ESC;
 	private boolean staticFrustum = false;
 	public static boolean frustumCulling = true;
 	//public static boolean quadtree = false;
@@ -135,7 +135,7 @@ public class CanvasGame extends PS_3DCanvas{
     	
     	timer -= diffTime;
     	if(timer<0){
-    		timer+=95;
+    		timer+=45;
     		CameraAnimator.addFrame(new Vector3f(nave.getFrontV()), new Vector3f(nave.getUpV()), new Vector3f(nave.getRightV()));
     	}
     	nave.simulate(diffTime);
