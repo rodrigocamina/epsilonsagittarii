@@ -107,11 +107,13 @@ public class CanvasGame extends PS_3DCanvas{
 	       // texture is based does not exist, load() returns null.
 
 	       textures = new Texture [6];
-	       textures [0] = load ("Logo  - UNIVALI.png",gl);
-	       textures [1] = load ("textura-tanque.png",gl);
-	       textures [2] = load ("TileMap.png",gl);
-	       textures [3] = load ("Star.png",gl);
-	       textures [4] = load (" NovaUVMap.png",gl);
+	       textures [0] = load (" NovaUVMap.png",gl);
+	       textures [1] = load ("StarBlue.png",gl);
+	       textures [2] = load ("StarGreen.png",gl);
+	       textures [3] = load ("StarOrange.png",gl);
+	       textures [4] = load ("StarRed.png",gl);
+	       textures [5] = load ("Star.png",gl);
+	      
 
 	       X = Y = 0;
 	       

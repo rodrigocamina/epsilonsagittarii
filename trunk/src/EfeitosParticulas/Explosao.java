@@ -115,22 +115,22 @@ public class Explosao {
 		System.out.println("Z"+z);
 		this.life -= difftime/10000.0f;
 		
-		if(this.life<0)
-		{
-			this.life =1.0f;
-			this.fade = (float)(Math.random()*100)/1000.0f+0.003f;
-			this.x = 0;
-			this.y = 0;
-			this.z = 0;
-
-			this.xi=xspeed+(float)((Math.random()*60)-32.0f);	// X Axis Speed And Direction
-			this.yi=yspeed+(float)((Math.random()*60)-30.0f);	// Y Axis Speed And Direction
-			this.zi=(float)((Math.random()%60)-30.0f);			// Z Axis Speed And Direction
-
-			this.red=colors[col][0];			// Select Red From Color Table
-			this.green=colors[col][1];			// Select Green From Color Table
-			this.blue=colors[col][2];			// Select Blue From Color Table
-		}
+//		if(this.life<0)
+//		{
+//			this.life =1.0f;
+//			this.fade = (float)(Math.random()*100)/1000.0f+0.003f;
+//			this.x = 0;
+//			this.y = 0;
+//			this.z = 0;
+//
+//			this.xi=xspeed+(float)((Math.random()*60)-32.0f);	// X Axis Speed And Direction
+//			this.yi=yspeed+(float)((Math.random()*60)-30.0f);	// Y Axis Speed And Direction
+//			this.zi=(float)((Math.random()%60)-30.0f);			// Z Axis Speed And Direction
+//
+//			this.red=colors[col][0];			// Select Red From Color Table
+//			this.green=colors[col][1];			// Select Green From Color Table
+//			this.blue=colors[col][2];			// Select Blue From Color Table
+//		}
 
 
 	}
