@@ -17,7 +17,11 @@ public class PlayerShip extends GameObj {
 	
 	public PlayerShip(float x, float y, float z, float w, float h, float d, float vx, float vy, float vz, ObjModel model) {
 		super(x, y, z, w, h, d, vx, vy, vz, model);
-		weaponMain = new Laser(x, y, z, 0.01f, 0.01f, 2f, 60, 60, 60, null, 100, 1, 200);
+		System.out.println("!?");
+		ObjModel target = new ObjModel();
+		target.loadObj("/res/MiraLaser.obj");
+		System.out.println("!?!");
+		weaponMain = new Laser(x, y, z, 0.2f,0.2f,2f, 60, 60, 60, null, 100, 1, 200, target);
 	}
 	
 	@Override
@@ -45,6 +49,7 @@ public class PlayerShip extends GameObj {
 	public void draw(GL canvas, FrustumV2 camera) {
 		canvas.glPushMatrix();
 		{
+			
 			canvas.glTranslatef(CanvasGame.X, CanvasGame.Y, CanvasGame.Z);
 			canvas.glTranslatef(position.x, position.y, position.z);
 			canvas.glScalef(0.01f, 0.01f, 0.01f);
@@ -66,7 +71,10 @@ public class PlayerShip extends GameObj {
 				canvas.glRotatef(-10, 0, 0, 1);
 			}
 			//TODO fim do extra
+			CanvasGame.textures [3].enable();
+			CanvasGame.textures [3].bind();
 			model.desenhase(canvas);
+			CanvasGame.textures [3].disable();
 		}
 		canvas.glPopMatrix();
 	}

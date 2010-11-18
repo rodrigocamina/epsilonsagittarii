@@ -16,6 +16,8 @@ import octtree.Obj8T;
 import octtree.Tree;
 import util.ConfigTeclado;
 
+import EfeitosParticulas.Explosao;
+
 import com.sun.opengl.util.texture.Texture;
 import com.sun.opengl.util.texture.TextureData;
 import com.sun.opengl.util.texture.TextureIO;
@@ -40,7 +42,7 @@ public class CanvasGame extends PS_3DCanvas{
     private final static double FOVY = 45.0; // field-of-view angle around Y
 
     private final static double NEAR = 0.1; // Z values < NEAR are clipped
-    private final static double FAR = 50.0;  // Z values > FAR are clipped
+    private final static double FAR = 150.0;  // Z values > FAR are clipped
 
     private final static int WIDTH = 800;
     private final static int HEIGHT = 600;
@@ -104,11 +106,12 @@ public class CanvasGame extends PS_3DCanvas{
 	       // Load six 2D textures to decal the cube. If the image file on which the
 	       // texture is based does not exist, load() returns null.
 
-	       textures = new Texture [4];
+	       textures = new Texture [6];
 	       textures [0] = load ("Logo  - UNIVALI.png",gl);
 	       textures [1] = load ("textura-tanque.png",gl);
 	       textures [2] = load ("TileMap.png",gl);
-	       textures [3] = load ("NovaUVMap copy.png",gl);
+	       textures [3] = load ("Star.png",gl);
+	       textures [4] = load (" NovaUVMap.png",gl);
 
 	       X = Y = 0;
 	       
@@ -126,6 +129,7 @@ public class CanvasGame extends PS_3DCanvas{
 		        treemap.addElement(obj);
 		        //objetos.add(obj);
 			}
+	        
 			
 	}
 
@@ -133,21 +137,31 @@ public class CanvasGame extends PS_3DCanvas{
     public void SimulaSe(long diffTime) {
     	simulacaoDeTeclas(diffTime);
     	
+    	
+    	
     	timer -= diffTime;
     	if(timer<0){
     		timer+=45;
     		CameraAnimator.addFrame(new Vector3f(nave.getFrontV()), new Vector3f(nave.getUpV()), new Vector3f(nave.getRightV()));
     	}
     	nave.simulate(diffTime);
-    	System.out.println("N"+nave.getPosition());
+//    	System.out.println("N"+nave.getPosition());
     	int sz = shots.size();
     	for (int i = 0; i < sz; i++) {
     		try{
 			Weapon w = shots.get(i);
+			/*
 			System.out.println(i+" "+w.getSpeed());
 			System.out.println(i+" "+w.getFrontV());
+			*/
+			System.out.println(" W X"+w.getX());
+			System.out.println(" W Y"+w.getY());
+			System.out.println(" W Z"+w.getZ());
     		w.simulate(diffTime);
 			if(w.isDead()){
+				System.out.println(" W X"+w.getX());
+				System.out.println(" W Y"+w.getY());
+				System.out.println(" W Z"+w.getZ());
 				CanvasGame.shots.remove(i);
 				i--;
 			}
@@ -186,6 +200,8 @@ public class CanvasGame extends PS_3DCanvas{
 //	    	   Matrix4x4 m2 = new Matrix4x4().setRotate(rotAngleX, 0,1,0);
 //	    	   Matrix4x4 m3 = new Matrix4x4().setRotate(rotAngleX, 0,0,1);
 //	    	   gl.glMultMatrixf(m.combine(m2).combine(m3).toFloatArray(), 0);
+
+	    	   
 	    	   nave.draw(gl, camera);
 	       }
 	       gl.glPopMatrix();
@@ -242,6 +258,7 @@ public class CanvasGame extends PS_3DCanvas{
 			
 			gl.glMatrixMode (GL.GL_MODELVIEW);
 			
+			
 		}	    
 
 	    
@@ -274,7 +291,8 @@ public class CanvasGame extends PS_3DCanvas{
   			m.transform(nave.getPosition());
 			frontV.normalize();
 			upV.normalize();
-			rightV.normalize();    	}
+			rightV.normalize();    
+		}
     	
     	
     	
@@ -290,6 +308,7 @@ public class CanvasGame extends PS_3DCanvas{
 			upV.normalize();
 			rightV.normalize();    	
 			}
+    	
     	if(D){
     		rotAngleY = -(float)(40.0f*diffTime/1000.0f);
 			Matrix4x4 m = new Matrix4x4();
@@ -301,7 +320,8 @@ public class CanvasGame extends PS_3DCanvas{
 			frontV.normalize();
 			upV.normalize();
 			rightV.normalize();    	
-		}    	
+		} 
+    	
     	if(LEFT){
     		rotAngleZ =(float)(150.0f*diffTime/1000.0f);
 			Matrix4x4 m = new Matrix4x4();
@@ -314,6 +334,7 @@ public class CanvasGame extends PS_3DCanvas{
 			upV.normalize();
 			rightV.normalize();
     	}
+    	
     	if(RIGHT){
     		rotAngleZ = -(float)(150.0f*diffTime/1000.0f);
 			Matrix4x4 m = new Matrix4x4();
