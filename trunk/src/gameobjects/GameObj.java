@@ -41,7 +41,7 @@ public class GameObj implements Obj8T{
 		this.model = model;
 	}
 	
-	@Override
+	
 	public void draw(GL canvas, FrustumV2 camera) {
 		if(model==null){
 			float width = size.x;
@@ -50,7 +50,7 @@ public class GameObj implements Obj8T{
 			canvas.glPushMatrix();
 			{
 				
-				//frente
+//				frente
 				canvas.glBegin(GL.GL_QUADS);
 				canvas.glVertex3f(position.x, position.y, position.z);
 				canvas.glVertex3f(position.x+width, position.y, position.z);

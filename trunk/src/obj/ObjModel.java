@@ -8,6 +8,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.media.opengl.GL;
 
+import com.sun.opengl.util.texture.Texture;
+
 import matematcbase.Matrix4x4;
 import matematcbase.Vector2f;
 import matematcbase.Vector3f;
@@ -77,7 +79,7 @@ public class ObjModel {
             e.printStackTrace();
         }   
         
-        System.out.println(" v "+v.size()+" vn "+vn.size()+" vt "+vt.size());
+//        System.out.println(" v "+v.size()+" vn "+vn.size()+" vt "+vt.size());
 	}
 	
 	public void decodeVertice(String str){
@@ -250,6 +252,7 @@ public class ObjModel {
 	    	 
 	    	 
 		     gl.glBegin (GL.GL_POLYGON);
+		     gl.glEnable(gl.GL_TEXTURE);
 		     //System.out.println("nvertices  "+face.nvertices);
 		     for(int j = 0; j < face.nvertices;j++){
 		    	 //System.out.println(" "+j);
@@ -265,7 +268,7 @@ public class ObjModel {
 		     
 		     gl.glEnd ();	
 	     }
-	     
+	     gl.glDisable(gl.GL_TEXTURE);
 	     
 	     gl.glPopMatrix();
 	     
@@ -275,7 +278,7 @@ public class ObjModel {
 	public void desenhaseGrupo(GL gl,int indexgrupo){
 		  
 		 gl.glPushMatrix (); 
-
+		 gl.glEnable(gl.GL_TEXTURE);
 		 int inicial = g.get(indexgrupo).finicial;
 		 int ffinal = g.get(indexgrupo).ffinal;
 
@@ -300,7 +303,7 @@ public class ObjModel {
 		     gl.glEnd ();	
 	     }
 	     
-	     
+	     gl.glDisable(gl.GL_TEXTURE);
 	     gl.glPopMatrix();
 	     
 	     
@@ -309,7 +312,7 @@ public class ObjModel {
 	public void desenhaseGrupo(GL gl,String nome){
 		  
 		 gl.glPushMatrix ();
-
+		 gl.glEnable(gl.GL_TEXTURE);
 		 GrupoFaces gp = null;
 		 if(gname.containsKey(nome)==false){
 			 System.out.println(" nao rolo");
@@ -342,7 +345,7 @@ public class ObjModel {
 		     gl.glEnd ();	
 	     }
 	     
-	     
+	     gl.glDisable(gl.GL_TEXTURE);
 	     gl.glPopMatrix();
 	     
 	     
