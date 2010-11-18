@@ -6,6 +6,7 @@ import javax.media.opengl.GL;
 
 import main.CanvasGame;
 import matematcbase.Util;
+import matematcbase.Vector3f;
 import obj.ObjModel;
 
 public class PlayerShip extends GameObj {
@@ -21,7 +22,7 @@ public class PlayerShip extends GameObj {
 		ObjModel target = new ObjModel();
 		target.loadObj("/res/MiraLaser.obj");
 		System.out.println("!?!");
-		weaponMain = new Laser(x, y, z, 0.2f,0.2f,2f, 60, 60, 60, null, 100, 1, 200, target);
+		weaponMain = new Laser(x, y, z, 0.2f,0.2f,2f, 20, 20, 20, null, 100, 1, 200, target);
 	}
 	
 	@Override
@@ -35,7 +36,32 @@ public class PlayerShip extends GameObj {
 		if(shooting){
 			if(timerShot<=0){
 				timerShot = weaponMain.cadence;
-				Weapon w = new Weapon(CanvasGame.X+position.x, CanvasGame.Y+position.y, CanvasGame.Z+position.z, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, weaponMain.speed.x, weaponMain.speed.y, weaponMain.speed.z, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
+				//aqui tenho que mexer 
+//				Weapon w = new Weapon(CanvasGame.X+position.x, CanvasGame.Y+position.y, CanvasGame.Z+position.z, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, weaponMain.speed.x, weaponMain.speed.y, weaponMain.speed.z, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
+				float velX = 0;
+				float velY = 0;
+				float velZ = 0;
+				
+				if(speed.x<0)
+				{
+					velX = weaponMain.speed.x;
+				}else{
+					velX = speed.x+weaponMain.speed.x;
+				}
+				if(speed.y<0)
+				{
+					velY = weaponMain.speed.y;
+				}else{
+					velY = speed.y+weaponMain.speed.y;
+				}
+				if(speed.z<0)
+				{
+					velZ = weaponMain.speed.z;
+				}else{
+					velZ = speed.z+weaponMain.speed.z;
+				}
+				
+				Weapon w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
 				w.setRotation(frontV, rightV, upV);
 				
 				//adiciona pro canvas
@@ -71,10 +97,10 @@ public class PlayerShip extends GameObj {
 				canvas.glRotatef(-10, 0, 0, 1);
 			}
 			//TODO fim do extra
-			CanvasGame.textures [3].enable();
-			CanvasGame.textures [3].bind();
+			CanvasGame.textures [0].enable();
+			CanvasGame.textures [0].bind();
 			model.desenhase(canvas);
-			CanvasGame.textures [3].disable();
+			CanvasGame.textures [0].disable();
 		}
 		canvas.glPopMatrix();
 	}

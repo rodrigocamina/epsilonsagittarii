@@ -1,6 +1,8 @@
 package gameobjects;
 
 import java.util.ArrayList;
+import java.util.Random;
+
 import javax.media.opengl.GL;
 import EfeitosParticulas.Explosao;
 import com.sun.opengl.util.texture.Texture;
@@ -8,6 +10,7 @@ import com.sun.opengl.util.texture.Texture;
 
 import main.CanvasGame;
 import matematcbase.Util;
+import matematcbase.Vector3f;
 
 import frustum.FrustumV2;
 import obj.ObjModel;
@@ -17,10 +20,10 @@ public class Weapon extends GameObj {
 	Target target;
 	GameObj shooter;
 	Texture textureTiro = null;
-//	private boolean explode = false;
+	private boolean explode = false;
 	@SuppressWarnings("unchecked")
-//	public ArrayList<Explosao>explosao;
-//	public int numeroDeParticulas;
+	public ArrayList<Explosao>explosao;
+	public int numeroDeParticulas;
 
 
 
@@ -30,6 +33,17 @@ public class Weapon extends GameObj {
 	float damage;
 	boolean dead = false;
 	float life =1.0f;
+	public float red;
+	public float green;
+	public float blue;
+	
+	Random rand= new Random();
+
+	public float [][]colors = new float [][]{	
+			{1.0f,0.5f,0.5f},{1.0f,0.75f,0.5f},{1.0f,1.0f,0.5f},{0.75f,1.0f,0.5f},
+			{0.5f,1.0f,0.5f},{0.5f,1.0f,0.75f},{0.5f,1.0f,1.0f},{0.5f,0.75f,1.0f},
+			{0.5f,0.5f,1.0f},{0.75f,0.5f,1.0f},{1.0f,0.5f,1.0f},{1.0f,0.5f,0.75f}
+	};
 
 	@SuppressWarnings("unchecked")
 	public Weapon(float x, float y, float z, float w, float h, float d, float vx,
@@ -38,12 +52,16 @@ public class Weapon extends GameObj {
 		this.range = range;
 		this.damage = damage;
 		this.cadence = cadence;
-//		explosao  = new ArrayList<Explosao>();
-//		numeroDeParticulas = 5;
-//		for (int i = 0; i < numeroDeParticulas; i++) {
-//			explosao.add(new Explosao(this.getX(),this.getY(),this.getZ(), numeroDeParticulas));
-//			
-//		}
+		explosao  = new ArrayList<Explosao>();
+		numeroDeParticulas = 5;
+		for (int i = 0; i < numeroDeParticulas; i++) {
+			explosao.add(new Explosao(this.getX(),this.getY(),this.getZ(), numeroDeParticulas));
+			
+		}
+		this.red = this.colors[rand.nextInt(12)][0];
+		this.green = colors[rand.nextInt(12)][1];
+		this.blue = colors[rand.nextInt(12)][2];
+		textureTiro = CanvasGame.textures[rand.nextInt(4)+1];
 		
 	}
 
@@ -55,12 +73,16 @@ public class Weapon extends GameObj {
 		this.range = range;
 		this.cadence = cadence;
 		this.damage = damage;
-//		explosao  = new ArrayList<Explosao>();
-//		numeroDeParticulas = 5;
-//		for (int i = 0; i < numeroDeParticulas; i++) {
-//			explosao.add(new Explosao(this.getX(),this.getY(),this.getZ(), numeroDeParticulas));
-//			
-//		}
+		explosao  = new ArrayList<Explosao>();
+		numeroDeParticulas = 5;
+		for (int i = 0; i < numeroDeParticulas; i++) {
+			explosao.add(new Explosao(this.getX(),this.getY(),this.getZ(), numeroDeParticulas));
+			
+		}
+		this.red = this.colors[rand.nextInt(12)][0];
+		this.green = colors[rand.nextInt(12)][1];
+		this.blue = colors[rand.nextInt(12)][2];
+		textureTiro = CanvasGame.textures[rand.nextInt(5)+1];
 	}
 
 //		@Override
@@ -133,7 +155,7 @@ public class Weapon extends GameObj {
 		if(model==null){			
 			float X = getX();
 			float Y = getY();
-			float Z =getZ();
+			float Z = getZ();
 			
 			canvas.glPushMatrix();
 
@@ -141,7 +163,7 @@ public class Weapon extends GameObj {
 				//frente
 				canvas.glPushMatrix();
 					canvas.glEnable(canvas.GL_TEXTURE);
-					Texture textura = CanvasGame.textures[3];
+					Texture textura = textureTiro;
 					textura.enable();
 					textura.bind();
 		
@@ -155,10 +177,11 @@ public class Weapon extends GameObj {
 		
 		
 		
-					float size = 2.0f;
+					float size = 0.08f;
 		
-					//						canvas.glColor4f(this.red, this.green, this.blue, this.life);
-					canvas.glColor4f(1.0f,1.0f, 1.0f, this.life);
+				
+					canvas.glColor4f(red,green,blue , this.life);
+//					canvas.glEnable(canvas.GL_COLOR_MATERIAL);
 					
 					canvas.glBegin(canvas.GL_TRIANGLE_STRIP);
 						canvas.glTexCoord2d(1, 1); canvas.glVertex3f(X+size, Y+size, Z); //TOP Right
@@ -186,44 +209,76 @@ public class Weapon extends GameObj {
 						canvas.glTexCoord2d(0, 1); canvas.glVertex3f(X-size, Y+size, Z); //TOP Left
 						canvas.glTexCoord2d(1, 0); canvas.glVertex3f(X+size, Y-size, Z); //Botton Right
 						canvas.glTexCoord2d(0, 0); canvas.glVertex3f(X-size, Y-size, Z); //Botton Left
-					canvas.glEnd();	
+					canvas.glEnd();
+					//parte 2
+					canvas.glBegin(canvas.GL_TRIANGLE_STRIP);
+					canvas.glNormal3f(0.0f, 0.0f, -1.0f);
+					canvas.glTexCoord2d(1, 1); canvas.glVertex3f(X+size, Y+size, Z); //TOP Right
+					canvas.glTexCoord2d(0, 1); canvas.glVertex3f(X-size, Y+size, Z); //TOP Left
+					canvas.glTexCoord2d(1, 0); canvas.glVertex3f(X+size, Y-size, Z); //Botton Right
+					canvas.glTexCoord2d(0, 0); canvas.glVertex3f(X-size, Y-size, Z); //Botton Left
+				canvas.glEnd();	
+				
+				canvas.glBegin(canvas.GL_TRIANGLE_STRIP);
+				canvas.glNormal3f(0.0f, -1.0f, 0.0f);
+					canvas.glTexCoord2d(1, 1); canvas.glVertex3f(X+size, Y, Z+size); //TOP Right
+					canvas.glTexCoord2d(0, 1); canvas.glVertex3f(X-size, Y, Z+size); //TOP Left
+					canvas.glTexCoord2d(1, 0); canvas.glVertex3f(X+size, Y, Z-size); //Botton Right
+					canvas.glTexCoord2d(0, 0); canvas.glVertex3f(X-size, Y, Z-size); //Botton Left
+				canvas.glEnd();	
+				
+				canvas.glBegin(canvas.GL_TRIANGLE_STRIP);
+					canvas.glNormal3f(-1.0f, 0.0f, 0.0f);
+					canvas.glTexCoord2d(1, 1); canvas.glVertex3f(X, Y+size, Z+size); //TOP Right
+					canvas.glTexCoord2d(0, 1); canvas.glVertex3f(X, Y+size, Z-size); //TOP Left
+					canvas.glTexCoord2d(1, 0); canvas.glVertex3f(X, Y-size, Z+size); //Botton Right
+					canvas.glTexCoord2d(0, 0); canvas.glVertex3f(X, Y-size, Z-size); //Botton Left
+				canvas.glEnd();
+				
+				canvas.glBegin(canvas.GL_TRIANGLE_STRIP);
+					canvas.glNormal3f(0.0f, 0.0f, -1.0f);
+					canvas.glTexCoord2d(1, 1); canvas.glVertex3f(X+size, Y+size, Z); //TOP Right
+					canvas.glTexCoord2d(0, 1); canvas.glVertex3f(X-size, Y+size, Z); //TOP Left
+					canvas.glTexCoord2d(1, 0); canvas.glVertex3f(X+size, Y-size, Z); //Botton Right
+					canvas.glTexCoord2d(0, 0); canvas.glVertex3f(X-size, Y-size, Z); //Botton Left
+				canvas.glEnd();	
 		
 					//segundo desenho
 					
-					canvas.glBegin(canvas.GL_TRIANGLE_STRIP);
-						canvas.glTexCoord2d(0, 0); canvas.glVertex3f(X+size, Y+size, Z); //TOP Right
-						canvas.glTexCoord2d(1, 0); canvas.glVertex3f(X-size, Y+size, Z); //TOP Left
-						canvas.glTexCoord2d(0, 1); canvas.glVertex3f(X+size, Y-size, Z); //Botton Right
-						canvas.glTexCoord2d(1, 1); canvas.glVertex3f(X-size, Y-size, Z); //Botton Left
-					canvas.glEnd();	
-					
-					canvas.glBegin(canvas.GL_TRIANGLE_STRIP);
-						canvas.glTexCoord2d(0, 0); canvas.glVertex3f(X+size, Y, Z+size); //TOP Right
-						canvas.glTexCoord2d(1, 0); canvas.glVertex3f(X-size, Y, Z+size); //TOP Left
-						canvas.glTexCoord2d(0, 1); canvas.glVertex3f(X+size, Y, Z-size); //Botton Right
-						canvas.glTexCoord2d(1, 1); canvas.glVertex3f(X-size, Y, Z-size); //Botton Left
-					canvas.glEnd();
-					
-					canvas.glBegin(canvas.GL_TRIANGLE_STRIP);
-						canvas.glTexCoord2d(0, 0);canvas.glVertex3f(X, Y+size, Z+size); //TOP Right
-						canvas.glTexCoord2d(1, 0);canvas.glVertex3f(X, Y+size, Z-size); //TOP Left
-						canvas.glTexCoord2d(0, 1);canvas.glVertex3f(X, Y-size, Z+size); //Botton Right
-						canvas.glTexCoord2d(1, 1);canvas.glVertex3f(X, Y-size, Z-size); //Botton Left
-					canvas.glEnd();	
-					
-					canvas.glBegin(canvas.GL_TRIANGLE_STRIP);
-						canvas.glTexCoord2d(0, 0); canvas.glVertex3f(X+size, Y+size, Z); //TOP Right
-						canvas.glTexCoord2d(1, 0); canvas.glVertex3f(X-size, Y+size, Z); //TOP Left
-						canvas.glTexCoord2d(0, 1); canvas.glVertex3f(X+size, Y-size, Z); //Botton Right
-						canvas.glTexCoord2d(1, 1); canvas.glVertex3f(X-size, Y-size, Z); //Botton Left
-					canvas.glEnd();			
+//					canvas.glBegin(canvas.GL_TRIANGLE_STRIP);
+//						canvas.glTexCoord2d(0, 0); canvas.glVertex3f(X+size, Y+size, Z); //TOP Right
+//						canvas.glTexCoord2d(1, 0); canvas.glVertex3f(X-size, Y+size, Z); //TOP Left
+//						canvas.glTexCoord2d(0, 1); canvas.glVertex3f(X+size, Y-size, Z); //Botton Right
+//						canvas.glTexCoord2d(1, 1); canvas.glVertex3f(X-size, Y-size, Z); //Botton Left
+//					canvas.glEnd();	
+//					
+//					canvas.glBegin(canvas.GL_TRIANGLE_STRIP);
+//						canvas.glTexCoord2d(0, 0); canvas.glVertex3f(X+size, Y, Z+size); //TOP Right
+//						canvas.glTexCoord2d(1, 0); canvas.glVertex3f(X-size, Y, Z+size); //TOP Left
+//						canvas.glTexCoord2d(0, 1); canvas.glVertex3f(X+size, Y, Z-size); //Botton Right
+//						canvas.glTexCoord2d(1, 1); canvas.glVertex3f(X-size, Y, Z-size); //Botton Left
+//					canvas.glEnd();
+//					
+//					canvas.glBegin(canvas.GL_TRIANGLE_STRIP);
+//						canvas.glTexCoord2d(0, 0);canvas.glVertex3f(X, Y+size, Z+size); //TOP Right
+//						canvas.glTexCoord2d(1, 0);canvas.glVertex3f(X, Y+size, Z-size); //TOP Left
+//						canvas.glTexCoord2d(0, 1);canvas.glVertex3f(X, Y-size, Z+size); //Botton Right
+//						canvas.glTexCoord2d(1, 1);canvas.glVertex3f(X, Y-size, Z-size); //Botton Left
+//					canvas.glEnd();	
+//					
+//					canvas.glBegin(canvas.GL_TRIANGLE_STRIP);
+//						canvas.glTexCoord2d(0, 0); canvas.glVertex3f(X+size, Y+size, Z); //TOP Right
+//						canvas.glTexCoord2d(1, 0); canvas.glVertex3f(X-size, Y+size, Z); //TOP Left
+//						canvas.glTexCoord2d(0, 1); canvas.glVertex3f(X+size, Y-size, Z); //Botton Right
+//						canvas.glTexCoord2d(1, 1); canvas.glVertex3f(X-size, Y-size, Z); //Botton Left
+//					canvas.glEnd();			
 		
 					canvas.glDisable(canvas.GL_SMOOTH);
 					canvas.glDisable(canvas.GL_BLEND);
 					canvas.glEnable(canvas.GL_DEPTH_TEST);		
 		
 					textura.disable();
-					
+//					canvas.glDisable(canvas.GL_COLOR_MATERIAL);
 					canvas.glDisable(canvas.GL_TEXTURE);
 					
 					canvas.glPopMatrix();
@@ -245,12 +300,16 @@ public class Weapon extends GameObj {
 	@Override
 	public void simulate(long diffTime) {
 
-		float dX = frontV.x*speed.x*diffTime/1000.0f;
-		float dY = frontV.y*speed.y*diffTime/1000.0f;
-		float dZ = frontV.z*speed.z*diffTime/1000.0f;
+		float dX =frontV.x*speed.x*diffTime/1000.0f;
+		float dY =frontV.y*speed.y*diffTime/1000.0f;
+		float dZ =frontV.z*speed.z*diffTime/1000.0f;
+		
+		
+		
 		position.x+=dX;
 		position.y+=dY;
 		position.z+=dZ;
+		
 		if(dX<0){
 			dX=-dX;
 		}
@@ -260,19 +319,22 @@ public class Weapon extends GameObj {
 		if(dZ<0){
 			dZ=-dZ;
 		}
-//		for (int i = 0; i < explosao.size(); i++) {
-//			explosao.get(i).SimulaSe(i, (int)diffTime);
-//			explosao.get(i).SetPosition(position);
-//			
-//		}
+		
 //		System.out.println(dX+" / "+dY+" / "+dZ);
 		rangeWalked += dX+dY+dZ;
 		if(rangeWalked>range){
-			dead = true;
-//			explode = true;
+			explode = true;
+			System.out.println("Explodiu aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+			for (int i = 0; i < explosao.size(); i++) {
+				explosao.get(i).SimulaSe(i, (int)diffTime);
+				Vector3f v = new Vector3f(getX(), getY(), getZ());
+				explosao.get(i).SetPosition(v);
+				
+			}
+			dead = true;			
 			
 		}
-		System.out.println(rangeWalked+"/"+range);
+		//		System.out.println(rangeWalked+"/"+range);
 	}
 	
 	
