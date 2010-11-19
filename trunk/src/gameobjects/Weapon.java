@@ -9,11 +9,11 @@ import com.sun.opengl.util.texture.Texture;
 
 
 import main.CanvasGame;
-import matematcbase.Util;
 import matematcbase.Vector3f;
 
 import frustum.FrustumV2;
 import obj.ObjModel;
+import util.Util;
 
 public class Weapon extends GameObj {
 

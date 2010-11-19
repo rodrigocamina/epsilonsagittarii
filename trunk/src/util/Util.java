@@ -1,9 +1,27 @@
-package matematcbase;
+package util;
 
 import javax.media.opengl.GL;
 
+import matematcbase.Matrix4x4;
+import matematcbase.Vector3f;
+
 public class Util {
 
+	public static void transformToRelativePosition(Vector3f point,Vector3f frontV,Vector3f rightV,Vector3f upV){
+ 	    Matrix4x4 matrix = new Matrix4x4();
+ 	    matrix.setIdentity();
+ 	    matrix.m00 = upV.x;
+ 	    matrix.m01 = upV.y;
+ 	    matrix.m02 = upV.z;
+ 	    matrix.m10 = rightV.x;
+ 	    matrix.m11 = rightV.y;
+ 	    matrix.m12 = rightV.z;
+ 	    matrix.m20 = frontV.x;
+ 	    matrix.m21 = frontV.y;
+ 	    matrix.m22 = frontV.z;
+ 	    matrix.transform(point);
+	}
+	
 	public static void rotacionaGLViaVetores(GL gl,Vector3f frontV,Vector3f rightV,Vector3f upV){
 		float[] matriz = new float[16];
  	    matriz[0] = upV.x;

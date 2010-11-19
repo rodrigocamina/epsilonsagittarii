@@ -5,8 +5,8 @@ import frustum.FrustumV2;
 import javax.media.opengl.GL;
 
 import main.CanvasGame;
-import matematcbase.Util;
 import obj.ObjModel;
+import util.Util;
 
 public class Nave extends GameObj {
 	

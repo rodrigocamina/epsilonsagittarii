@@ -5,6 +5,7 @@ import javax.media.opengl.GL;
 import matematcbase.Util;
 import frustum.FrustumV2;
 import obj.ObjModel;
+import util.Util;
 
 public class LaserTarget extends Target{
 
