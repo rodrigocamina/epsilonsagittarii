@@ -25,6 +25,7 @@ import com.sun.opengl.util.texture.TextureIO;
 import effects.CameraAnimator;
 import effects.CameraFrame;
 import frustum.FrustumV2;
+import gameobjects.EnemyShip;
 import gameobjects.GameObj;
 import gameobjects.PlayerShip;
 import gameobjects.Weapon;
@@ -81,7 +82,7 @@ public class CanvasGame extends PS_3DCanvas{
     public static float rotAngleX, rotAngleY, rotAngleZ;
 	public static final float ANGLESTEP = (float)(Math.PI/90);
 	
-	
+	private EnemyShip enemySheep;
 	private PlayerShip nave;
 	public static List<Weapon> shots = new ArrayList<Weapon>();
 	
@@ -120,6 +121,7 @@ public class CanvasGame extends PS_3DCanvas{
 	       ObjModel model = new ObjModel();
 	       model.loadObj("/res/NaveManeira.obj");
 	       nave = new PlayerShip(0, -0.15f, 1f, 10, 10, 10, 5, 5, 5, model);
+	       enemySheep = new EnemyShip(0, 0, 0, 0, 0, 0, 5, 5, 5, model, nave);
 	       CameraAnimator.startFrame(new Vector3f(nave.getFrontV()), new Vector3f(nave.getUpV()), new Vector3f(nave.getRightV()));
 	       
 	       
@@ -147,7 +149,8 @@ public class CanvasGame extends PS_3DCanvas{
     		CameraAnimator.addFrame(new Vector3f(nave.getFrontV()), new Vector3f(nave.getUpV()), new Vector3f(nave.getRightV()));
     	}
     	nave.simulate(diffTime);
-//    	System.out.println("N"+nave.getPosition());
+    	enemySheep.simulate(diffTime);
+    	//System.out.println("N"+nave.getPosition());
     	int sz = shots.size();
     	for (int i = 0; i < sz; i++) {
     		try{
@@ -205,6 +208,7 @@ public class CanvasGame extends PS_3DCanvas{
 
 	    	   
 	    	   nave.draw(gl, camera);
+	    	   enemySheep.draw(gl, camera);
 	       }
 	       gl.glPopMatrix();
 	       

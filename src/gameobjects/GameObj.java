@@ -4,11 +4,12 @@ import java.util.List;
 
 import javax.media.opengl.GL;
 
-import matematcbase.Util;
+import matematcbase.Matrix4x4;
 import matematcbase.Vector3f;
 import obj.ObjModel;
 import octtree.AreaV2;
 import octtree.Obj8T;
+import util.Util;
 import frustum.FrustumV2;
 
 public class GameObj implements Obj8T{
@@ -223,11 +224,23 @@ public class GameObj implements Obj8T{
 
 	public void rotate(int rotationVector, int angle){
 		if(rotationVector==AXIS_X){
-			
+			Matrix4x4 m = new Matrix4x4();
+			m.setRotate(angle, rightV.x, rightV.y, rightV.z);
+			m.transform(upV);
+			m.transform(frontV);
+			m.transform(rightV);
 		}else if(rotationVector==AXIS_Y){
-			
+			Matrix4x4 m = new Matrix4x4();
+			m.setRotate(angle, upV.x, upV.y, upV.z);
+			m.transform(upV);
+			m.transform(frontV);
+			m.transform(rightV);
 		}else if(rotationVector==AXIS_Z){
-			
+			Matrix4x4 m = new Matrix4x4();
+			m.setRotate(angle, frontV.x, frontV.y, frontV.z);
+			m.transform(upV);
+			m.transform(frontV);
+			m.transform(rightV);
 		}
 	}
 	public void setRotation(Vector3f front, Vector3f right, Vector3f up){

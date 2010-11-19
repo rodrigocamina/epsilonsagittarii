@@ -5,9 +5,9 @@ import frustum.FrustumV2;
 import javax.media.opengl.GL;
 
 import main.CanvasGame;
-import matematcbase.Util;
 import matematcbase.Vector3f;
 import obj.ObjModel;
+import util.Util;
 
 public class PlayerShip extends GameObj {
 
@@ -97,10 +97,10 @@ public class PlayerShip extends GameObj {
 				canvas.glRotatef(-10, 0, 0, 1);
 			}
 			//TODO fim do extra
-			CanvasGame.textures [0].enable();
-			CanvasGame.textures [0].bind();
+			CanvasGame.textures [3].enable();
+			CanvasGame.textures [3].bind();
 			model.desenhase(canvas);
-			CanvasGame.textures [0].disable();
+			CanvasGame.textures [3].disable();
 		}
 		canvas.glPopMatrix();
 	}
@@ -117,4 +117,6 @@ public class PlayerShip extends GameObj {
 	public void setShooting(boolean shooting) {
 		this.shooting = shooting;
 	}
+	
+	
 }

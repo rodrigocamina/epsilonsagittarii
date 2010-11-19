@@ -107,6 +107,22 @@ public class Vector3f {
 		return;
 	}
 	
+	public void normalize(float n)
+	{
+	float fMag = ( x*x + y*y + z*z );
+	if (fMag == 0) {return;}
+
+	float fMult = (float)(n/Math.sqrt(fMag));            
+	x *= fMult;
+	y *= fMult;
+	z *= fMult;
+	return;
+	}
+	
+	public float weight(){
+		return (float)Math.sqrt( x*x + y*y + z*z );
+	}
+	
 	public float innerProduct(Vector3f v) {
 
 		return (x * v.x + y * v.y + z * v.z);
