@@ -1,5 +1,7 @@
 package gameobjects;
 
+import java.util.Random;
+
 import javax.media.opengl.GL;
 
 import frustum.FrustumV2;
@@ -13,6 +15,7 @@ public class EnemyShip extends GameObj{
 	GameObj target;
 	Vector3f targetPosition;
 	Vector3f targetRelativePosition;
+	EnemyGroup group;
 	float space = 1;
 	float rotY;
 	float rotX;
@@ -22,13 +25,20 @@ public class EnemyShip extends GameObj{
 	public final static int ATTACKING = 0;
 	public final static int RETREATING = 1;
 	public final static int REGROUPING = 2;
+	public final static int PREPARINGATTACK = 2;
+	Vector3f speedRegroup;
+	Vector3f speedMax;
 	//attacking = 0, retreating = 1 , regrouping = 2
 	
 	public EnemyShip(float x, float y, float z, float w, float h, float d,
-			float vx, float vy, float vz, ObjModel model, GameObj station) {
+			float vx, float vy, float vz, ObjModel model, GameObj station, EnemyGroup group) {
 		super(x, y, z, w, h, d, vx, vy, vz, model);
 		target = station;
 		targetPosition = target.position;
+		this.group = group;
+		group.members.add(this);
+		speedRegroup = speed.multiply(0.8);
+		speedMax = new Vector3f(speed);
 	}
 
 	@Override
@@ -115,7 +125,6 @@ public class EnemyShip extends GameObj{
 	}
 	
 	private void move(long diffTime){
-		//System.out.println("Mov");
 		
 		float dX =frontV.x*speed.x*diffTime/1000.0f;
 		float dY =frontV.y*speed.y*diffTime/1000.0f;
@@ -146,7 +155,7 @@ public class EnemyShip extends GameObj{
 					state=RETREATING;
 					retreatTimer = 5000;
 				}else{ 
-					shot();
+					shot(diffTime);
 				}
 			}else if(retreatTimer<0){
 				state = RETREATING;
@@ -160,15 +169,70 @@ public class EnemyShip extends GameObj{
 					retreatTimer = 60000;
 				}else{
 					state = REGROUPING;
+					targetPosition = group.getTargetPosition(this);
+					
+				}
+			}
+		}else if(state==REGROUPING){
+			//check all ok, go to next
+			if(group.getLeader()==this){
+				speed = speedRegroup;
+				//check all
+				int sz = group.members.size();
+				int contOK = 1;
+ 				for (int i = 1; i < sz; i++) {
+					EnemyShip ship = group.members.get(i);
+					if(ship.targetPosition.mydistance(ship.position)<2){
+						contOK++;
+					}
+				}
+ 				if(contOK==sz){
+ 					state = PREPARINGATTACK;
+ 					targetPosition = target.position;
+ 					retreatTimer = (int)targetPosition.mydistance(position);
+ 					if(retreatTimer>5000){
+ 						retreatTimer=5000;
+ 					}
+ 				}else{
+ 					if(targetPosition.mydistance(position)<10){
+ 						Random rnd = new Random();
+ 						int n = rnd.nextInt(4);
+ 						if(n==0){
+ 							targetPosition = new Vector3f(50,50,50);
+ 						}else if(n==1){
+ 							targetPosition = new Vector3f(-50,50,50);
+ 						}else if(n==2){
+ 							targetPosition = new Vector3f(-50,-50,50);
+ 						}else if(n==3){
+ 							targetPosition = new Vector3f(50,-50,50);
+ 						}
+ 						
+ 					}
+ 				}
+				
+			}else{
+				targetPosition = group.getTargetPosition(this);
+				if(targetPosition.mydistance(position)<2){
+					speed = group.getLeader().speedRegroup;
+				}else{
+					speed = speedMax;
 				}
 			}
 		}else{
-			//check all ok, go to next
-			
-			
+			retreatTimer-=diffTime;
+			if(retreatTimer<0){
+				int sz = group.members.size();
+				for (int i = 0; i < sz; i++) {
+						EnemyShip ship = group.members.get(i);
+						ship.state = ATTACKING;
+						ship.targetPosition = target.position;
+						ship.retreatTimer = 60000;
+						ship.speed = ship.speedMax;
+					}
+			}
 		}
 	}
-	private void shot(){
+	private void shot(long difftime){
 		//SHOT!
 	}
 	

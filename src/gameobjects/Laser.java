@@ -2,14 +2,12 @@ package gameobjects;
 
 
 
+import frustum.FrustumV2;
+
 import javax.media.opengl.GL;
 
-import EfeitosParticulas.Explosao;
-
-import EfeitosParticulas.Explosao;
-import matematcbase.Util;
-import frustum.FrustumV2;
 import obj.ObjModel;
+import util.Util;
 
 public class Laser extends Weapon {
 	
@@ -36,7 +34,6 @@ public class Laser extends Weapon {
 	@Override
 	public void simulate(long diffTime) {
 		super.simulate(diffTime);
-		System.out.println("P "+position);
 		
 		
 	}
