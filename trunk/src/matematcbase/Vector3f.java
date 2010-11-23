@@ -94,6 +94,11 @@ public class Vector3f {
 		return multiply(V1).magnitude();	
 	}
 
+	public float mydistance(Vector3f V1)
+	{
+		Vector3f temp = this.subtract(V1);
+		return temp.weight();	
+	}
 	
 	public void normalize()
 		{

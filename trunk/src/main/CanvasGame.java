@@ -16,8 +16,6 @@ import octtree.Obj8T;
 import octtree.Tree;
 import util.ConfigTeclado;
 
-import EfeitosParticulas.Explosao;
-
 import com.sun.opengl.util.texture.Texture;
 import com.sun.opengl.util.texture.TextureData;
 import com.sun.opengl.util.texture.TextureIO;
@@ -25,6 +23,7 @@ import com.sun.opengl.util.texture.TextureIO;
 import effects.CameraAnimator;
 import effects.CameraFrame;
 import frustum.FrustumV2;
+import gameobjects.EnemyGroup;
 import gameobjects.EnemyShip;
 import gameobjects.GameObj;
 import gameobjects.PlayerShip;
@@ -82,7 +81,7 @@ public class CanvasGame extends PS_3DCanvas{
     public static float rotAngleX, rotAngleY, rotAngleZ;
 	public static final float ANGLESTEP = (float)(Math.PI/90);
 	
-	private EnemyShip enemySheep;
+	private List<EnemyShip> enemySheeps = new ArrayList<EnemyShip>();
 	private PlayerShip nave;
 	public static List<Weapon> shots = new ArrayList<Weapon>();
 	
@@ -121,7 +120,18 @@ public class CanvasGame extends PS_3DCanvas{
 	       ObjModel model = new ObjModel();
 	       model.loadObj("/res/NaveManeira.obj");
 	       nave = new PlayerShip(0, -0.15f, 1f, 10, 10, 10, 5, 5, 5, model);
-	       enemySheep = new EnemyShip(0, 0, 0, 0, 0, 0, 5, 5, 5, model, nave);
+	       EnemyGroup engroup = new EnemyGroup();
+	       enemySheeps.add(new EnemyShip(0, 0, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
+	       enemySheeps.add(new EnemyShip(10, 0, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
+	       enemySheeps.add(new EnemyShip(-10, 0, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
+	       enemySheeps.add(new EnemyShip(20, 0, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
+	       enemySheeps.add(new EnemyShip(-20, 0, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
+	       enemySheeps.add(new EnemyShip(10, 10, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
+	       enemySheeps.add(new EnemyShip(-10, 10, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
+	       enemySheeps.add(new EnemyShip(10, -10, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
+	       enemySheeps.add(new EnemyShip(-10, -10, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
+	       enemySheeps.add(new EnemyShip(20, 20, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
+	       enemySheeps.add(new EnemyShip(-20, -20, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
 	       CameraAnimator.startFrame(new Vector3f(nave.getFrontV()), new Vector3f(nave.getUpV()), new Vector3f(nave.getRightV()));
 	       
 	       
@@ -149,8 +159,9 @@ public class CanvasGame extends PS_3DCanvas{
     		CameraAnimator.addFrame(new Vector3f(nave.getFrontV()), new Vector3f(nave.getUpV()), new Vector3f(nave.getRightV()));
     	}
     	nave.simulate(diffTime);
-    	enemySheep.simulate(diffTime);
-    	//System.out.println("N"+nave.getPosition());
+    	for (int i = 0; i < enemySheeps.size(); i++) {
+    		enemySheeps.get(i).simulate(diffTime);
+		}
     	int sz = shots.size();
     	for (int i = 0; i < sz; i++) {
     		try{
@@ -159,14 +170,8 @@ public class CanvasGame extends PS_3DCanvas{
 			System.out.println(i+" "+w.getSpeed());
 			System.out.println(i+" "+w.getFrontV());
 			*/
-			System.out.println(" W X"+w.getX());
-			System.out.println(" W Y"+w.getY());
-			System.out.println(" W Z"+w.getZ());
     		w.simulate(diffTime);
 			if(w.isDead()){
-				System.out.println(" W X"+w.getX());
-				System.out.println(" W Y"+w.getY());
-				System.out.println(" W Z"+w.getZ());
 				CanvasGame.shots.remove(i);
 				i--;
 			}
@@ -193,11 +198,9 @@ public class CanvasGame extends PS_3DCanvas{
 	       //Diffuse light component
 	       gl.glLightfv(GL.GL_LIGHT0, GL.GL_DIFFUSE, lightDiffuse,0);
 	       //Light position
-	       //System.out.println(" "+lightPosition[2]);
 	       gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, lightPosition,0);
 	       gl.glEnable(GL.GL_LIGHT0);
 	       CameraFrame frame = CameraAnimator.getActualFrame();
-	       //System.out.println("Frame "+frame);
 	       glu.gluLookAt (X, Y, Z, X+frame.frontV.x, Y+frame.frontV.y, Z+frame.frontV.z, frame.upV.x, frame.upV.y, frame.upV.z);
 	       gl.glPushMatrix();
 	       {
@@ -205,10 +208,10 @@ public class CanvasGame extends PS_3DCanvas{
 //	    	   Matrix4x4 m2 = new Matrix4x4().setRotate(rotAngleX, 0,1,0);
 //	    	   Matrix4x4 m3 = new Matrix4x4().setRotate(rotAngleX, 0,0,1);
 //	    	   gl.glMultMatrixf(m.combine(m2).combine(m3).toFloatArray(), 0);
-
-	    	   
 	    	   nave.draw(gl, camera);
-	    	   enemySheep.draw(gl, camera);
+	    	   for (int i = 0; i < enemySheeps.size(); i++) {
+	    	   		enemySheeps.get(i).draw(gl, camera);
+	    	   }
 	       }
 	       gl.glPopMatrix();
 	       

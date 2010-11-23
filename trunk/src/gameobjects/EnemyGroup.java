@@ -38,6 +38,9 @@ public class EnemyGroup {
 			}
 			a-=2;
 	 */
+	public Vector3f getTargetPosition(EnemyShip ship){
+		return getTargetPosition(members.indexOf(ship));
+	}
 	public Vector3f getTargetPosition(int n){
 		if(formation==ARROWFORMATION){
 			if(n==0){
@@ -48,6 +51,7 @@ public class EnemyGroup {
 			int x = 0;
 			Vector3f Lp = getLeader().getPosition();
 			while(x!=n){
+				b=0;
 				for (int i = 0; i < a; i++) {
 					x++;
 					b++;
@@ -55,15 +59,14 @@ public class EnemyGroup {
 						break;
 					}
 				}
-				b=0;
 				a++;
 			}
-			a-=2;
+			a-=3;
 			
 
 			Vector3f result = new Vector3f(Lp);
 			result = result.add(getLeader().rightV.multiply((-5*a)+(10*b)));
-			result = result.add(getLeader().frontV.multiply((10*a)));
+			result = result.add(getLeader().frontV.multiply((-10*a)));
 			return result;
 		}else if(formation==BOXFORMATION){
 			if(n==0){
@@ -87,8 +90,8 @@ public class EnemyGroup {
 			Vector3f Lp = getLeader().getPosition();
 			Vector3f result = new Vector3f(Lp);
 			result = result.add(getLeader().rightV.multiply(c*10));
-			result = result.add(getLeader().frontV.multiply(l*10));
-			
+			result = result.add(getLeader().frontV.multiply(l*-10));
+
 			return result;//new Vector3f(Lp.x+(c*10), Lp.y, Lp.z+(l*10));
 		}else if(formation==LINEFORMATION){
 			if(n==0){
@@ -107,7 +110,7 @@ public class EnemyGroup {
 			Vector3f Lp = getLeader().getPosition();
 			Vector3f result = new Vector3f(Lp);
 			result = result.add(getLeader().rightV.multiply(c*10));
-			result = result.add(getLeader().frontV.multiply(l*10));
+			result = result.add(getLeader().frontV.multiply(l*-10));
 			return result;//new Vector3f(Lp.x+(c*10), Lp.y, Lp.z+(l*10));
 		}else {
 			if(n==0){
@@ -126,7 +129,7 @@ public class EnemyGroup {
 			Vector3f Lp = getLeader().getPosition();
 			Vector3f result = new Vector3f(Lp);
 			result = result.add(getLeader().rightV.multiply(l*10));
-			result = result.add(getLeader().frontV.multiply(c*10));
+			result = result.add(getLeader().frontV.multiply(c*-10));
 			return result;//new Vector3f(Lp.x+(l*10), Lp.y, Lp.z+(c*10));
 		}
 		

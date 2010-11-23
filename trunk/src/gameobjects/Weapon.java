@@ -320,11 +320,9 @@ public class Weapon extends GameObj {
 			dZ=-dZ;
 		}
 		
-//		System.out.println(dX+" / "+dY+" / "+dZ);
 		rangeWalked += dX+dY+dZ;
 		if(rangeWalked>range){
 			explode = true;
-			System.out.println("Explodiu aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
 			for (int i = 0; i < explosao.size(); i++) {
 				explosao.get(i).SimulaSe(i, (int)diffTime);
 				Vector3f v = new Vector3f(getX(), getY(), getZ());
@@ -334,7 +332,6 @@ public class Weapon extends GameObj {
 			dead = true;			
 			
 		}
-		//		System.out.println(rangeWalked+"/"+range);
 	}
 	
 	

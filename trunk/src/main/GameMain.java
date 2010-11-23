@@ -209,14 +209,12 @@ public class GameMain implements Runnable, GLEventListener{
     		PWIDTH = width;
     		PHEIGHT = height; 
     	}
-    	System.out.println("reshape");
 
     }
 
     public void displayChanged (GLAutoDrawable drawable, boolean modeChanged,
                                 boolean deviceChanged)
     {
-    	System.out.println("d change");    	
     }
     
     
