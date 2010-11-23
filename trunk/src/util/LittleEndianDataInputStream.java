@@ -113,7 +113,7 @@ public class LittleEndianDataInputStream extends InputStream implements DataInpu
 	 }
 
 	 public final int seek(int n) throws IOException{
-		 System.out.println("seek "+n+" current "+currentOffset+" skiped "+(n-currentOffset));
+		 //System.out.println("seek "+n+" current "+currentOffset+" skiped "+(n-currentOffset));
 		 if(n>currentOffset){
 			 return skipBytes(n-(int)currentOffset);
 		 }else{

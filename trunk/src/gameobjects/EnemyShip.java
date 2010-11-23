@@ -4,11 +4,13 @@ import java.util.Random;
 
 import javax.media.opengl.GL;
 
+import frustum.Esfera;
 import frustum.FrustumV2;
 import main.CanvasGame;
 import matematcbase.Vector3f;
 import obj.ObjModel;
 import util.Util;
+
 
 public class EnemyShip extends GameObj{
 
@@ -22,6 +24,9 @@ public class EnemyShip extends GameObj{
 	float rotZ;
 	int state = 0;
 	long retreatTimer = 5000;
+	private int indiceTextura = 0;
+	Esfera escudo;
+	
 	public final static int ATTACKING = 0;
 	public final static int RETREATING = 1;
 	public final static int REGROUPING = 2;
@@ -37,15 +42,22 @@ public class EnemyShip extends GameObj{
 		targetPosition = target.position;
 		this.group = group;
 		group.members.add(this);
-		speedRegroup = speed.multiply(0.8);
+		speedRegroup = speed.multiply(0.0);
 		speedMax = new Vector3f(speed);
+		this.radius= 1.0f;
+		escudo = new Esfera(x, y, z, radius, 0);
+		
+
 	}
 
 	@Override
 	public void simulate(long diffTime) {
+		
 		adjustDirection(diffTime);
 		move(diffTime);
 		ai(diffTime);
+		escudo.Simulase((int) diffTime);
+		
 	}
 	
 	
@@ -132,6 +144,7 @@ public class EnemyShip extends GameObj{
 		position.x+=dX;
 		position.y+=dY;
 		position.z+=dZ;
+		escudo.SetPosition(position);	
 	}
 	
 	@Override
@@ -142,9 +155,11 @@ public class EnemyShip extends GameObj{
 			Util.rotacionaGLViaVetores(canvas, frontV, rightV, upV);
 			canvas.glRotatef(-90, 0, 0, 1);
 			canvas.glScalef(0.1f, 0.1f, 0.1f);
+			
 			model.desenhase(canvas);
 		}
 		canvas.glPopMatrix();
+		escudo.DesenhaSe(canvas);
 	}
 	
 	private void ai(long diffTime){
@@ -232,8 +247,17 @@ public class EnemyShip extends GameObj{
 			}
 		}
 	}
+
+	
+
+
 	private void shot(long difftime){
+
 		//SHOT!
+	}
+	
+	public void setIndiceTextura(int indiceTextura) {
+		this.indiceTextura = indiceTextura;
 	}
 	
 }

@@ -10,6 +10,7 @@ import obj.ObjModel;
 import octtree.AreaV2;
 import octtree.Obj8T;
 import util.Util;
+import frustum.Esfera;
 import frustum.FrustumV2;
 
 public class GameObj implements Obj8T{
@@ -29,6 +30,7 @@ public class GameObj implements Obj8T{
 	float radius;
 	Vector3f speed;
 	AreaV2 area;
+	//Esfera escudo;
 	
 	public GameObj(float x, float y, float z, float w, float h, float d, float vx, float vy, float vz, ObjModel model) {
 		position = new Vector3f(x, y, z);
@@ -39,12 +41,15 @@ public class GameObj implements Obj8T{
 		float z2 = z+(y/2);
 		centerPosition = new Vector3f(x2,y2,z2);
 		radius = (float)Math.sqrt((x2-x)*(x2-x)+(y2-y)*(y2-y)+(z2-z)*(z2-z));
+		
 		this.model = model;
+		//escudo = new Esfera(x, y, z, radius, 0);
 	}
 	
 	
 	public void draw(GL canvas, FrustumV2 camera) {
 		if(model==null){
+			//escudo.DesenhaSe(canvas);
 			float width = size.x;
 			float height = size.y;
 			float depth = size.z;
@@ -109,9 +114,11 @@ public class GameObj implements Obj8T{
 
 	@Override
 	public void simulate(long diffTime) {
+		
 		position.x+=frontV.x*speed.x*diffTime/1000.0f;
 		position.y+=frontV.y*speed.y*diffTime/1000.0f;
 		position.z+=frontV.z*speed.z*diffTime/1000.0f;
+		//escudo.SetPosition(position);
 	}
 	
 	public boolean checkColision(Obj8T obj){
