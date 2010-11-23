@@ -207,7 +207,7 @@ public class ObjModel {
 				face.v[index] = valorestmp[0];
 				face.n[index] = valorestmp[2];
 				face.t[index] = valorestmp[1];
-				System.out.println(index+" v "+valorestmp[0]+" n "+valorestmp[1]+" t "+valorestmp[2]);
+				//System.out.println(index+" v "+valorestmp[0]+" n "+valorestmp[1]+" t "+valorestmp[2]);
 				
 				index++;
 			}
@@ -315,7 +315,7 @@ public class ObjModel {
 		 gl.glEnable(gl.GL_TEXTURE);
 		 GrupoFaces gp = null;
 		 if(gname.containsKey(nome)==false){
-			 System.out.println(" nao rolo");
+			// System.out.println(" nao rolo");
 			return; 
 		 }
 		 

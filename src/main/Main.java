@@ -33,6 +33,7 @@ public class Main extends JApplet /*implements MouseWheelListener,KeyListener,Mo
    
    public void init()
    {
+	   System.out.println("iniciado");
      instance = this;
 
      setFocusable(true);

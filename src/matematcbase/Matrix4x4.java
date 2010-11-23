@@ -420,7 +420,11 @@ public class Matrix4x4 {
 		y *= fMult;
 		z *= fMult;
 
+
+	  // System.out.println("x "+x+" y "+y+" z "+z+" c "+c+" s "+s+" t "+t);
+
 //	   System.out.println("x "+x+" y "+y+" z "+z+" c "+c+" s "+s+" t "+t);
+
 	
 	   //m( coluna)( linha)
 	   m00 = (t*x*x)+c;

@@ -15,13 +15,16 @@ public class PlayerShip extends GameObj {
 	Weapon weaponMain;
 	Weapon weaponSub;
 	boolean shooting = false;
+	private int  indiceTextura =0;
 	
+	
+
 	public PlayerShip(float x, float y, float z, float w, float h, float d, float vx, float vy, float vz, ObjModel model) {
-		super(x, y, z, w, h, d, vx, vy, vz, model);
-		System.out.println("!?");
+		super(x, y, z, w, h, d, vx, vy, vz,  model);
+//		System.out.println("!?");
 		ObjModel target = new ObjModel();
 		target.loadObj("/res/MiraLaser.obj");
-		System.out.println("!?!");
+		//System.out.println("!?!");
 		weaponMain = new Laser(x, y, z, 0.2f,0.2f,2f, 20, 20, 20, null, 100, 1, 200, target);
 	}
 	
@@ -97,10 +100,10 @@ public class PlayerShip extends GameObj {
 				canvas.glRotatef(-10, 0, 0, 1);
 			}
 			//TODO fim do extra
-			CanvasGame.textures [3].enable();
-			CanvasGame.textures [3].bind();
+			CanvasGame.textures [indiceTextura].enable();
+			CanvasGame.textures [indiceTextura].bind();
 			model.desenhase(canvas);
-			CanvasGame.textures [3].disable();
+			CanvasGame.textures [indiceTextura].disable();
 		}
 		canvas.glPopMatrix();
 	}
@@ -111,11 +114,16 @@ public class PlayerShip extends GameObj {
 			speed.y += increment;
 			speed.z += increment;
 		}
-		System.out.println("Speed "+speed);
+//		System.out.println("Speed "+speed);
 	}
 	
 	public void setShooting(boolean shooting) {
 		this.shooting = shooting;
+	}
+	
+	public void setIndiceTextura(int indiceTextura) {
+		this.indiceTextura = indiceTextura;
+		System.out.println("indice da textura da nave "+CanvasGame.textures[0]);
 	}
 	
 	

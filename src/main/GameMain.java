@@ -36,9 +36,7 @@ import com.sun.org.apache.xerces.internal.util.URI;
 
 /*
  * Created on 21/03/2010
- * Atualizado Para Verção 1.0
- * Desenvolvido Por Dennis Kerr Coelho
- * PalmSoft Tecnologia
+ * 
  */
 
 public class GameMain implements Runnable, GLEventListener{
@@ -52,6 +50,10 @@ public class GameMain implements Runnable, GLEventListener{
     int FPS,SFPS;
     long SegundoAtual = 0;
     long NovoSegundo = 0;
+    long segundoatual = 0;
+     public static long diftime = 0;
+    int ultimosegundo = 0;
+    int somaframes = 0;
 
     PS_3DCanvas TelaAtiva = null;
 
@@ -147,16 +149,13 @@ public class GameMain implements Runnable, GLEventListener{
     public void init (GLAutoDrawable drawable)
     {
 
-    	
+    	System.out.println("gameMain init ");
         CanvasGame spprop = new CanvasGame();
         spprop.init(drawable);
         TelaAtiva = spprop;    	
     }    
     
-    long segundoatual = 0;
-    long diftime = 0;
-    int ultimosegundo = 0;
-    int somaframes = 0;
+    
     
 	@Override
 	public void run() {

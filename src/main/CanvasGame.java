@@ -15,11 +15,10 @@ import obj.ObjModel;
 import octtree.Obj8T;
 import octtree.Tree;
 import util.ConfigTeclado;
-
+import EfeitosParticulas.Particula;
 import com.sun.opengl.util.texture.Texture;
 import com.sun.opengl.util.texture.TextureData;
 import com.sun.opengl.util.texture.TextureIO;
-
 import effects.CameraAnimator;
 import effects.CameraFrame;
 import frustum.FrustumV2;
@@ -28,6 +27,7 @@ import gameobjects.EnemyShip;
 import gameobjects.GameObj;
 import gameobjects.PlayerShip;
 import gameobjects.Weapon;
+import java.io.*;
 
 /*
  * Created on 21/03/2010
@@ -55,6 +55,17 @@ public class CanvasGame extends PS_3DCanvas{
     //public static float rotAngleX, rotAngleY, rotAngleZ;
 
     public static Texture [] textures;
+    //Ordem de textura para ser usada.
+    private final int numeroDetexturas = 9;
+    public static final int TEX_NAVE_PLAYER = 0;
+    public static final int TEX_TIRO_BLUE = 1;   
+    public static final int TEX_TIRO_GREEN = 2;
+    public static final int TEX_TIRO_RED = 3;
+    public static final int TEX_TIRO_ORANGE = 4;
+    public static final int TEX_TIRO_WHITE = 5;
+    public static final int TEX_FOGO = 6;
+    public static final int TEX_FOGO_AZUL = 7;
+    
     Random rnd = new Random();
 	FrustumV2 camera = new FrustumV2(); 
 	GL gl = null;
@@ -74,14 +85,15 @@ public class CanvasGame extends PS_3DCanvas{
 	
 	private Tree treemap = new Tree(6, -500, -500, -500, 500, 500,500);
 	
-	//public static ArrayList<Obj8T> objetos = new ArrayList<Obj8T>();
-	
-	
 	public static float X,Y,Z;
     public static float rotAngleX, rotAngleY, rotAngleZ;
 	public static final float ANGLESTEP = (float)(Math.PI/90);
 	
-	private List<EnemyShip> enemySheeps = new ArrayList<EnemyShip>();
+
+	//public static EnemyShip enemySheep;
+
+	public static List<EnemyShip> enemySheeps = new ArrayList<EnemyShip>();
+
 	private PlayerShip nave;
 	public static List<Weapon> shots = new ArrayList<Weapon>();
 	
@@ -105,22 +117,64 @@ public class CanvasGame extends PS_3DCanvas{
 	       //Random rand = new Random ();
 	       // Load six 2D textures to decal the cube. If the image file on which the
 	       // texture is based does not exist, load() returns null.
-
-	       textures = new Texture [6];
-	       textures [0] = load (" NovaUVMap.png",gl);
-	       textures [1] = load ("StarBlue.png",gl);
-	       textures [2] = load ("StarGreen.png",gl);
-	       textures [3] = load ("StarOrange.png",gl);
-	       textures [4] = load ("StarRed.png",gl);
-	       textures [5] = load ("Star.png",gl);
-	      
-
+	       textures = new Texture [numeroDetexturas];
+	       try {
+	    	   textures [TEX_NAVE_PLAYER] = load("texturaNave.png",gl);//("NovaUVMap.png",gl);
+	    	   System.out.println("erro carregamento de textura nave");
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("erro carregamento de textura nave");
+			}
+			
+			 try {
+				 textures [TEX_TIRO_BLUE] = load("StarBlue.png",gl);
+				} catch (Exception e) {
+					// TODO: handle exception
+					System.out.println("erro carregamento de textura tiro azul");
+				}
+				
+			try {
+				textures [TEX_TIRO_GREEN] = load("StarGreen.png",gl);
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("erro carregamento de textura tiro verde");
+			}
+			try {
+				textures [TEX_TIRO_ORANGE] = load ("StarOrange.png",gl);
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("erro carregamento de textura tiro laranja");
+			}
+			try {
+				 textures [TEX_TIRO_RED] = load("StarRed.png",gl);
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("erro carregamento de textura tiro red");
+			}
+			try {
+				textures [TEX_TIRO_WHITE] = load("Star.png",gl);
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("erro carregamento de textura tiro star");
+			}
+			try {
+				 textures [TEX_FOGO] = load("fogo1.png",gl);
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("erro carregamento de textura fogo");
+			}
+			
 	       X = Y = 0;
 	       
 	       ObjModel model = new ObjModel();
 	       model.loadObj("/res/NaveManeira.obj");
-	       nave = new PlayerShip(0, -0.15f, 1f, 10, 10, 10, 5, 5, 5, model);
+	       nave = new PlayerShip(0, -0.15f, 1f, 10, 10, 10, 5, 5, 5,model);
+
+	       nave.setIndiceTextura(TEX_NAVE_PLAYER);
 	       EnemyGroup engroup = new EnemyGroup();
+	       //enemySheep = new EnemyShip(0, 0, 0, 0, 0, 0, 5, 5, 5,model, nave, engroup );
+	      // System.out.println("aaaaaaaaaaaaaaaaaaaaaaa");
+//	     
 	       enemySheeps.add(new EnemyShip(0, 0, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
 	       enemySheeps.add(new EnemyShip(10, 0, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
 	       enemySheeps.add(new EnemyShip(-10, 0, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
@@ -132,6 +186,8 @@ public class CanvasGame extends PS_3DCanvas{
 	       enemySheeps.add(new EnemyShip(-10, -10, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
 	       enemySheeps.add(new EnemyShip(20, 20, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
 	       enemySheeps.add(new EnemyShip(-20, -20, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
+
+	       //enemySheep.setIndiceTextura(TEX_NAVE_PLAYER);
 	       CameraAnimator.startFrame(new Vector3f(nave.getFrontV()), new Vector3f(nave.getUpV()), new Vector3f(nave.getRightV()));
 	       
 	       
@@ -166,12 +222,12 @@ public class CanvasGame extends PS_3DCanvas{
     	for (int i = 0; i < sz; i++) {
     		try{
 			Weapon w = shots.get(i);
-			/*
-			System.out.println(i+" "+w.getSpeed());
-			System.out.println(i+" "+w.getFrontV());
-			*/
+
+			
     		w.simulate(diffTime);
 			if(w.isDead()){
+
+
 				CanvasGame.shots.remove(i);
 				i--;
 			}

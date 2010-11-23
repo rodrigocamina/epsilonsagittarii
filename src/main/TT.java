@@ -24,7 +24,7 @@ public class TT {
 		m2.setRotateX(15);
 		m2.combine(new Matrix4x4().setRotateX(-15));
 
-		System.out.println(v1.RotByMatrix(m1.toArray()));
-		System.out.println(v2.RotByMatrix(m2.toArray()));
+		//System.out.println(v1.RotByMatrix(m1.toArray()));
+		//System.out.println(v2.RotByMatrix(m2.toArray()));
 	}
 }

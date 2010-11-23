@@ -132,7 +132,7 @@ public class AreaV2 {
 			allElements.addAll(parent.elements);
 			parent = parent.parent;
 		}
-		System.out.println("All "+allElements.size());
+		//System.out.println("All "+allElements.size());
 		return allElements;
 	}
 	
