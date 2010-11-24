@@ -26,7 +26,10 @@ public class EnemyShip extends GameObj{
 	long retreatTimer = 5000;
 	private int indiceTextura = 0;
 	Esfera escudo;
-	
+	long timerShot;
+	Weapon weaponMain;
+	Weapon weaponSub;
+		
 	public final static int ATTACKING = 0;
 	public final static int RETREATING = 1;
 	public final static int REGROUPING = 2;
@@ -46,6 +49,11 @@ public class EnemyShip extends GameObj{
 		speedMax = new Vector3f(speed);
 		this.radius= 1.0f;
 		escudo = new Esfera(x, y, z, radius, 0);
+		ObjModel target = new ObjModel();
+		target.loadObj("/res/MiraLaser.obj");
+		
+		weaponMain = new Laser(x, y, z, 0.2f,0.2f,2.0f, 20, 20, 20, null, 100, 1, 10, target);
+		weaponMain.setPaiEnemyShip(this);
 		
 
 	}
@@ -144,7 +152,8 @@ public class EnemyShip extends GameObj{
 		position.x+=dX;
 		position.y+=dY;
 		position.z+=dZ;
-		escudo.SetPosition(position);	
+		escudo.SetPosition(position);
+		
 	}
 	
 	@Override
@@ -186,7 +195,7 @@ public class EnemyShip extends GameObj{
 			retreatTimer -= diffTime;
 			if(targetRelativePosition.weight()>30||retreatTimer<0){
 				if(target instanceof PlayerShip){
-					state = ATTACKING;
+					state = ATTACKING;					
 					retreatTimer = 60000;
 				}else{
 					state = REGROUPING;
@@ -261,8 +270,45 @@ public class EnemyShip extends GameObj{
 
 
 	private void shot(long difftime){
-
+System.out.println( "tiroooooooooooooo");
 		//SHOT!
+		if(timerShot<=0){
+			timerShot = weaponMain.cadence;
+			//aqui tenho que mexer 
+			
+			float velX = 0;
+			float velY = 0;
+			float velZ = 0;
+			
+			if(speed.x<0)
+			{
+				velX = weaponMain.speed.x;
+			}else{
+				velX = speed.x+weaponMain.speed.x;
+			}
+			if(speed.y<0)
+			{
+				velY = weaponMain.speed.y;
+			}else{
+				velY = speed.y+weaponMain.speed.y;
+			}
+			if(speed.z<0)
+			{
+				velZ = weaponMain.speed.z;
+			}else{
+				velZ = speed.z+weaponMain.speed.z;
+			}
+			
+			
+			Weapon w = new Weapon(position.x+frontV.x*0.6f, position.y+frontV.y*0.6f, position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.range,weaponMain.damage,weaponMain.cadence);
+			w.setPaiEnemyShip(this);
+			w.setRotation(frontV, rightV, upV);
+			
+			//adiciona pro canvas
+			CanvasGame.shots.add(w);
+		}else{
+			timerShot-=difftime;
+		}
 	}
 	
 	public void setIndiceTextura(int indiceTextura) {

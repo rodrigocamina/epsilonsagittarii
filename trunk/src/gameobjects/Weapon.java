@@ -16,6 +16,7 @@ import util.Util;
 
 public class Weapon extends GameObj {
 
+	private static final ObjModel PlayerShip = null;
 	Target target;
 	GameObj shooter;
 	Texture textureTiro = null;		
@@ -28,6 +29,8 @@ public class Weapon extends GameObj {
 	public Explosao explosao; 
 	Random rand= new Random();
 	boolean explode = true;
+	EnemyShip paiEnemyShip;
+	PlayerShip paiPlayerShip;
 
 		
 	public Weapon(float x, float y, float z, float w, float h, float d, float vx,
@@ -36,7 +39,9 @@ public class Weapon extends GameObj {
 		this.range = range;
 		this.damage = damage;
 		this.cadence = cadence;				
-		textureTiro = CanvasGame.textures[rand.nextInt(4)+1];
+		textureTiro = CanvasGame.textures[rand.nextInt(5)+1];
+		System.out.println("inimigo");
+		
 	}
 
 	
@@ -178,19 +183,31 @@ public class Weapon extends GameObj {
 			position.y+=dY;
 			position.z+=dZ;
 			
-			for (int i = 0; i < CanvasGame.enemySheeps.size(); i++) {
-				EnemyShip inimigo = CanvasGame.enemySheeps.get(i);
-				if(ColideLasez(inimigo)){	
-					colidiuObjeto = true;			
-					explosao = new Explosao(this.getX(), this.getY(), this.getZ());
-					if(inimigo.escudo.life>0){
-						inimigo.escudo.EfeitoColisaoEscudo(true, textureTiro, damage);
-					}else{
-						inimigo.life -= damage;
+			if(paiPlayerShip == CanvasGame.nave){
+				for (int i = 0; i < CanvasGame.enemySheeps.size(); i++) {
+					EnemyShip inimigo = CanvasGame.enemySheeps.get(i);
+					if(ColideLasez(inimigo)){	
+						colidiuObjeto = true;			
+						explosao = new Explosao(this.getX(), this.getY(), this.getZ());
+						if(inimigo.escudo.life>0){
+							inimigo.escudo.EfeitoColisaoEscudo(true, textureTiro, damage);
+						}else{
+							CanvasGame.enemySheeps.get(i).life -= damage;
+						}
 					}
 				}
-			}
-			
+			}else{
+				
+				if(ColideLasez(CanvasGame.nave)){
+					colidiuObjeto = true;			
+					explosao = new Explosao(this.getX(), this.getY(), this.getZ());
+					if(CanvasGame.nave.escudo.life>0){
+						CanvasGame.nave.escudo.EfeitoColisaoEscudo(true, textureTiro, damage);
+					}else{
+						CanvasGame.nave.life -= damage;
+					}
+				}
+			}			
 		}else{
 			if(explosao.dead){
 				explosao.SimulaSe(diffTime);
@@ -220,6 +237,26 @@ public class Weapon extends GameObj {
 	}
 	
 	
+	public EnemyShip getPaiEnemyShip() {
+		return paiEnemyShip;
+	}
+
+
+	public void setPaiEnemyShip(EnemyShip paiEnemyShip) {
+		this.paiEnemyShip = paiEnemyShip;
+	}
+
+
+	public PlayerShip getPaiPlayerShip() {
+		return paiPlayerShip;
+	}
+
+
+	public void setPaiPlayerShip(PlayerShip paiPlayerShip) {
+		this.paiPlayerShip = paiPlayerShip;
+	}
+
+
 	public boolean isDead() {
 		return dead;
 	}
@@ -232,7 +269,7 @@ public class Weapon extends GameObj {
 		double difX = inimigo.getX() - this.getX();
 		double difY = inimigo.getY() - this.getY();
 		double difZ = inimigo.getZ() - this.getZ();
-		System.out.println("inimigo.radius"+inimigo.radius);
+		//System.out.println("inimigo.radius"+inimigo.radius);
 		double RaioQuadrado = inimigo.radius*1+inimigo.radius*1;
 		double somaDiferenca = (difX * difX)+(difY * difY)+(difZ * difZ);
 
