@@ -74,6 +74,7 @@ public class CanvasGame extends PS_3DCanvas{
 
 	long timer = 50;
 	
+	
 	Vector3f staticVectorPosition = new Vector3f(0, 0, 0.35f);
 	Vector3f staticVectorDirection = new Vector3f(0, 0, -1);
 	Vector3f staticVectorHelper = new Vector3f(0, 1, 0);
@@ -98,6 +99,10 @@ public class CanvasGame extends PS_3DCanvas{
 
 	public static PlayerShip nave;
 	private Station estacao;
+
+	public static int armaSelecionada;
+	
+
 	public static List<Weapon> shots = new ArrayList<Weapon>();
 	
 	
@@ -108,7 +113,7 @@ public class CanvasGame extends PS_3DCanvas{
 	public void init(GLAutoDrawable drawable) {
 		// TODO Auto-generated method stub
 	       GL gl = drawable.getGL ();
-
+	       
 	       gl.glEnable (GL.GL_DEPTH_TEST);
 	       
 	       gl.glEnable (GL.GL_LIGHTING);
@@ -134,7 +139,7 @@ public class CanvasGame extends PS_3DCanvas{
 				// TODO: handle exception
 				System.out.println("erro carregamento de textura fogo");
 			}
-			
+			armaSelecionada =TEX_TIRO_WHITE;
 	       X = Y = 0;
 
 	       ObjModel modelP = new ObjModel();
@@ -517,9 +522,17 @@ public class CanvasGame extends PS_3DCanvas{
     		ESC = !ESC;
     	} 
     	if(key == ConfigTeclado.teclas[11]){
-    		ESC = !ESC;
+    		armaSelecionada = TEX_TIRO_BLUE;
     	} 
-    	
+    	if(key == ConfigTeclado.teclas[12]){
+    		armaSelecionada = TEX_TIRO_GREEN;
+    	}
+    	if(key == ConfigTeclado.teclas[13]){
+    		armaSelecionada = TEX_TIRO_ORANGE;
+    	}
+    	if(key == ConfigTeclado.teclas[14]){
+    		armaSelecionada = TEX_TIRO_RED;
+    	}
     	/*
     	if(key == KeyEvent.VK_O){
     		staticFrustum = !staticFrustum;
@@ -637,7 +650,6 @@ public class CanvasGame extends PS_3DCanvas{
         return texture;
      }    
 
-    
     
 
 }
