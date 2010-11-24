@@ -28,7 +28,8 @@ public class PlayerShip extends GameObj {
 		target.loadObj("/res/MiraLaser.obj");
 		//System.out.println("!?!");
 		weaponMain = new Laser(x, y, z, 0.2f,0.2f,2f, 20, 20, 20, null, 100, 1, 10, target);
-		escudo = new Esfera(x, y,z,0.3f, 0.0f);
+		weaponMain.setPaiPlayerShip(this);
+		escudo = new Esfera(x, y,z,0.1f, 0.0f);
 	}
 	
 	@Override
@@ -39,9 +40,10 @@ public class PlayerShip extends GameObj {
 		CanvasGame.X+=dX;
 		CanvasGame.Y+=dY;
 		CanvasGame.Z+=dZ;
-		Vector3f posicao = new Vector3f(CanvasGame.X + position.x,CanvasGame.Y+position.y,CanvasGame.Z+position.y );
+		Vector3f posicao = new Vector3f(CanvasGame.X + position.x,CanvasGame.Y+position.y,CanvasGame.Z+position.z );
 		escudo.SetPosition(posicao);
 		escudo.Simulase((int)diffTime);
+		
 		
 		if(shooting){
 			if(timerShot<=0){
@@ -72,6 +74,7 @@ public class PlayerShip extends GameObj {
 				}
 				
 				Weapon w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
+				w.setPaiPlayerShip(this);
 				w.setRotation(frontV, rightV, upV);
 				
 				//adiciona pro canvas
@@ -83,6 +86,7 @@ public class PlayerShip extends GameObj {
 	}
 	@Override
 	public void draw(GL canvas, FrustumV2 camera) {
+		
 		canvas.glPushMatrix();
 		{
 			
