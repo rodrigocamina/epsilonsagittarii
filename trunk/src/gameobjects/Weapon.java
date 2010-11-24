@@ -186,7 +186,7 @@ public class Weapon extends GameObj {
 			if(paiPlayerShip == CanvasGame.nave){
 				for (int i = 0; i < CanvasGame.enemySheeps.size(); i++) {
 					EnemyShip inimigo = CanvasGame.enemySheeps.get(i);
-					if(ColideLasez(inimigo)){	
+					if(ColideLaser(inimigo)){	
 						colidiuObjeto = true;			
 						explosao = new Explosao(this.getX(), this.getY(), this.getZ());
 						if(inimigo.escudo.life>0){
@@ -198,7 +198,7 @@ public class Weapon extends GameObj {
 				}
 			}else{
 				
-				if(ColideLasez(CanvasGame.nave)){
+				if(ColideLaserP()){
 					colidiuObjeto = true;			
 					explosao = new Explosao(this.getX(), this.getY(), this.getZ());
 					if(CanvasGame.nave.escudo.life>0){
@@ -265,7 +265,7 @@ public class Weapon extends GameObj {
 		this.textureTiro = textureTiro;
 	}
 	
-	public boolean ColideLasez(GameObj inimigo){
+	public boolean ColideLaser(GameObj inimigo){
 		double difX = inimigo.getX() - this.getX();
 		double difY = inimigo.getY() - this.getY();
 		double difZ = inimigo.getZ() - this.getZ();
@@ -280,4 +280,19 @@ public class Weapon extends GameObj {
 		}
 	}
 
+	public boolean ColideLaserP(){
+		GameObj inimigo = CanvasGame.nave;
+		double difX = inimigo.getX()+CanvasGame.X - this.getX();
+		double difY = inimigo.getY()+CanvasGame.Y - this.getY();
+		double difZ = inimigo.getZ()+CanvasGame.Z - this.getZ();
+		//System.out.println("inimigo.radius"+inimigo.radius);
+		double RaioQuadrado = inimigo.radius+inimigo.radius;
+		double somaDiferenca = (difX * difX)+(difY * difY)+(difZ * difZ);
+
+		if(RaioQuadrado>somaDiferenca){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }

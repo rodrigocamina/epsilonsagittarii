@@ -182,18 +182,15 @@ public class EnemyShip extends GameObj{
 			if((targetRelativePosition.y<2&&targetRelativePosition.x<2)&&(targetRelativePosition.y>-2&&targetRelativePosition.x>-2)){
 				if(targetRelativePosition.z<10&&targetRelativePosition.z>-5){
 					state=RETREATING;
-					retreatTimer = 10000;
 				}else{ 
 					shot(diffTime);
 				}
 			}else if(retreatTimer<0){
 				state = RETREATING;
-				retreatTimer = 10000;
 			}
 		}else if(state==RETREATING){
 			System.out.println("Ret");
-			retreatTimer -= diffTime;
-			if(targetRelativePosition.weight()>30||retreatTimer<0){
+			if(targetRelativePosition.weight()>50){
 				if(target instanceof PlayerShip){
 					state = ATTACKING;					
 					retreatTimer = 60000;
@@ -222,7 +219,7 @@ public class EnemyShip extends GameObj{
  					state = PREPARINGATTACK;
  					targetPosition = target.position;
  					retreatTimer = (int)targetPosition.mydistance(position);
- 					if(retreatTimer>5000){
+ 					if(retreatTimer<5000){
  						retreatTimer=5000;
  					}
  				}else{
