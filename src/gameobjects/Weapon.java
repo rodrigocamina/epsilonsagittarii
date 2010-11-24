@@ -1,22 +1,21 @@
 package gameobjects;
 
 
-import java.util.ArrayList;
+import frustum.FrustumV2;
+
 import java.util.Random;
+
 import javax.media.opengl.GL;
 
+import main.CanvasGame;
+import obj.ObjModel;
+import util.Util;
 import EfeitosParticulas.Explosao;
 
 import com.sun.opengl.util.texture.Texture;
-import main.CanvasGame;
-import matematcbase.Vector3f;
-import frustum.FrustumV2;
-import obj.ObjModel;
-import util.Util;
 
 public class Weapon extends GameObj {
 
-	private static final ObjModel PlayerShip = null;
 	Target target;
 	GameObj shooter;
 	Texture textureTiro = null;		
@@ -189,10 +188,10 @@ public class Weapon extends GameObj {
 					if(ColideLaser(inimigo)){	
 						colidiuObjeto = true;			
 						explosao = new Explosao(this.getX(), this.getY(), this.getZ());
-						if(inimigo.escudo.life>0){
+						if(inimigo.escudo.getLife()>0){
 							inimigo.escudo.EfeitoColisaoEscudo(true, textureTiro, damage);
 						}else{
-							CanvasGame.enemySheeps.get(i).life -= damage;
+							CanvasGame.enemySheeps.get(i).takeDamage(damage);
 						}
 					}
 				}
@@ -201,10 +200,10 @@ public class Weapon extends GameObj {
 				if(ColideLaserP()){
 					colidiuObjeto = true;			
 					explosao = new Explosao(this.getX(), this.getY(), this.getZ());
-					if(CanvasGame.nave.escudo.life>0){
+					if(CanvasGame.nave.escudo.getLife()>0){
 						CanvasGame.nave.escudo.EfeitoColisaoEscudo(true, textureTiro, damage);
 					}else{
-						CanvasGame.nave.life -= damage;
+						CanvasGame.nave.takeDamage(damage);
 					}
 				}
 			}			

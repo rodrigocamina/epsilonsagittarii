@@ -23,8 +23,9 @@ public class EnemyShip extends GameObj{
 	float rotX;
 	float rotZ;
 	int state = 0;
+	boolean scout = false;
 	long retreatTimer = 5000;
-	private int indiceTextura = 0;
+	private int indiceTextura = CanvasGame.TEX_ENEMY_BOMBER;
 	Esfera escudo;
 	long timerShot;
 	Weapon weaponMain;
@@ -38,6 +39,8 @@ public class EnemyShip extends GameObj{
 	Vector3f speedMax;
 	//attacking = 0, retreating = 1 , regrouping = 2
 	
+	
+	
 	public EnemyShip(float x, float y, float z, float w, float h, float d,
 			float vx, float vy, float vz, ObjModel model, GameObj station, EnemyGroup group) {
 		super(x, y, z, w, h, d, vx, vy, vz, model);
@@ -48,7 +51,7 @@ public class EnemyShip extends GameObj{
 		speedRegroup = speed.multiply(0.6);
 		speedMax = new Vector3f(speed);
 		this.radius= 1.0f;
-		escudo = new Esfera(x, y, z, radius, 0);
+		escudo = new Esfera(x, y, z, radius, 0,this);
 		ObjModel target = new ObjModel();
 		target.loadObj("/res/MiraLaser.obj");
 		
@@ -60,12 +63,16 @@ public class EnemyShip extends GameObj{
 
 	@Override
 	public void simulate(long diffTime) {
-		if(life>0){
+		if(getLife()>0){
 			adjustDirection(diffTime);
 			move(diffTime);
 			ai(diffTime);
 			escudo.Simulase((int) diffTime);
 		}
+	}
+	
+	public int getIndiceTextura() {
+		return indiceTextura;
 	}
 	
 	
@@ -158,15 +165,17 @@ public class EnemyShip extends GameObj{
 	
 	@Override
 	public void draw(GL canvas, FrustumV2 camera) {
-		if(life>0){
+		if(getLife()>0){
 			canvas.glPushMatrix();
 			{
 				canvas.glTranslatef(position.x, position.y, position.z);
 				Util.rotacionaGLViaVetores(canvas, frontV, rightV, upV);
 				canvas.glRotatef(-90, 0, 0, 1);
 				canvas.glScalef(0.1f, 0.1f, 0.1f);
-				
+				CanvasGame.textures[indiceTextura].enable();
+				CanvasGame.textures[indiceTextura].bind();
 				model.desenhase(canvas);
+				CanvasGame.textures[indiceTextura].disable();
 			}
 			canvas.glPopMatrix();
 			escudo.DesenhaSe(canvas);
@@ -312,4 +321,14 @@ System.out.println( "tiroooooooooooooo");
 		this.indiceTextura = indiceTextura;
 	}
 	
+	@Override
+	public void takeDamage(double damage) {
+		super.takeDamage(damage);
+		target = CanvasGame.nave;
+		targetPosition = CanvasGame.nave.position;
+		group.members.remove(this);
+		group = new EnemyGroup();
+		state = ATTACKING;					
+		retreatTimer = 60000;
+	}
 }
