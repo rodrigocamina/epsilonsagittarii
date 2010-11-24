@@ -1,6 +1,10 @@
 package gameobjects;
 
+import javax.media.opengl.GL;
+
+import frustum.FrustumV2;
 import obj.ObjModel;
+import util.Util;
 
 public class Station extends GameObj{
 
@@ -9,4 +13,16 @@ public class Station extends GameObj{
 		super(x, y, z, w, h, d, vx, vy, vz, model);
 	}
 
+	@Override
+	public void draw(GL canvas, FrustumV2 camera) {
+		canvas.glPushMatrix();
+		{
+			canvas.glTranslatef(position.x, position.y, position.z);
+			canvas.glScalef(0.1f, 0.1f, 0.1f);
+			Util.rotacionaGLViaVetores(canvas, frontV, rightV, upV);
+			model.desenhase(canvas);
+		}
+		canvas.glPopMatrix();
+	}
+	
 }

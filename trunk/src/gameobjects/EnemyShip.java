@@ -30,7 +30,7 @@ public class EnemyShip extends GameObj{
 	public final static int ATTACKING = 0;
 	public final static int RETREATING = 1;
 	public final static int REGROUPING = 2;
-	public final static int PREPARINGATTACK = 2;
+	public final static int PREPARINGATTACK = 3;
 	Vector3f speedRegroup;
 	Vector3f speedMax;
 	//attacking = 0, retreating = 1 , regrouping = 2
@@ -42,7 +42,7 @@ public class EnemyShip extends GameObj{
 		targetPosition = target.position;
 		this.group = group;
 		group.members.add(this);
-		speedRegroup = speed.multiply(0.0);
+		speedRegroup = speed.multiply(0.6);
 		speedMax = new Vector3f(speed);
 		this.radius= 1.0f;
 		escudo = new Esfera(x, y, z, radius, 0);
@@ -168,21 +168,23 @@ public class EnemyShip extends GameObj{
 	
 	private void ai(long diffTime){
 		if(state==ATTACKING){
+			System.out.println("ATK");
 			retreatTimer -= diffTime;
 			if((targetRelativePosition.y<2&&targetRelativePosition.x<2)&&(targetRelativePosition.y>-2&&targetRelativePosition.x>-2)){
-				if(targetRelativePosition.z<0&&targetRelativePosition.z>-5){
+				if(targetRelativePosition.z<10&&targetRelativePosition.z>-5){
 					state=RETREATING;
-					retreatTimer = 5000;
+					retreatTimer = 10000;
 				}else{ 
 					shot(diffTime);
 				}
 			}else if(retreatTimer<0){
 				state = RETREATING;
-				retreatTimer = 5000;
+				retreatTimer = 10000;
 			}
 		}else if(state==RETREATING){
+			System.out.println("Ret");
 			retreatTimer -= diffTime;
-			if(targetRelativePosition.weight()>10||retreatTimer<0){
+			if(targetRelativePosition.weight()>30||retreatTimer<0){
 				if(target instanceof PlayerShip){
 					state = ATTACKING;
 					retreatTimer = 60000;
@@ -193,6 +195,7 @@ public class EnemyShip extends GameObj{
 				}
 			}
 		}else if(state==REGROUPING){
+			System.out.println("Reg");
 			//check all ok, go to next
 			if(group.getLeader()==this){
 				speed = speedRegroup;
@@ -205,6 +208,7 @@ public class EnemyShip extends GameObj{
 						contOK++;
 					}
 				}
+ 				System.out.println("OK "+contOK);
  				if(contOK==sz){
  					state = PREPARINGATTACK;
  					targetPosition = target.position;
@@ -217,13 +221,13 @@ public class EnemyShip extends GameObj{
  						Random rnd = new Random();
  						int n = rnd.nextInt(4);
  						if(n==0){
- 							targetPosition = new Vector3f(50,50,50);
+ 							targetPosition = new Vector3f(150,150,150);
  						}else if(n==1){
- 							targetPosition = new Vector3f(-50,50,50);
+ 							targetPosition = new Vector3f(-150,150,150);
  						}else if(n==2){
- 							targetPosition = new Vector3f(-50,-50,50);
+ 							targetPosition = new Vector3f(-150,-150,150);
  						}else if(n==3){
- 							targetPosition = new Vector3f(50,-50,50);
+ 							targetPosition = new Vector3f(150,-150,150);
  						}
  						
  					}
@@ -238,6 +242,7 @@ public class EnemyShip extends GameObj{
 				}
 			}
 		}else{
+			System.out.println("prepare");
 			retreatTimer-=diffTime;
 			if(retreatTimer<0){
 				int sz = group.members.size();

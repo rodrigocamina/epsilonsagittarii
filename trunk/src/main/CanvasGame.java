@@ -26,6 +26,7 @@ import gameobjects.EnemyGroup;
 import gameobjects.EnemyShip;
 import gameobjects.GameObj;
 import gameobjects.PlayerShip;
+import gameobjects.Station;
 import gameobjects.Weapon;
 import java.io.*;
 
@@ -42,7 +43,7 @@ public class CanvasGame extends PS_3DCanvas{
     private final static double FOVY = 45.0; // field-of-view angle around Y
 
     private final static double NEAR = 0.1; // Z values < NEAR are clipped
-    private final static double FAR = 150.0;  // Z values > FAR are clipped
+    private final static double FAR = 300.0;  // Z values > FAR are clipped
 
     private final static int WIDTH = 800;
     private final static int HEIGHT = 600;
@@ -95,6 +96,7 @@ public class CanvasGame extends PS_3DCanvas{
 	public static List<EnemyShip> enemySheeps = new ArrayList<EnemyShip>();
 
 	private PlayerShip nave;
+	private Station estacao;
 	public static List<Weapon> shots = new ArrayList<Weapon>();
 	
 	
@@ -165,27 +167,32 @@ public class CanvasGame extends PS_3DCanvas{
 			}
 			
 	       X = Y = 0;
-	       
-	       ObjModel model = new ObjModel();
-	       model.loadObj("/res/NaveManeira.obj");
-	       nave = new PlayerShip(0, -0.15f, 1f, 10, 10, 10, 5, 5, 5,model);
 
-	       nave.setIndiceTextura(TEX_NAVE_PLAYER);
-	       EnemyGroup engroup = new EnemyGroup();
-	       //enemySheep = new EnemyShip(0, 0, 0, 0, 0, 0, 5, 5, 5,model, nave, engroup );
-	      // System.out.println("aaaaaaaaaaaaaaaaaaaaaaa");
-//	     
-	       enemySheeps.add(new EnemyShip(0, 0, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
-	       enemySheeps.add(new EnemyShip(10, 0, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
-	       enemySheeps.add(new EnemyShip(-10, 0, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
-	       enemySheeps.add(new EnemyShip(20, 0, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
-	       enemySheeps.add(new EnemyShip(-20, 0, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
-	       enemySheeps.add(new EnemyShip(10, 10, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
-	       enemySheeps.add(new EnemyShip(-10, 10, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
-	       enemySheeps.add(new EnemyShip(10, -10, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
-	       enemySheeps.add(new EnemyShip(-10, -10, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
-	       enemySheeps.add(new EnemyShip(20, 20, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
-	       enemySheeps.add(new EnemyShip(-20, -20, 0, 0, 0, 0, 5, 5, 5, model, nave,engroup));
+	       ObjModel modelP = new ObjModel();
+	       modelP.loadObj("/res/NaveManeira.obj");
+	       ObjModel model = new ObjModel();
+	       model.loadObj("/res/NaveR.obj");
+	       ObjModel modelStation = new ObjModel();
+	       modelStation.loadObj("/res/Station.obj");
+	       nave = new PlayerShip(0, -0.15f, 1f, 10, 10, 10, 5, 5, 5, modelP);
+	       estacao = new Station(0, 0, 0, 10, 10, 10, 0, 0, 0, modelStation);
+	       EnemyGroup engroup0 = new EnemyGroup();
+	       EnemyGroup engroup1 = new EnemyGroup();
+	       EnemyGroup engroup2 = new EnemyGroup();
+	       enemySheeps.add(new EnemyShip(20, 0, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup0));
+	       enemySheeps.add(new EnemyShip(-20, 0, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup0));
+	       enemySheeps.add(new EnemyShip(10, 10, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup0));
+	       enemySheeps.add(new EnemyShip(20, 10, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup0));
+	       enemySheeps.add(new EnemyShip(-20, 0, 20, 0, 0, 0, 5, 5, 5, model, estacao,engroup0));
+	  	   enemySheeps.add(new EnemyShip(0, 0, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup1));
+	       enemySheeps.add(new EnemyShip(10, 0, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup1));
+	       enemySheeps.add(new EnemyShip(-10, 0, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup1));
+	       enemySheeps.add(new EnemyShip(10, 10, 10, 0, 0, 0, 5, 5, 5, model, estacao,engroup2));
+	       enemySheeps.add(new EnemyShip(-10, 10, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup2));
+	       enemySheeps.add(new EnemyShip(10, -10, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup2));
+	       enemySheeps.add(new EnemyShip(-10, -10, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup2));
+	       enemySheeps.add(new EnemyShip(20, 20, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup2));
+	       enemySheeps.add(new EnemyShip(-20, -20, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup2));
 
 	       //enemySheep.setIndiceTextura(TEX_NAVE_PLAYER);
 	       CameraAnimator.startFrame(new Vector3f(nave.getFrontV()), new Vector3f(nave.getUpV()), new Vector3f(nave.getRightV()));
@@ -215,6 +222,7 @@ public class CanvasGame extends PS_3DCanvas{
     		CameraAnimator.addFrame(new Vector3f(nave.getFrontV()), new Vector3f(nave.getUpV()), new Vector3f(nave.getRightV()));
     	}
     	nave.simulate(diffTime);
+    	estacao.simulate(diffTime);
     	for (int i = 0; i < enemySheeps.size(); i++) {
     		enemySheeps.get(i).simulate(diffTime);
 		}
@@ -265,6 +273,7 @@ public class CanvasGame extends PS_3DCanvas{
 //	    	   Matrix4x4 m3 = new Matrix4x4().setRotate(rotAngleX, 0,0,1);
 //	    	   gl.glMultMatrixf(m.combine(m2).combine(m3).toFloatArray(), 0);
 	    	   nave.draw(gl, camera);
+	    	   estacao.draw(gl, camera);
 	    	   for (int i = 0; i < enemySheeps.size(); i++) {
 	    	   		enemySheeps.get(i).draw(gl, camera);
 	    	   }
