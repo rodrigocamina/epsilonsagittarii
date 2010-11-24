@@ -15,7 +15,7 @@ public class Explosao {
 	public  Explosao(double x, double y, double z) {
 		// TODO Auto-generated constructor stub
 		particulaDeExplosao = new ArrayList<Particula>();
-		numeroParticula = 50;
+		numeroParticula = 20;
 		timer = 1;
 		for (int i = 0; i < numeroParticula; i++) {
 			particulaDeExplosao.add(new Particula(x, y, z));

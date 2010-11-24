@@ -92,12 +92,12 @@ public class Particula {
 		this.z +=Math.cos(angZ)*zspeed* difftime/1000.0f; 
 		
 		this.life -= difftime/1000.0f;
-		SetSize(life);
+		SetSize(life/2);
 	}
 	@SuppressWarnings("static-access")
 	public void DesenhaSe(GL gl){
 		// Enable Texture Mapping
-		System.out.println(" explosao desenhada");
+		
 		gl.glPushMatrix();
 		gl.glShadeModel(gl.GL_SMOOTH);						// Enables Smooth Shading
 		gl.glClearDepth(1.0f);							// Depth Buffer Setup

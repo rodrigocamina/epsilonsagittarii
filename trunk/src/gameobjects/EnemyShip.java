@@ -52,7 +52,7 @@ public class EnemyShip extends GameObj{
 		ObjModel target = new ObjModel();
 		target.loadObj("/res/MiraLaser.obj");
 		
-		weaponMain = new Laser(x, y, z, 0.2f,0.2f,2.0f, 20, 20, 20, null, 100, 1, 10, target);
+		weaponMain = new Laser(x, y, z, 0.2f,0.2f,2.0f, 20, 20, 20, null, 500, 1, 1000, target);
 		weaponMain.setPaiEnemyShip(this);
 		
 
