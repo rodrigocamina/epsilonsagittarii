@@ -66,6 +66,7 @@ public class CanvasGame extends PS_3DCanvas{
     public static final int TEX_TIRO_WHITE = 5;
     public static final int TEX_FOGO = 6;
     public static final int TEX_FOGO_AZUL = 7;
+    public static final int TEX_ENEMY_BOMBER = 8;
     
     Random rnd = new Random();
 	FrustumV2 camera = new FrustumV2(); 
@@ -122,45 +123,13 @@ public class CanvasGame extends PS_3DCanvas{
 	       textures = new Texture [numeroDetexturas];
 	       try {
 	    	   textures [TEX_NAVE_PLAYER] = load("texturaNave.png",gl);//("NovaUVMap.png",gl);
-	    	   System.out.println("erro carregamento de textura nave");
-			} catch (Exception e) {
-				// TODO: handle exception
-				System.out.println("erro carregamento de textura nave");
-			}
-			
-			 try {
-				 textures [TEX_TIRO_BLUE] = load("StarBlue.png",gl);
-				} catch (Exception e) {
-					// TODO: handle exception
-					System.out.println("erro carregamento de textura tiro azul");
-				}
-				
-			try {
-				textures [TEX_TIRO_GREEN] = load("StarGreen.png",gl);
-			} catch (Exception e) {
-				// TODO: handle exception
-				System.out.println("erro carregamento de textura tiro verde");
-			}
-			try {
-				textures [TEX_TIRO_ORANGE] = load ("StarOrange.png",gl);
-			} catch (Exception e) {
-				// TODO: handle exception
-				System.out.println("erro carregamento de textura tiro laranja");
-			}
-			try {
-				 textures [TEX_TIRO_RED] = load("StarRed.png",gl);
-			} catch (Exception e) {
-				// TODO: handle exception
-				System.out.println("erro carregamento de textura tiro red");
-			}
-			try {
-				textures [TEX_TIRO_WHITE] = load("Star.png",gl);
-			} catch (Exception e) {
-				// TODO: handle exception
-				System.out.println("erro carregamento de textura tiro star");
-			}
-			try {
-				 textures [TEX_FOGO] = load("fogo1.png",gl);
+	    	   textures [TEX_TIRO_BLUE] = load("StarBlue.png",gl);
+	    	   textures [TEX_TIRO_GREEN] = load("StarGreen.png",gl);
+	    	   textures [TEX_TIRO_ORANGE] = load ("StarOrange.png",gl);
+	    	   textures [TEX_TIRO_RED] = load("StarRed.png",gl);
+	    	   textures [TEX_TIRO_WHITE] = load("Star.png",gl);
+	    	   textures [TEX_FOGO] = load("fogo1.png",gl);
+	    	   textures [TEX_ENEMY_BOMBER] = load("BomberUVMap.png",gl);
 			} catch (Exception e) {
 				// TODO: handle exception
 				System.out.println("erro carregamento de textura fogo");
@@ -171,7 +140,7 @@ public class CanvasGame extends PS_3DCanvas{
 	       ObjModel modelP = new ObjModel();
 	       modelP.loadObj("/res/NaveManeira.obj");
 	       ObjModel model = new ObjModel();
-	       model.loadObj("/res/NaveR.obj");
+	       model.loadObj("/res/Bomber.obj");
 	       ObjModel modelStation = new ObjModel();
 	       modelStation.loadObj("/res/Station.obj");
 	       nave = new PlayerShip(0, -0.15f, 1f, 10, 10, 10, 5, 5, 5, modelP);
@@ -184,6 +153,7 @@ public class CanvasGame extends PS_3DCanvas{
 	       enemySheeps.add(new EnemyShip(-20, 0, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup0));
 	       enemySheeps.add(new EnemyShip(10, 10, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup0));
 	       enemySheeps.add(new EnemyShip(20, 10, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup0));
+	       
 //	       enemySheeps.add(new EnemyShip(-20, 0, 20, 0, 0, 0, 5, 5, 5, model, estacao,engroup0));
 //	  	   enemySheeps.add(new EnemyShip(0, 0, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup1));
 //	       enemySheeps.add(new EnemyShip(10, 0, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup1));
@@ -226,8 +196,7 @@ public class CanvasGame extends PS_3DCanvas{
     	estacao.simulate(diffTime);
     	for (int i = 0; i < enemySheeps.size(); i++) {
     		enemySheeps.get(i).simulate(diffTime);
-    		
-    		if(enemySheeps.get(i).life<0){
+    		if(enemySheeps.get(i).getLife()<0){
     			enemySheeps.remove(enemySheeps.get(i));
     		}
 		}

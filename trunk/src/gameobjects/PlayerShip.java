@@ -29,7 +29,7 @@ public class PlayerShip extends GameObj {
 		//System.out.println("!?!");
 		weaponMain = new Laser(x, y, z, 0.2f,0.2f,2f, 20, 20, 20, null, 500, 1, 1000, target);
 		weaponMain.setPaiPlayerShip(this);
-		escudo = new Esfera(x, y,z,0.1f, 0.0f);
+		escudo = new Esfera(x, y,z,0.1f, 0.0f,this);
 	}
 	
 	@Override

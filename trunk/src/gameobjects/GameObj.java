@@ -30,7 +30,7 @@ public class GameObj implements Obj8T{
 	float radius;
 	Vector3f speed;
 	AreaV2 area;
-	public double life;
+	private double life;
 	//Esfera escudo;
 	
 	public GameObj(float x, float y, float z, float w, float h, float d, float vx, float vy, float vz, ObjModel model) {
@@ -113,6 +113,14 @@ public class GameObj implements Obj8T{
 		}
 	}
 
+	public double getLife() {
+		return life;
+	}
+	
+	public void takeDamage(double damage) {
+		life-=damage;
+	}
+	
 	@Override
 	public void simulate(long diffTime) {
 		

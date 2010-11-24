@@ -1,12 +1,13 @@
 package frustum;
+import gameobjects.GameObj;
+
 import javax.media.opengl.GL;
 import javax.media.opengl.glu.GLU;
 import javax.media.opengl.glu.GLUquadric;
 
-import com.sun.opengl.util.texture.Texture;
-
-import main.CanvasGame;
 import matematcbase.Vector3f;
+
+import com.sun.opengl.util.texture.Texture;
 
 
 public class Esfera {
@@ -23,9 +24,10 @@ public class Esfera {
 	double CorB = 1;
 	int ponto = 30;
 	private Texture texturaEsfera;
-	public double life;
-
-	public Esfera(double x, double y, double z, double raio, double vel) {
+	private double life;
+	GameObj father;
+	
+	public Esfera(double x, double y, double z, double raio, double vel, GameObj father) {
 		this.X = x;
 		this.Y = y;
 		this.Z = z;
@@ -40,7 +42,7 @@ public class Esfera {
 		this.CorR =  (Math.random()*1);
 		colisao = false;
 		this.life = 100;
-
+		this.father = father;
 	}
 
 	@SuppressWarnings("static-access")
@@ -156,6 +158,11 @@ public class Esfera {
 		this.life -= damage;
 		this.colisao = estado;
 		this.texturaEsfera = texturaTiro;
+		father.takeDamage(0);
 	}
 
+	public double getLife() {
+		return life;
+	}
+	
 }
