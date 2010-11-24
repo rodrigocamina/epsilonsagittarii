@@ -12,13 +12,18 @@ public class Explosao {
 	private List<Particula>particulaDeExplosao;
 	 public boolean dead = true;
 	
-	public  Explosao(double x, double y, double z) {
+	
+
+	public  Explosao(double x, double y, double z, float size) {
 		// TODO Auto-generated constructor stub
 		particulaDeExplosao = new ArrayList<Particula>();
-		numeroParticula = 20;
+		numeroParticula = 50;
 		timer = 1;
+		
 		for (int i = 0; i < numeroParticula; i++) {
-			particulaDeExplosao.add(new Particula(x, y, z));
+			particulaDeExplosao.add(new Particula(x, y, z, size));
+			
+			
 		}
 		
 	}
@@ -30,6 +35,7 @@ public class Explosao {
 		}
 		
 		for (int i = 0; i < particulaDeExplosao.size(); i++) {
+			
 			if(particulaDeExplosao.get(i).life<0){
 				particulaDeExplosao.remove(particulaDeExplosao.get(i));
 			}
@@ -54,5 +60,6 @@ public class Explosao {
 	public void SetNumeroParticula(int quantParticula) {
 		numeroParticula = quantParticula;
 	}
+
 
 }

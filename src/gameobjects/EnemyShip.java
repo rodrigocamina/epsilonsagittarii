@@ -50,13 +50,14 @@ public class EnemyShip extends GameObj{
 		group.members.add(this);
 		speedRegroup = speed.multiply(0.6);
 		speedMax = new Vector3f(speed);
-		this.radius= 1.0f;
+		this.radius= 2.0f;
 		escudo = new Esfera(x, y, z, radius, 0,this);
 		ObjModel target = new ObjModel();
 		target.loadObj("/res/MiraLaser.obj");
-		
-		weaponMain = new Laser(x, y, z, 0.2f,0.2f,2.0f, 20, 20, 20, null, 500, 1, 1000, target);
+		int vel = 100;
+		weaponMain = new Laser(x, y, z, 0.2f,0.2f,2.0f, vel, vel, vel, null, 500, 2*CanvasGame.TEX_TIRO_BLUE, 700, target);
 		weaponMain.setPaiEnemyShip(this);
+		weaponMain.setTextureTiro(CanvasGame.textures[CanvasGame.TEX_TIRO_BLUE]);
 		
 
 	}
@@ -308,6 +309,7 @@ System.out.println( "tiroooooooooooooo");
 			
 			Weapon w = new Weapon(position.x+frontV.x*0.6f, position.y+frontV.y*0.6f, position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.range,weaponMain.damage,weaponMain.cadence);
 			w.setPaiEnemyShip(this);
+			w.setTextureTiro(CanvasGame.textures[CanvasGame.TEX_TIRO_BLUE]);
 			w.setRotation(frontV, rightV, upV);
 			
 			//adiciona pro canvas

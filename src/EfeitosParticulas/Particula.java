@@ -56,23 +56,23 @@ public class Particula {
 			{0.5f,0.5f,1.0f},{0.75f,0.5f,1.0f},{1.0f,0.5f,1.0f},{1.0f,0.5f,0.75f}
 	};
 
-	public Particula(double X, double Y, double Z) {
+	public Particula(double X, double Y, double Z, float size) {
 		this.x = (float) X;
 		this.y = (float) Y;
 		this.z = (float) Z;
 		this.active = true;
 		
-		this.xspeed = 0.5f;
-		this.yspeed = 0.5f;
-		this.zspeed = 0.5f;
+		this.xspeed = 0.2f;
+		this.yspeed = 0.2f;
+		this.zspeed = 0.2f;
 		
 		angX = (float) ((rand.nextDouble()*360)-180);
 		angY = (float)  ((rand.nextDouble()*360)-180);
 		angZ = (float)  ((rand.nextDouble()*360)-180);
 		this.life = 1.0f;
-		sizeX = 0.01f;
-		sizeY = 0.01f;
-		sizeZ = 0.01f;
+		sizeX = size;
+		sizeY = size;
+		sizeZ = size;
 		active = true;
 	}
 
@@ -91,8 +91,8 @@ public class Particula {
 		this.y +=Math.sin(angY)*yspeed* difftime/1000.0f; 
 		this.z +=Math.cos(angZ)*zspeed* difftime/1000.0f; 
 		
-		this.life -= difftime/1000.0f;
-		SetSize(life/2);
+		this.life -= difftime/700.0f;
+		
 	}
 	@SuppressWarnings("static-access")
 	public void DesenhaSe(GL gl){
@@ -121,24 +121,24 @@ public class Particula {
 				
 				
 				gl.glBegin(gl.GL_TRIANGLE_STRIP);
-					gl.glTexCoord2d(1, 1); gl.glVertex3f(X+sizeX, Y+sizeY, Z); //TOP Right
-					gl.glTexCoord2d(0, 1); gl.glVertex3f(X-sizeX, Y+sizeY, Z); //TOP Left
-					gl.glTexCoord2d(1, 0); gl.glVertex3f(X+sizeX, Y-sizeY, Z); //Botton Right
-					gl.glTexCoord2d(0, 0); gl.glVertex3f(X-sizeX, Y-sizeY, Z); //Botton Left
+					gl.glTexCoord2d(1, 1); gl.glVertex3f(X+sizeX*life, Y+sizeY*life, Z); //TOP Right
+					gl.glTexCoord2d(0, 1); gl.glVertex3f(X-sizeX*life, Y+sizeY*life, Z); //TOP Left
+					gl.glTexCoord2d(1, 0); gl.glVertex3f(X+sizeX*life, Y-sizeY*life, Z); //Botton Right
+					gl.glTexCoord2d(0, 0); gl.glVertex3f(X-sizeX*life, Y-sizeY*life, Z); //Botton Left
 				gl.glEnd();	
 				
 				gl.glBegin(gl.GL_TRIANGLE_STRIP);
-					gl.glTexCoord2d(1, 1); gl.glVertex3f(X+sizeX, Y, Z+sizeZ); //TOP Right
-					gl.glTexCoord2d(0, 1); gl.glVertex3f(X-sizeX, Y, Z+sizeZ); //TOP Left
-					gl.glTexCoord2d(1, 0); gl.glVertex3f(X+sizeX, Y, Z-sizeZ); //Botton Right
-					gl.glTexCoord2d(0, 0); gl.glVertex3f(X-sizeX, Y, Z-sizeZ); //Botton Left
+					gl.glTexCoord2d(1, 1); gl.glVertex3f(X+sizeX*life, Y, Z+sizeZ*life); //TOP Right
+					gl.glTexCoord2d(0, 1); gl.glVertex3f(X-sizeX*life, Y, Z+sizeZ*life); //TOP Left
+					gl.glTexCoord2d(1, 0); gl.glVertex3f(X+sizeX*life, Y, Z-sizeZ*life); //Botton Right
+					gl.glTexCoord2d(0, 0); gl.glVertex3f(X-sizeX*life, Y, Z-sizeZ*life); //Botton Left
 				gl.glEnd();	
 				
 				gl.glBegin(gl.GL_TRIANGLE_STRIP);
-					gl.glTexCoord2d(1, 1); gl.glVertex3f(X, Y+sizeY, Z+sizeZ); //TOP Right
-					gl.glTexCoord2d(0, 1); gl.glVertex3f(X, Y+sizeY, Z-sizeZ); //TOP Left
-					gl.glTexCoord2d(1, 0); gl.glVertex3f(X, Y-sizeY, Z+sizeZ); //Botton Right
-					gl.glTexCoord2d(0, 0); gl.glVertex3f(X, Y-sizeY, Z-sizeZ); //Botton Left
+					gl.glTexCoord2d(1, 1); gl.glVertex3f(X, Y+sizeY*life, Z+sizeZ*life); //TOP Right
+					gl.glTexCoord2d(0, 1); gl.glVertex3f(X, Y+sizeY*life, Z-sizeZ*life); //TOP Left
+					gl.glTexCoord2d(1, 0); gl.glVertex3f(X, Y-sizeY*life, Z+sizeZ*life); //Botton Right
+					gl.glTexCoord2d(0, 0); gl.glVertex3f(X, Y-sizeY*life, Z-sizeZ*life); //Botton Left
 				gl.glEnd();	
 				
 				
@@ -189,10 +189,6 @@ public class Particula {
 		this.y = v.y;
 		this.z = v.z;		
 	}
-	public void SetSize(float size){
-		this.sizeX = size;
-		this.sizeY = size;
-		this.sizeZ = size;
-	}
+	
 
 }

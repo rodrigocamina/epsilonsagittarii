@@ -20,6 +20,7 @@ public class PlayerShip extends GameObj {
 	Esfera escudo;
 	
 	
+	
 
 	public PlayerShip(float x, float y, float z, float w, float h, float d, float vx, float vy, float vz, ObjModel model) {
 		super(x, y, z, w, h, d, vx, vy, vz,  model);
@@ -27,9 +28,11 @@ public class PlayerShip extends GameObj {
 		ObjModel target = new ObjModel();
 		target.loadObj("/res/MiraLaser.obj");
 		//System.out.println("!?!");
-		weaponMain = new Laser(x, y, z, 0.2f,0.2f,2f, 20, 20, 20, null, 500, 2, 1000, target);
+		int vel = 100;
+		weaponMain = new Laser(x, y, z, 0.2f,0.2f,2f, vel, vel, vel, null, 500, 2*CanvasGame.armaSelecionada, 700, target);
 		weaponMain.setPaiPlayerShip(this);
 		escudo = new Esfera(x, y,z,0.1f, 0.0f,this);
+		this.radius = 0.1f;
 	}
 	
 	@Override

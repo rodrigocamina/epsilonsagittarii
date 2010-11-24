@@ -187,7 +187,8 @@ public class Weapon extends GameObj {
 					EnemyShip inimigo = CanvasGame.enemySheeps.get(i);
 					if(ColideLaser(inimigo)){	
 						colidiuObjeto = true;			
-						explosao = new Explosao(this.getX(), this.getY(), this.getZ());
+						explosao = new Explosao(this.getX(), this.getY(), this.getZ(), 1.0f);
+						
 						if(inimigo.escudo.getLife()>0){
 							inimigo.escudo.EfeitoColisaoEscudo(true, textureTiro, damage);
 						}else{
@@ -199,7 +200,8 @@ public class Weapon extends GameObj {
 				
 				if(ColideLaserP()){
 					colidiuObjeto = true;			
-					explosao = new Explosao(this.getX(), this.getY(), this.getZ());
+					explosao = new Explosao(this.getX(), this.getY(), this.getZ(), 0.1f);
+					
 					if(CanvasGame.nave.escudo.getLife()>0){
 						CanvasGame.nave.escudo.EfeitoColisaoEscudo(true, textureTiro, damage);
 					}else{

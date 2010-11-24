@@ -139,7 +139,7 @@ public class CanvasGame extends PS_3DCanvas{
 				// TODO: handle exception
 				System.out.println("erro carregamento de textura fogo");
 			}
-			armaSelecionada =TEX_TIRO_WHITE;
+			armaSelecionada =TEX_TIRO_BLUE;
 	       X = Y = 0;
 
 	       ObjModel modelP = new ObjModel();
@@ -532,6 +532,9 @@ public class CanvasGame extends PS_3DCanvas{
     	}
     	if(key == ConfigTeclado.teclas[14]){
     		armaSelecionada = TEX_TIRO_RED;
+    	}
+    	if(key == ConfigTeclado.teclas[15]){
+    		armaSelecionada = TEX_TIRO_WHITE;
     	}
     	/*
     	if(key == KeyEvent.VK_O){
