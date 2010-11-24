@@ -30,7 +30,7 @@ public class GameObj implements Obj8T{
 	float radius;
 	Vector3f speed;
 	AreaV2 area;
-	 public double life;
+	public double life;
 	//Esfera escudo;
 	
 	public GameObj(float x, float y, float z, float w, float h, float d, float vx, float vy, float vz, ObjModel model) {
