@@ -1,5 +1,6 @@
 package gameobjects;
 
+import frustum.Esfera;
 import frustum.FrustumV2;
 
 import javax.media.opengl.GL;
@@ -16,6 +17,7 @@ public class PlayerShip extends GameObj {
 	Weapon weaponSub;
 	boolean shooting = false;
 	private int  indiceTextura =0;
+	Esfera escudo;
 	
 	
 
@@ -25,7 +27,8 @@ public class PlayerShip extends GameObj {
 		ObjModel target = new ObjModel();
 		target.loadObj("/res/MiraLaser.obj");
 		//System.out.println("!?!");
-		weaponMain = new Laser(x, y, z, 0.2f,0.2f,2f, 20, 20, 20, null, 100, 1, 200, target);
+		weaponMain = new Laser(x, y, z, 0.2f,0.2f,2f, 20, 20, 20, null, 100, 1, 10, target);
+		escudo = new Esfera(x, y,z,0.3f, 0.0f);
 	}
 	
 	@Override
@@ -36,11 +39,15 @@ public class PlayerShip extends GameObj {
 		CanvasGame.X+=dX;
 		CanvasGame.Y+=dY;
 		CanvasGame.Z+=dZ;
+		Vector3f posicao = new Vector3f(CanvasGame.X + position.x,CanvasGame.Y+position.y,CanvasGame.Z+position.y );
+		escudo.SetPosition(posicao);
+		escudo.Simulase((int)diffTime);
+		
 		if(shooting){
 			if(timerShot<=0){
 				timerShot = weaponMain.cadence;
 				//aqui tenho que mexer 
-//				Weapon w = new Weapon(CanvasGame.X+position.x, CanvasGame.Y+position.y, CanvasGame.Z+position.z, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, weaponMain.speed.x, weaponMain.speed.y, weaponMain.speed.z, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
+				
 				float velX = 0;
 				float velY = 0;
 				float velZ = 0;
@@ -106,6 +113,7 @@ public class PlayerShip extends GameObj {
 			CanvasGame.textures [indiceTextura].disable();
 		}
 		canvas.glPopMatrix();
+		escudo.DesenhaSe(canvas);
 	}
 	
 	public void addSpeed(float increment){
@@ -123,7 +131,7 @@ public class PlayerShip extends GameObj {
 	
 	public void setIndiceTextura(int indiceTextura) {
 		this.indiceTextura = indiceTextura;
-		System.out.println("indice da textura da nave "+CanvasGame.textures[0]);
+		
 	}
 	
 	

@@ -30,6 +30,7 @@ public class GameObj implements Obj8T{
 	float radius;
 	Vector3f speed;
 	AreaV2 area;
+	double life;
 	//Esfera escudo;
 	
 	public GameObj(float x, float y, float z, float w, float h, float d, float vx, float vy, float vz, ObjModel model) {
@@ -41,7 +42,7 @@ public class GameObj implements Obj8T{
 		float z2 = z+(y/2);
 		centerPosition = new Vector3f(x2,y2,z2);
 		radius = (float)Math.sqrt((x2-x)*(x2-x)+(y2-y)*(y2-y)+(z2-z)*(z2-z));
-		
+		life = 100;
 		this.model = model;
 		//escudo = new Esfera(x, y, z, radius, 0);
 	}

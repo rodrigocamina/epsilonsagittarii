@@ -52,12 +52,12 @@ public class EnemyShip extends GameObj{
 
 	@Override
 	public void simulate(long diffTime) {
-		
-		adjustDirection(diffTime);
-		move(diffTime);
-		ai(diffTime);
-		escudo.Simulase((int) diffTime);
-		
+		if(life>0){
+			adjustDirection(diffTime);
+			move(diffTime);
+			ai(diffTime);
+			escudo.Simulase((int) diffTime);
+		}
 	}
 	
 	
@@ -149,17 +149,21 @@ public class EnemyShip extends GameObj{
 	
 	@Override
 	public void draw(GL canvas, FrustumV2 camera) {
-		canvas.glPushMatrix();
-		{
-			canvas.glTranslatef(position.x, position.y, position.z);
-			Util.rotacionaGLViaVetores(canvas, frontV, rightV, upV);
-			canvas.glRotatef(-90, 0, 0, 1);
-			canvas.glScalef(0.1f, 0.1f, 0.1f);
+		if(life>0){
+			canvas.glPushMatrix();
+			{
+				canvas.glTranslatef(position.x, position.y, position.z);
+				Util.rotacionaGLViaVetores(canvas, frontV, rightV, upV);
+				canvas.glRotatef(-90, 0, 0, 1);
+				canvas.glScalef(0.1f, 0.1f, 0.1f);
+				
+				model.desenhase(canvas);
+			}
+			canvas.glPopMatrix();
+			escudo.DesenhaSe(canvas);
+		}else{
 			
-			model.desenhase(canvas);
 		}
-		canvas.glPopMatrix();
-		escudo.DesenhaSe(canvas);
 	}
 	
 	private void ai(long diffTime){

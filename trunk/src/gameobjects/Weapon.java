@@ -168,19 +168,26 @@ public class Weapon extends GameObj {
 	
 	@Override
 	public void simulate(long diffTime) {
-
 		float dX =frontV.x*speed.x*diffTime/1000.0f;
 		float dY =frontV.y*speed.y*diffTime/1000.0f;
-		float dZ =frontV.z*speed.z*diffTime/1000.0f;		
-		position.x+=dX;
-		position.y+=dY;
-		position.z+=dZ;
-		if(!colidiuObjeto){
+		float dZ =frontV.z*speed.z*diffTime/1000.0f;
+		
+		if(!colidiuObjeto){	
+			
+			position.x+=dX;
+			position.y+=dY;
+			position.z+=dZ;
+			
 			for (int i = 0; i < CanvasGame.enemySheeps.size(); i++) {
 				EnemyShip inimigo = CanvasGame.enemySheeps.get(i);
 				if(ColideLasez(inimigo)){	
 					colidiuObjeto = true;			
 					explosao = new Explosao(this.getX(), this.getY(), this.getZ());
+					if(inimigo.escudo.life>0){
+						inimigo.escudo.EfeitoColisaoEscudo(true, textureTiro, damage);
+					}else{
+						inimigo.life -= damage;
+					}
 				}
 			}
 			
@@ -193,8 +200,6 @@ public class Weapon extends GameObj {
 			}
 		}
 		
-		
-		
 		if(dX<0){
 			dX=-dX;
 		}
@@ -203,10 +208,7 @@ public class Weapon extends GameObj {
 		}
 		if(dZ<0){
 			dZ=-dZ;
-		}
-		
-
-		
+		}		
 
 		rangeWalked += dX+dY+dZ;
 
