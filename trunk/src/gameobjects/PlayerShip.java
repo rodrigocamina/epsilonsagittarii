@@ -27,7 +27,7 @@ public class PlayerShip extends GameObj {
 		ObjModel target = new ObjModel();
 		target.loadObj("/res/MiraLaser.obj");
 		//System.out.println("!?!");
-		weaponMain = new Laser(x, y, z, 0.2f,0.2f,2f, 20, 20, 20, null, 500, 1, 1000, target);
+		weaponMain = new Laser(x, y, z, 0.2f,0.2f,2f, 20, 20, 20, null, 500, 2, 1000, target);
 		weaponMain.setPaiPlayerShip(this);
 		escudo = new Esfera(x, y,z,0.1f, 0.0f,this);
 	}
@@ -75,6 +75,7 @@ public class PlayerShip extends GameObj {
 				
 				Weapon w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
 				w.setPaiPlayerShip(this);
+				w.setTextureTiro(CanvasGame.textures[CanvasGame.armaSelecionada]);
 				w.setRotation(frontV, rightV, upV);
 				
 				//adiciona pro canvas
