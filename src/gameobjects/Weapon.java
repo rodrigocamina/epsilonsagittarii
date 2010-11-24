@@ -40,7 +40,7 @@ public class Weapon extends GameObj {
 		this.damage = damage;
 		this.cadence = cadence;				
 		textureTiro = CanvasGame.textures[rand.nextInt(5)+1];
-		System.out.println("inimigo");
+		
 		
 	}
 

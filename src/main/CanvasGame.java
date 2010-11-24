@@ -175,6 +175,7 @@ public class CanvasGame extends PS_3DCanvas{
 	       ObjModel modelStation = new ObjModel();
 	       modelStation.loadObj("/res/Station.obj");
 	       nave = new PlayerShip(0, -0.15f, 1f, 10, 10, 10, 5, 5, 5, modelP);
+	       nave.setIndiceTextura(TEX_NAVE_PLAYER);
 	       estacao = new Station(0, 0, 0, 10, 10, 10, 0, 0, 0, modelStation);
 	       EnemyGroup engroup0 = new EnemyGroup();
 	       EnemyGroup engroup1 = new EnemyGroup();
@@ -201,7 +202,7 @@ public class CanvasGame extends PS_3DCanvas{
 	       camera.setCamInternals((float)FOVY, (float)(WIDTH * 1.0/ HEIGHT), (float)NEAR, (float)FAR);
 	        
 	       //Adiciona elementos de cenario, estaticos
-	        for (int i = 0; i < 40000; i++) {
+	        for (int i = 0; i < 40; i++) {
 	        	Obj8T obj = new GameObj(rnd.nextFloat()*1000-500, rnd.nextFloat()*1000-500, rnd.nextFloat()*1000-500, 1, 1, 1,rnd.nextFloat()*6-3,rnd.nextFloat()*6-3,rnd.nextFloat()*6-3,null);
 		        treemap.addElement(obj);
 		        //objetos.add(obj);
@@ -225,7 +226,7 @@ public class CanvasGame extends PS_3DCanvas{
     	estacao.simulate(diffTime);
     	for (int i = 0; i < enemySheeps.size(); i++) {
     		enemySheeps.get(i).simulate(diffTime);
-    		System.out.println("enemySheeps.get(i).life "+enemySheeps.get(i).life);
+    		
     		if(enemySheeps.get(i).life<0){
     			enemySheeps.remove(enemySheeps.get(i));
     		}
@@ -544,6 +545,9 @@ public class CanvasGame extends PS_3DCanvas{
     		SHIFT = true;
     	} 
     	if(key == ConfigTeclado.teclas[10]){
+    		ESC = !ESC;
+    	} 
+    	if(key == ConfigTeclado.teclas[11]){
     		ESC = !ESC;
     	} 
     	
