@@ -43,7 +43,7 @@ public class CanvasGame extends PS_3DCanvas{
     private final static double FOVY = 45.0; // field-of-view angle around Y
 
     private final static double NEAR = 0.1; // Z values < NEAR are clipped
-    private final static double FAR = 300.0;  // Z values > FAR are clipped
+    public final static double FAR = 300.0;  // Z values > FAR are clipped
 
     private final static int WIDTH = 800;
     private final static int HEIGHT = 600;
@@ -57,7 +57,7 @@ public class CanvasGame extends PS_3DCanvas{
 
     public static Texture [] textures;
     //Ordem de textura para ser usada.
-    private final int numeroDetexturas = 9;
+    private final int numeroDetexturas = 13;
     public static final int TEX_NAVE_PLAYER = 0;
     public static final int TEX_TIRO_BLUE = 1;   
     public static final int TEX_TIRO_GREEN = 2;
@@ -67,6 +67,10 @@ public class CanvasGame extends PS_3DCanvas{
     public static final int TEX_FOGO = 6;
     public static final int TEX_FOGO_AZUL = 7;
     public static final int TEX_ENEMY_BOMBER = 8;
+    public static final int TEX_SKYBOX_UP = 9;
+    public static final int TEX_SKYBOX_DOWN = 10;
+    public static final int TEX_SKYBOX_LEFT = 11;
+    public static final int TEX_SKYBOX_RIGT = 12;
     
     Random rnd = new Random();
 	FrustumV2 camera = new FrustumV2(); 
@@ -135,6 +139,10 @@ public class CanvasGame extends PS_3DCanvas{
 	    	   textures [TEX_TIRO_WHITE] = load("Star.png",gl);
 	    	   textures [TEX_FOGO] = load("fogo1.png",gl);
 	    	   textures [TEX_ENEMY_BOMBER] = load("BomberUVMap.png",gl);
+	    	   textures [TEX_SKYBOX_UP] = load("constelaçao.png",gl);
+	    	   textures [TEX_SKYBOX_DOWN] = load("constelaçao.png",gl);
+	    	   textures [TEX_SKYBOX_LEFT] = load("constelaçao.png",gl);
+	    	   textures [TEX_SKYBOX_RIGT] = load("constelaçao.png",gl);
 			} catch (Exception e) {
 				// TODO: handle exception
 				System.out.println("erro carregamento de textura fogo");

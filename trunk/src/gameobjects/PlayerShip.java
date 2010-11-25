@@ -18,7 +18,7 @@ public class PlayerShip extends GameObj {
 	boolean shooting = false;
 	private int  indiceTextura =0;
 	Esfera escudo;
-	
+	SkyBox skybox;
 	
 	
 
@@ -28,11 +28,10 @@ public class PlayerShip extends GameObj {
 		ObjModel target = new ObjModel();
 		target.loadObj("/res/MiraLaser.obj");
 		//System.out.println("!?!");
-		int vel = 100;
-		weaponMain = new Laser(x, y, z, 0.2f,0.2f,2f, vel, vel, vel, null, 500, 2*CanvasGame.armaSelecionada, 700, target);
+		weaponMain = new Laser(x, y, z, 0.2f,0.2f,2f, 20, 20, 20, null, 500, 1, 1000, target);
 		weaponMain.setPaiPlayerShip(this);
 		escudo = new Esfera(x, y,z,0.1f, 0.0f,this);
-		this.radius = 0.1f;
+		skybox = new SkyBox();
 	}
 	
 	@Override
@@ -78,7 +77,6 @@ public class PlayerShip extends GameObj {
 				
 				Weapon w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
 				w.setPaiPlayerShip(this);
-				w.setTextureTiro(CanvasGame.textures[CanvasGame.armaSelecionada]);
 				w.setRotation(frontV, rightV, upV);
 				
 				//adiciona pro canvas
@@ -122,6 +120,13 @@ public class PlayerShip extends GameObj {
 		}
 		canvas.glPopMatrix();
 		escudo.DesenhaSe(canvas);
+		
+		canvas.glPushMatrix();
+		canvas.glTranslatef(CanvasGame.X, CanvasGame.Y, CanvasGame.Z);
+		skybox.DesenhaSe(canvas);
+		canvas.glPopMatrix();
+
+		
 	}
 	
 	public void addSpeed(float increment){
