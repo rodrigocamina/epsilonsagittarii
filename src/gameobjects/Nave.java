@@ -11,8 +11,11 @@ import util.Util;
 public class Nave extends GameObj {
 	
 
+	
+	
 	public Nave(float x, float y, float z, float w, float h, float d, float vx, float vy, float vz, ObjModel model) {
 		super(x, y, z, w, h, d, vx, vy, vz, model);
+
 	}
 	
 	@Override
@@ -23,6 +26,7 @@ public class Nave extends GameObj {
 		CanvasGame.X+=dX;
 		CanvasGame.Y+=dY;
 		CanvasGame.Z+=dZ;
+		
 	}
 	@Override
 	public void draw(GL canvas, FrustumV2 camera) {
@@ -34,6 +38,7 @@ public class Nave extends GameObj {
 			canvas.glRotatef(10, 1, 0, 0);
 			canvas.glScalef(0.3f, 0.3f, 0.3f);
 			model.desenhase(canvas);
+			
 		}
 		canvas.glPopMatrix();
 	}
