@@ -14,6 +14,10 @@ import util.Util;
 
 public class EnemyShip extends GameObj{
 
+	public static final int FIGHTER = 10;
+	public static final int BOMBER = 20;
+	public static final int MOTHER = 30;
+	
 	GameObj target;
 	Vector3f targetPosition;
 	Vector3f targetRelativePosition;
@@ -25,16 +29,17 @@ public class EnemyShip extends GameObj{
 	int state = 0;
 	boolean scout = false;
 	long retreatTimer = 5000;
-	private int indiceTextura = CanvasGame.TEX_ENEMY_BOMBER;
+	private int indiceTextura ;
 	Esfera escudo;
 	long timerShot;
+	int type;
 	Weapon weaponMain;
 	Weapon weaponSub;
 		
-	public final static int ATTACKING = 0;
-	public final static int RETREATING = 1;
-	public final static int REGROUPING = 2;
-	public final static int PREPARINGATTACK = 3;
+	private final static int ATTACKING = 0;
+	private final static int RETREATING = 1;
+	private final static int REGROUPING = 2;
+	private final static int PREPARINGATTACK = 3;
 	Vector3f speedRegroup;
 	Vector3f speedMax;
 	//attacking = 0, retreating = 1 , regrouping = 2
@@ -42,7 +47,7 @@ public class EnemyShip extends GameObj{
 	
 	
 	public EnemyShip(float x, float y, float z, float w, float h, float d,
-			float vx, float vy, float vz, ObjModel model, GameObj station, EnemyGroup group) {
+			float vx, float vy, float vz, ObjModel model, GameObj station, EnemyGroup group,int type) {
 		super(x, y, z, w, h, d, vx, vy, vz, model);
 		target = station;
 		targetPosition = target.position;
@@ -59,7 +64,16 @@ public class EnemyShip extends GameObj{
 		weaponMain.setPaiEnemyShip(this);
 		weaponMain.setTextureTiro(CanvasGame.textures[CanvasGame.TEX_TIRO_BLUE]);
 		
+		this.type = type;
 
+		
+		if(type==FIGHTER){
+			indiceTextura = CanvasGame.TEX_ENEMY_FIGHTER;
+		}else if(type==BOMBER){
+			indiceTextura = CanvasGame.TEX_ENEMY_BOMBER;
+		}else if(type==MOTHER){
+			indiceTextura = CanvasGame.TEX_ENEMY_MOTHER;
+		}
 	}
 
 	@Override
@@ -162,6 +176,10 @@ public class EnemyShip extends GameObj{
 		position.z+=dZ;
 		escudo.SetPosition(position);
 		
+		if(type==FIGHTER&&position.mydistance(CanvasGame.nave.position)<20){
+			takeDamage(0);
+		}
+		
 	}
 	
 	@Override
@@ -187,7 +205,6 @@ public class EnemyShip extends GameObj{
 	
 	private void ai(long diffTime){
 		if(state==ATTACKING){
-			System.out.println("ATK");
 			retreatTimer -= diffTime;
 			if((targetRelativePosition.y<2&&targetRelativePosition.x<2)&&(targetRelativePosition.y>-2&&targetRelativePosition.x>-2)){
 				if(targetRelativePosition.z<10&&targetRelativePosition.z>-5){
@@ -199,7 +216,6 @@ public class EnemyShip extends GameObj{
 				state = RETREATING;
 			}
 		}else if(state==RETREATING){
-			System.out.println("Ret");
 			if(targetRelativePosition.weight()>50){
 				if(target instanceof PlayerShip){
 					state = ATTACKING;					
@@ -211,7 +227,6 @@ public class EnemyShip extends GameObj{
 				}
 			}
 		}else if(state==REGROUPING){
-			System.out.println("Reg");
 			//check all ok, go to next
 			if(group.getLeader()==this){
 				speed = speedRegroup;
@@ -258,7 +273,6 @@ public class EnemyShip extends GameObj{
 				}
 			}
 		}else{
-			System.out.println("prepare");
 			retreatTimer-=diffTime;
 			if(retreatTimer<0){
 				int sz = group.members.size();
@@ -277,7 +291,6 @@ public class EnemyShip extends GameObj{
 
 
 	private void shot(long difftime){
-System.out.println( "tiroooooooooooooo");
 		//SHOT!
 		if(timerShot<=0){
 			timerShot = weaponMain.cadence;
@@ -326,11 +339,13 @@ System.out.println( "tiroooooooooooooo");
 	@Override
 	public void takeDamage(double damage) {
 		super.takeDamage(damage);
-		target = CanvasGame.nave;
-		targetPosition = CanvasGame.nave.position;
-		group.members.remove(this);
-		group = new EnemyGroup();
-		state = ATTACKING;					
-		retreatTimer = 60000;
+		if(type<MOTHER){
+			target = CanvasGame.nave;
+			targetPosition = CanvasGame.nave.position;
+			group.members.remove(this);
+			group = new EnemyGroup();
+			state = ATTACKING;					
+			retreatTimer = 60000;
+		}
 	}
 }
