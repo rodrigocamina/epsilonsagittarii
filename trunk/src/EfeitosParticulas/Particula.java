@@ -49,6 +49,9 @@ public class Particula {
 	public float yg;
 	public float zg;
 	Random rand= new Random();
+	Texture textura;
+
+	
 
 	public float [][]colors = new float [][]{	
 			{1.0f,0.5f,0.5f},{1.0f,0.75f,0.5f},{1.0f,1.0f,0.5f},{0.75f,1.0f,0.5f},
@@ -74,9 +77,10 @@ public class Particula {
 		sizeY = size;
 		sizeZ = size;
 		active = true;
+		textura =CanvasGame.textures[CanvasGame.TEX_FOGO];
 	}
 
-	public void SimulaSe(int i, int difftime){		
+	public void SimulaSe(int difftime){		
 			col++;		
 		if(col>11){
 			col=0;
@@ -114,7 +118,7 @@ public class Particula {
 				float Y = this.y;
 				float Z = this.z;
 				
-				Texture texture = CanvasGame.textures[CanvasGame.TEX_FOGO];
+				Texture texture = textura;
 				texture.enable();
 				texture.bind();
 				
@@ -141,40 +145,6 @@ public class Particula {
 					gl.glTexCoord2d(0, 0); gl.glVertex3f(X, Y-sizeY*life, Z-sizeZ*life); //Botton Left
 				gl.glEnd();	
 				
-				
-				//====================
-				
-//				gl.glPushMatrix();
-//					gl.glRotatef(life*90, 0.0f, 0.0f, 1.0f);
-//					gl.glBegin(gl.GL_TRIANGLE_STRIP);
-//						gl.glTexCoord2d(1, 1); gl.glVertex3f(X+sizeX, Y+sizeY, Z); //TOP Right
-//						gl.glTexCoord2d(0, 1); gl.glVertex3f(X-sizeX, Y+sizeY, Z); //TOP Left
-//						gl.glTexCoord2d(1, 0); gl.glVertex3f(X+sizeX, Y-sizeY, Z); //Botton Right
-//						gl.glTexCoord2d(0, 0); gl.glVertex3f(X-sizeX, Y-sizeY, Z); //Botton Left
-//					gl.glEnd();	
-//				gl.glPopMatrix();
-//				
-//				
-//				gl.glPushMatrix();
-//					gl.glRotatef(life*90, 0.0f, 1.0f, 0.0f);
-//					gl.glBegin(gl.GL_TRIANGLE_STRIP);
-//						gl.glTexCoord2d(1, 1); gl.glVertex3f(X+sizeX, Y, Z+sizeZ); //TOP Right
-//						gl.glTexCoord2d(0, 1); gl.glVertex3f(X-sizeX, Y, Z+sizeZ); //TOP Left
-//						gl.glTexCoord2d(1, 0); gl.glVertex3f(X+sizeX, Y, Z-sizeZ); //Botton Right
-//						gl.glTexCoord2d(0, 0); gl.glVertex3f(X-sizeX, Y, Z-sizeZ); //Botton Left
-//					gl.glEnd();	
-//				gl.glPopMatrix();
-//				
-//				
-//				gl.glPushMatrix();
-//					gl.glRotatef(life*90, 1.0f, 0.0f, 0.0f);
-//					gl.glBegin(gl.GL_TRIANGLE_STRIP);
-//						gl.glTexCoord2d(1, 1); gl.glVertex3f(X, Y+sizeY, Z+sizeZ); //TOP Right
-//						gl.glTexCoord2d(0, 1); gl.glVertex3f(X, Y+sizeY, Z-sizeZ); //TOP Left
-//						gl.glTexCoord2d(1, 0); gl.glVertex3f(X, Y-sizeY, Z+sizeZ); //Botton Right
-//						gl.glTexCoord2d(0, 0); gl.glVertex3f(X, Y-sizeY, Z-sizeZ); //Botton Left
-//					gl.glEnd();	
-//				gl.glPopMatrix();
 				texture.disable();
 			}
 			
@@ -189,6 +159,12 @@ public class Particula {
 		this.y = v.y;
 		this.z = v.z;		
 	}
-	
+	public Texture getTextura() {
+		return textura;
+	}
+
+	public void setTextura(Texture textura) {
+		this.textura = textura;
+	}
 
 }
