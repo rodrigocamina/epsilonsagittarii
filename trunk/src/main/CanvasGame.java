@@ -221,18 +221,8 @@ public class CanvasGame extends PS_3DCanvas{
 	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
 	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
 	       
-//	       enemySheeps.add(new EnemyShip(-20, 0, 20, 0, 0, 0, 5, 5, 5, model, estacao,engroup0));
-//	  	   enemySheeps.add(new EnemyShip(0, 0, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup1));
-//	       enemySheeps.add(new EnemyShip(10, 0, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup1));
-//	       enemySheeps.add(new EnemyShip(-10, 0, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup1));
-//	       enemySheeps.add(new EnemyShip(10, 10, 10, 0, 0, 0, 5, 5, 5, model, estacao,engroup2));
-//	       enemySheeps.add(new EnemyShip(-10, 10, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup2));
-//	       enemySheeps.add(new EnemyShip(10, -10, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup2));
-//	       enemySheeps.add(new EnemyShip(-10, -10, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup2));
-//	       enemySheeps.add(new EnemyShip(20, 20, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup2));
-//	       enemySheeps.add(new EnemyShip(-20, -20, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup2));
-
-	       //enemySheep.setIndiceTextura(TEX_NAVE_PLAYER);
+	      
+	      
 	       CameraAnimator.startFrame(new Vector3f(nave.getFrontV()), new Vector3f(nave.getUpV()), new Vector3f(nave.getRightV()));
 	       
 	       
