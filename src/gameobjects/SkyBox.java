@@ -25,10 +25,24 @@ public class SkyBox {
 		//---------------------------------------------------------------------------------------------
 		//top
 		
-		float far = (float)(CanvasGame.FAR*0.7f);
+		float far = (float)(CanvasGame.FAR*0.55f);
+		
+
 		canvas.glPushMatrix();
-			CanvasGame.textures [CanvasGame.TEX_SKYBOX_UP].enable();
-			CanvasGame.textures [CanvasGame.TEX_SKYBOX_UP].bind();
+		
+//		canvas.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_S, GL.GL_CLAMP_TO_EDGE);
+//		canvas.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T, GL.GL_CLAMP_TO_EDGE);
+//		canvas.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
+//		canvas.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST);
+		
+			CanvasGame.textures [CanvasGame.TEX_SKYBOX_TOP].enable();
+			
+			CanvasGame.textures[CanvasGame.TEX_SKYBOX_TOP].setTexParameteri(GL.GL_TEXTURE_WRAP_S, GL.GL_CLAMP_TO_EDGE);
+			CanvasGame.textures[CanvasGame.TEX_SKYBOX_TOP].setTexParameteri(GL.GL_TEXTURE_WRAP_T, GL.GL_CLAMP_TO_EDGE);
+			CanvasGame.textures[CanvasGame.TEX_SKYBOX_TOP].setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
+			CanvasGame.textures[CanvasGame.TEX_SKYBOX_TOP].setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST);
+			
+			CanvasGame.textures [CanvasGame.TEX_SKYBOX_TOP].bind();
 			canvas.glBegin(GL.GL_QUADS);
 			{
 				
@@ -54,7 +68,7 @@ public class SkyBox {
 	
 			}
 			canvas.glEnd();
-			CanvasGame.textures [CanvasGame.TEX_SKYBOX_UP].disable();
+			CanvasGame.textures [CanvasGame.TEX_SKYBOX_TOP].disable();
 			
 	
 			// SKYBOX left
@@ -87,8 +101,8 @@ public class SkyBox {
 	
 	
 	//		// SKYBOX down
-			CanvasGame.textures [CanvasGame.TEX_SKYBOX_RIGT].enable();
-			CanvasGame.textures [CanvasGame.TEX_SKYBOX_RIGT].bind();
+			CanvasGame.textures [CanvasGame.TEX_SKYBOX_DOWN].enable();
+			CanvasGame.textures [CanvasGame.TEX_SKYBOX_DOWN].bind();
 			canvas.glBegin(GL.GL_QUADS);
 			{
 				canvas.glNormal3f(0, 1, 0);
@@ -112,40 +126,44 @@ public class SkyBox {
 				canvas.glVertex3f(far, -far, far);
 			}
 			canvas.glEnd();
-			CanvasGame.textures [CanvasGame.TEX_SKYBOX_LEFT].disable();
+			CanvasGame.textures [CanvasGame.TEX_SKYBOX_DOWN].disable();
 	
 	
 			// SKYBOX ringht
-			CanvasGame.textures [CanvasGame.TEX_SKYBOX_DOWN].enable();
-			CanvasGame.textures [CanvasGame.TEX_SKYBOX_DOWN].bind();
+			CanvasGame.textures [CanvasGame.TEX_SKYBOX_RIGT].enable();
+			CanvasGame.textures [CanvasGame.TEX_SKYBOX_RIGT].bind();
 			canvas.glBegin(GL.GL_QUADS);
 			{
 				canvas.glNormal3f(1, 0, 0);
 				canvas.glTexCoord2d(0,1);
 				//canvas.glTexCoord2f(coordsSkyOUEST.left(), coordsSkyOUEST.bottom());
-				canvas.glVertex3f(-far, -far, -far);
+				canvas.glVertex3f(-far, -far, far);
+				
 	
 				canvas.glNormal3f(1, 0, 0);
 				canvas.glTexCoord2d(1,1);
 				//canvas.glTexCoord2f(coordsSkyOUEST.right(), coordsSkyOUEST.bottom());
-				canvas.glVertex3f(-far, far, -far);
+				canvas.glVertex3f(-far, -far, -far);
+
 	
 				canvas.glNormal3f(1, 0, 0);
 				canvas.glTexCoord2d(1,0);
 				//canvas.glTexCoord2f(coordsSkyOUEST.right(), coordsSkyOUEST.top());
-				canvas.glVertex3f(-far, far, far);
+				canvas.glVertex3f(-far, far, -far);
+				
 	
 				canvas.glNormal3f(1, 0, 0);
 				canvas.glTexCoord2d(0,0);
 				//canvas.glTexCoord2f(coordsSkyOUEST.left(), coordsSkyOUEST.top());
-				canvas.glVertex3f(-far, -far, far);
+				canvas.glVertex3f(-far, far, far);
+				
 			}
 			canvas.glEnd();
-			CanvasGame.textures [CanvasGame.TEX_SKYBOX_DOWN].disable();
+			CanvasGame.textures [CanvasGame.TEX_SKYBOX_RIGT].disable();
 			
 			//front
-			CanvasGame.textures [CanvasGame.TEX_SKYBOX_DOWN].enable();
-			CanvasGame.textures [CanvasGame.TEX_SKYBOX_DOWN].bind();
+			CanvasGame.textures [CanvasGame.TEX_SKYBOX_FRONT].enable();
+			CanvasGame.textures [CanvasGame.TEX_SKYBOX_FRONT].bind();
 			canvas.glBegin(GL.GL_QUADS);
 			{
 				canvas.glNormal3f(0, 0, -1);
@@ -169,10 +187,11 @@ public class SkyBox {
 				canvas.glVertex3f(-far, -far, far);
 			}
 			canvas.glEnd();
+			CanvasGame.textures [CanvasGame.TEX_SKYBOX_FRONT].disable();
 			
 			//back
-			CanvasGame.textures [CanvasGame.TEX_SKYBOX_DOWN].enable();
-			CanvasGame.textures [CanvasGame.TEX_SKYBOX_DOWN].bind();
+			CanvasGame.textures [CanvasGame.TEX_SKYBOX_BACK].enable();
+			CanvasGame.textures [CanvasGame.TEX_SKYBOX_BACK].bind();
 			canvas.glBegin(GL.GL_QUADS);
 			{
 				canvas.glNormal3f(0, 0, 1);
@@ -196,6 +215,7 @@ public class SkyBox {
 				canvas.glVertex3f(far, far, -far);
 			}
 			canvas.glEnd();
+			CanvasGame.textures [CanvasGame.TEX_SKYBOX_BACK].disable();
 
 		canvas.glPopMatrix();
 
