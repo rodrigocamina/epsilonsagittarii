@@ -23,13 +23,17 @@ public class PlayerShip extends GameObj {
 	SkyBox skybox;
 	Propulsor propulsor;
 	
+	int shotState = 0;
+	int shotType = 2;
+	long timerLaser = 0;
+	int energy = 1;
 	
 
 	public PlayerShip(float x, float y, float z, float w, float h, float d, float vx, float vy, float vz, ObjModel model) {
 		super(x, y, z, w, h, d, vx, vy, vz,  model);
 //		System.out.println("!?");
 		ObjModel target = new ObjModel();
-		target.loadObj("/res/MiraLaser.obj");
+		target.loadObj("/res/Mira.obj");
 		//System.out.println("!?!");
 		this.radius = 1.0f;
 		weaponMain = new Laser(x, y, z, 0.2f,0.2f,2f, 20, 20, 20, null, 500, 1, 1000, target);
@@ -37,6 +41,10 @@ public class PlayerShip extends GameObj {
 		escudo = new Esfera(x, y,z,0.1f, 0.0f,this);
 		skybox = new SkyBox();
 		propulsor = new Propulsor(position, CanvasGame.textures[CanvasGame.TEX_FOGO], speed,0.08f, frontV, rightV, upV);
+	}
+	
+	public Weapon getWeaponMain() {
+		return weaponMain;
 	}
 	
 	@Override
@@ -60,9 +68,46 @@ public class PlayerShip extends GameObj {
 				timerShot = weaponMain.cadence;
 				//aqui tenho que mexer 
 				
-				float velX = 0;
-				float velY = 0;
-				float velZ = 0;
+			}else if(shotState==1){
+				timerLaser-=diffTime;
+				if(timerLaser<0){
+					energy--;
+					timerLaser+=10;
+					float velX = 0;
+					float velY = 0;
+					float velZ = 0;
+					
+					if(speed.x<0)
+					{
+						velX = weaponMain.speed.x;
+					}else{
+						velX = speed.x+weaponMain.speed.x;
+					}
+					if(speed.y<0)
+					{
+						velY = weaponMain.speed.y;
+					}else{
+						velY = speed.y+weaponMain.speed.y;
+					}
+					if(speed.z<0)
+					{
+						velZ = weaponMain.speed.z;
+					}else{
+						velZ = speed.z+weaponMain.speed.z;
+					}
+					
+					Weapon w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
+					w.setPaiPlayerShip(this);
+					w.setTextureTiro(weaponMain.textureTiro);
+					w.setRotation(frontV, rightV, upV);
+					
+					
+					//adiciona pro canvas
+					CanvasGame.shots.add(w);
+					if(energy==0){
+						shotState=2;
+					}
+				}
 				
 				if(speed.x<0)
 				{
@@ -70,17 +115,313 @@ public class PlayerShip extends GameObj {
 				}else{
 					velX = speed.x+weaponMain.speed.x;
 				}
-				if(speed.y<0)
-				{
-					velY = weaponMain.speed.y;
-				}else{
-					velY = speed.y+weaponMain.speed.y;
+			}
+		}else if(shotType==2){
+			if(shotState==0){
+				if(shooting){
+					shotState = 1;
+					timerLaser = 10;
+						timerShot = weaponMain.cadence/2;
+						//aqui tenho que mexer 
+						
+						
+					}
+				
+			}else if(shotState==1){
+				timerLaser-=diffTime;
+				if(timerLaser<0){
+					energy--;
+					timerLaser+=10;
+					float velX = 0;
+					float velY = 0;
+					float velZ = 0;
+					
+					if(speed.x<0)
+					{
+						velX = weaponMain.speed.x;
+					}else{
+						velX = speed.x+weaponMain.speed.x;
+					}
+					if(speed.y<0)
+					{
+						velY = weaponMain.speed.y;
+					}else{
+						velY = speed.y+weaponMain.speed.y;
+					}
+					if(speed.z<0)
+					{
+						velZ = weaponMain.speed.z;
+					}else{
+						velZ = speed.z+weaponMain.speed.z;
+					}
+					Weapon w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
+					w.setPaiPlayerShip(this);
+					w.setTextureTiro(weaponMain.textureTiro);
+					w.setRotation(frontV, rightV, upV);
+					//adiciona pro canvas
+					CanvasGame.shots.add(w);
+					rotate(AXIS_Y, 5);
+					w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
+					w.setPaiPlayerShip(this);
+					w.setTextureTiro(weaponMain.textureTiro);
+					w.setRotation(frontV, rightV, upV);
+					//adiciona pro canvas
+					CanvasGame.shots.add(w);
+					rotate(AXIS_Y, -10);
+					w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
+					w.setPaiPlayerShip(this);
+					w.setTextureTiro(weaponMain.textureTiro);
+					w.setRotation(frontV, rightV, upV);
+					//adiciona pro canvas
+					CanvasGame.shots.add(w);
+					rotate(AXIS_Y, 5);
+
+					if(energy==0){
+						shotState=2;
+					}
 				}
 				if(speed.z<0)
 				{
 					velZ = weaponMain.speed.z;
 				}else{
 					velZ = speed.z+weaponMain.speed.z;
+				}
+			}
+		}else if(shotType==3){
+			if(shotState==0){
+				if(shooting){
+					shotState = 1;
+					timerLaser = 1;
+					timerShot = weaponMain.cadence/5;
+					//aqui tenho que mexer 
+				}
+			}else if(shotState==1){
+				timerLaser-=diffTime;
+				if(timerLaser<0){
+					energy--;
+					timerLaser+=10;
+					float velX = 0;
+					float velY = 0;
+					float velZ = 0;
+					
+					if(speed.x<0)
+					{
+						velX = weaponMain.speed.x;
+					}else{
+						velX = speed.x+weaponMain.speed.x;
+					}
+					if(speed.y<0)
+					{
+						velY = weaponMain.speed.y;
+					}else{
+						velY = speed.y+weaponMain.speed.y;
+					}
+					if(speed.z<0)
+					{
+						velZ = weaponMain.speed.z;
+					}else{
+						velZ = speed.z+weaponMain.speed.z;
+					}
+					
+					Weapon w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
+					w.setPaiPlayerShip(this);
+					w.setTextureTiro(weaponMain.textureTiro);
+					w.setRotation(frontV, rightV, upV);
+					CanvasGame.shots.add(w);
+
+					rotate(AXIS_Y, 5);
+					w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
+					w.setPaiPlayerShip(this);
+					w.setTextureTiro(weaponMain.textureTiro);
+					w.setRotation(frontV, rightV, upV);
+					CanvasGame.shots.add(w);
+					
+
+					rotate(AXIS_X, 3);
+					w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
+					w.setPaiPlayerShip(this);
+					w.setTextureTiro(weaponMain.textureTiro);
+					w.setRotation(frontV, rightV, upV);
+					CanvasGame.shots.add(w);
+					
+					rotate(AXIS_X, -6);
+					w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
+					w.setPaiPlayerShip(this);
+					w.setTextureTiro(weaponMain.textureTiro);
+					w.setRotation(frontV, rightV, upV);
+					CanvasGame.shots.add(w);
+					rotate(AXIS_X, 3);
+					
+					rotate(AXIS_Y, -10);
+					w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
+					w.setPaiPlayerShip(this);
+					w.setTextureTiro(weaponMain.textureTiro);
+					w.setRotation(frontV, rightV, upV);
+					CanvasGame.shots.add(w);
+					
+
+					rotate(AXIS_X, 3);
+					w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
+					w.setPaiPlayerShip(this);
+					w.setTextureTiro(weaponMain.textureTiro);
+					w.setRotation(frontV, rightV, upV);
+					CanvasGame.shots.add(w);
+					
+					rotate(AXIS_X, -6);
+					w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
+					w.setPaiPlayerShip(this);
+					w.setTextureTiro(weaponMain.textureTiro);
+					w.setRotation(frontV, rightV, upV);
+					CanvasGame.shots.add(w);
+					rotate(AXIS_X, 3);
+					
+					rotate(AXIS_Y, 5);
+
+					rotate(AXIS_X, 5);
+					w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
+					w.setPaiPlayerShip(this);
+					w.setTextureTiro(weaponMain.textureTiro);
+					w.setRotation(frontV, rightV, upV);
+					CanvasGame.shots.add(w);
+					
+					rotate(AXIS_X, -10);
+					w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
+					w.setPaiPlayerShip(this);
+					w.setTextureTiro(weaponMain.textureTiro);
+					w.setRotation(frontV, rightV, upV);
+					CanvasGame.shots.add(w);
+					rotate(AXIS_X, 5);
+					
+					if(energy==0){
+						shotState=2;
+					}
+				}
+				
+			}else if(shotState==2){
+				timerShot-=diffTime;
+				if(timerShot<0){
+					shotState=0;
+					energy=3;
+				}
+			}
+		}else if(shotType==4){
+			if(shotState==0){
+				if(shooting){
+					shotState = 1;
+					timerLaser = 1;
+					timerShot = weaponMain.cadence/5;
+					//aqui tenho que mexer 
+				}
+			}else if(shotState==1){
+				timerLaser-=diffTime;
+				if(timerLaser<0){
+					energy--;
+					timerLaser+=10;
+					float velX = 0;
+					float velY = 0;
+					float velZ = 0;
+					
+					if(speed.x<0)
+					{
+						velX = weaponMain.speed.x;
+					}else{
+						velX = speed.x+weaponMain.speed.x;
+					}
+					if(speed.y<0)
+					{
+						velY = weaponMain.speed.y;
+					}else{
+						velY = speed.y+weaponMain.speed.y;
+					}
+					if(speed.z<0)
+					{
+						velZ = weaponMain.speed.z;
+					}else{
+						velZ = speed.z+weaponMain.speed.z;
+					}
+					
+					Weapon w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
+					w.setPaiPlayerShip(this);
+					w.setTextureTiro(weaponMain.textureTiro);
+					w.setRotation(frontV, rightV, upV);
+					CanvasGame.shots.add(w);
+					
+					rotate(AXIS_Y, 90);
+					Vector3f temp = position.add(frontV.multiply(0.1));
+					rotate(AXIS_Y, -90);
+					w = new Weapon(CanvasGame.X+temp.x+frontV.x*0.6f, CanvasGame.Y+temp.y+frontV.y*0.6f, CanvasGame.Z+temp.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
+					w.setPaiPlayerShip(this);
+					w.setTextureTiro(weaponMain.textureTiro);
+					w.setRotation(frontV, rightV, upV);
+					CanvasGame.shots.add(w);
+
+					rotate(AXIS_Y, -90);
+					temp = position.add(frontV.multiply(0.1));
+					rotate(AXIS_Y, 90);
+					w = new Weapon(CanvasGame.X+temp.x+frontV.x*0.6f, CanvasGame.Y+temp.y+frontV.y*0.6f, CanvasGame.Z+temp.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
+					w.setPaiPlayerShip(this);
+					w.setTextureTiro(weaponMain.textureTiro);
+					w.setRotation(frontV, rightV, upV);
+					CanvasGame.shots.add(w);
+
+					
+					if(energy==0){
+						shotState=2;
+					}
+				}
+				
+			}else if(shotState==2){
+				timerShot-=diffTime;
+				if(timerShot<0){
+					shotState=0;
+					energy=3;
+				}
+			}
+		}else{
+			if(shotState==0){
+				if(shooting){
+					shotState = 1;
+					timerLaser = 1;
+					timerShot = weaponMain.cadence;
+					//aqui tenho que mexer 
+				}
+			}else if(shotState==1){
+				timerLaser-=diffTime;
+				if(timerLaser<0){
+					energy--;
+					timerLaser+=10;
+					float velX = 0;
+					float velY = 0;
+					float velZ = 0;
+					
+					if(speed.x<0)
+					{
+						velX = weaponMain.speed.x;
+					}else{
+						velX = speed.x+weaponMain.speed.x;
+					}
+					if(speed.y<0)
+					{
+						velY = weaponMain.speed.y;
+					}else{
+						velY = speed.y+weaponMain.speed.y;
+					}
+					if(speed.z<0)
+					{
+						velZ = weaponMain.speed.z;
+					}else{
+						velZ = speed.z+weaponMain.speed.z;
+					}
+					
+					Weapon w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
+					w.setPaiPlayerShip(this);
+					w.setRotation(frontV, rightV, upV);
+					
+					//adiciona pro canvas
+					CanvasGame.shots.add(w);
+					if(energy==0){
+						shotState=2;
+					}
 				}
 				
 				Weapon w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
@@ -94,6 +435,10 @@ public class PlayerShip extends GameObj {
 				timerShot-=diffTime;
 			}
 		}
+	}
+	
+	public void setShotType(int shotType) {
+		this.shotType = shotType;
 	}
 	@Override
 	public void draw(GL canvas, FrustumV2 camera) {

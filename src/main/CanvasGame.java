@@ -57,7 +57,7 @@ public class CanvasGame extends PS_3DCanvas{
 
     public static Texture [] textures;
     //Ordem de textura para ser usada.
-    private final int numeroDetexturas = 18;
+    private final int numeroDetexturas = 19;
     public static final int TEX_NAVE_PLAYER = 0;
     public static final int TEX_TIRO_BLUE = 1;   
     public static final int TEX_TIRO_GREEN = 2;
@@ -75,6 +75,7 @@ public class CanvasGame extends PS_3DCanvas{
     public static final int TEX_ENEMY_FIGHTER = 15;
     public static final int TEX_ENEMY_BOMBER = 16;
     public static final int TEX_ENEMY_MOTHER = 17;
+    public static final int TEX_Mira = 18;
     
     
     Random rnd = new Random();
@@ -136,7 +137,7 @@ public class CanvasGame extends PS_3DCanvas{
 	       // texture is based does not exist, load() returns null.
 	       textures = new Texture [numeroDetexturas];
 	       try {
-	    	   textures [TEX_NAVE_PLAYER] = load("texturaNave.png",gl);//("NovaUVMap.png",gl);
+	    	   textures [TEX_NAVE_PLAYER] = load("NaveUVMap.png",gl);//("NovaUVMap.png",gl);
 	    	   textures [TEX_TIRO_BLUE] = load("StarBlue.png",gl);
 	    	   textures [TEX_TIRO_GREEN] = load("StarGreen.png",gl);
 	    	   textures [TEX_TIRO_ORANGE] = load ("StarOrange.png",gl);
@@ -152,6 +153,7 @@ public class CanvasGame extends PS_3DCanvas{
 	    	   textures [TEX_SKYBOX_LEFT] = load("left.png",gl);
 	    	   textures [TEX_SKYBOX_RIGT] = load("right.png",gl);
 	    	   textures [TEX_SKYBOX_FRONT] = load("front.png",gl);
+	    	   textures [TEX_Mira] = load("MiraUV.png",gl);
 			} catch (Exception e) {
 				// TODO: handle exception
 				System.out.println("erro carregamento de textura fogo");
@@ -179,47 +181,47 @@ public class CanvasGame extends PS_3DCanvas{
 	       EnemyGroup engroup0 = new EnemyGroup();
 	       EnemyGroup engroup1 = new EnemyGroup();
 	       EnemyGroup engroup2 = new EnemyGroup();
-	       enemySheeps.add(new EnemyShip(20, 0, 0, 0, 0, 0, 5, 5, 5, modelM, estacao,engroup0,EnemyShip.MOTHER));
-	       enemySheeps.add(new EnemyShip(-20, 0, 0, 0, 0, 0, 5, 5, 5, modelB, estacao,engroup0,EnemyShip.BOMBER));
-	       enemySheeps.add(new EnemyShip(10, 10, 0, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup0,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(20, 10, 0, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup0,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 0, 0, 0, 0, 0, 15, 15, 15, modelM, estacao,engroup0,EnemyShip.MOTHER));
+	       enemySheeps.add(new EnemyShip(-20, 0, 0, 0, 0, 0, 15, 15, 15, modelB, estacao,engroup0,EnemyShip.BOMBER));
+	       enemySheeps.add(new EnemyShip(10, 10, 0, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup0,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 0, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup0,EnemyShip.FIGHTER));
 	       
-	       enemySheeps.add(new EnemyShip(20, 0, 100, 0, 0, 0, 5, 5, 5, modelM, estacao,engroup1,EnemyShip.MOTHER));
-	       enemySheeps.add(new EnemyShip(-20, 0, 100, 0, 0, 0, 5, 5, 5, modelB, estacao,engroup1,EnemyShip.BOMBER));
-	       enemySheeps.add(new EnemyShip(-20, 0, 100, 0, 0, 0, 5, 5, 5, modelB, estacao,engroup1,EnemyShip.BOMBER));
-	       enemySheeps.add(new EnemyShip(10, 10, 100, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup1,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(20, 10, 100, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup1,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(10, 10, 100, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup1,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(20, 10, 100, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup1,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(10, 10, 100, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup1,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(20, 10, 100, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup1,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 0, 100, 0, 0, 0, 15, 15, 15, modelM, estacao,engroup1,EnemyShip.MOTHER));
+	       enemySheeps.add(new EnemyShip(-20, 0, 100, 0, 0, 0, 15, 15, 15, modelB, estacao,engroup1,EnemyShip.BOMBER));
+	       enemySheeps.add(new EnemyShip(-20, 0, 100, 0, 0, 0, 15, 15, 15, modelB, estacao,engroup1,EnemyShip.BOMBER));
+	       enemySheeps.add(new EnemyShip(10, 10, 100, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup1,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 100, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup1,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(10, 10, 100, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup1,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 100, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup1,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(10, 10, 100, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup1,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 100, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup1,EnemyShip.FIGHTER));
 	       
-	       enemySheeps.add(new EnemyShip(20, 0, 1000, 0, 0, 0, 5, 5, 5, modelM, estacao,engroup2,EnemyShip.MOTHER));
-	       enemySheeps.add(new EnemyShip(-20, 0, 1000, 0, 0, 0, 5, 5, 5, modelB, estacao,engroup2,EnemyShip.BOMBER));
-	       enemySheeps.add(new EnemyShip(-20, 0, 1000, 0, 0, 0, 5, 5, 5, modelB, estacao,engroup2,EnemyShip.BOMBER));
-	       enemySheeps.add(new EnemyShip(-20, 0, 1000, 0, 0, 0, 5, 5, 5, modelB, estacao,engroup2,EnemyShip.BOMBER));
-	       enemySheeps.add(new EnemyShip(-20, 0, 1000, 0, 0, 0, 5, 5, 5, modelB, estacao,engroup2,EnemyShip.BOMBER));
-	       enemySheeps.add(new EnemyShip(-20, 0, 1000, 0, 0, 0, 5, 5, 5, modelB, estacao,engroup2,EnemyShip.BOMBER));
-	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
-	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 0, 1000, 0, 0, 0, 15, 15, 15, modelM, estacao,engroup2,EnemyShip.MOTHER));
+	       enemySheeps.add(new EnemyShip(-20, 0, 1000, 0, 0, 0, 15, 15, 15, modelB, estacao,engroup2,EnemyShip.BOMBER));
+	       enemySheeps.add(new EnemyShip(-20, 0, 1000, 0, 0, 0, 15, 15, 15, modelB, estacao,engroup2,EnemyShip.BOMBER));
+	       enemySheeps.add(new EnemyShip(-20, 0, 1000, 0, 0, 0, 15, 15, 15, modelB, estacao,engroup2,EnemyShip.BOMBER));
+	       enemySheeps.add(new EnemyShip(-20, 0, 1000, 0, 0, 0, 15, 15, 15, modelB, estacao,engroup2,EnemyShip.BOMBER));
+	       enemySheeps.add(new EnemyShip(-20, 0, 1000, 0, 0, 0, 15, 15, 15, modelB, estacao,engroup2,EnemyShip.BOMBER));
+	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 15, 15, 15, modelF, estacao,engroup2,EnemyShip.FIGHTER));
 	       
 	      
 	      
@@ -586,18 +588,28 @@ public class CanvasGame extends PS_3DCanvas{
     	} 
     	if(key == ConfigTeclado.teclas[11]){
     		armaSelecionada = TEX_TIRO_BLUE;
+    		nave.getWeaponMain().setTextureTiro(textures[armaSelecionada]);
+    		nave.setShotType(armaSelecionada);
     	} 
     	if(key == ConfigTeclado.teclas[12]){
     		armaSelecionada = TEX_TIRO_GREEN;
+    		nave.getWeaponMain().setTextureTiro(textures[armaSelecionada]);
+    		nave.setShotType(armaSelecionada);
     	}
     	if(key == ConfigTeclado.teclas[13]){
     		armaSelecionada = TEX_TIRO_ORANGE;
+    		nave.getWeaponMain().setTextureTiro(textures[armaSelecionada]);
+    		nave.setShotType(armaSelecionada);
     	}
     	if(key == ConfigTeclado.teclas[14]){
     		armaSelecionada = TEX_TIRO_RED;
+    		nave.getWeaponMain().setTextureTiro(textures[armaSelecionada]);
+    		nave.setShotType(armaSelecionada);
     	}
     	if(key == ConfigTeclado.teclas[15]){
     		armaSelecionada = TEX_TIRO_WHITE;
+    		nave.getWeaponMain().setTextureTiro(textures[armaSelecionada]);
+    		nave.setShotType(armaSelecionada);
     	}
     	/*
     	if(key == KeyEvent.VK_O){

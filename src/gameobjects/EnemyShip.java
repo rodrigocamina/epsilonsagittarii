@@ -20,6 +20,7 @@ public class EnemyShip extends GameObj{
 	
 	GameObj target;
 	Vector3f targetPosition;
+	Vector3f scale;
 	Vector3f targetRelativePosition;
 	EnemyGroup group;
 	float space = 1;
@@ -53,8 +54,6 @@ public class EnemyShip extends GameObj{
 		targetPosition = target.position;
 		this.group = group;
 		group.members.add(this);
-		speedRegroup = speed.multiply(0.6);
-		speedMax = new Vector3f(speed);
 		this.radius= 2.0f;
 		escudo = new Esfera(x, y, z, radius, 0,this);
 		ObjModel target = new ObjModel();
@@ -69,11 +68,21 @@ public class EnemyShip extends GameObj{
 		
 		if(type==FIGHTER){
 			indiceTextura = CanvasGame.TEX_ENEMY_FIGHTER;
+			this.speed = speed.multiply(3);
+			scale = new Vector3f(0.1f, 0.1f, 0.1f);
 		}else if(type==BOMBER){
 			indiceTextura = CanvasGame.TEX_ENEMY_BOMBER;
+			this.speed = speed.multiply(1.2);
+			scale = new Vector3f(0.15f, 0.15f, 0.15f);
+			radius*=1.5;
 		}else if(type==MOTHER){
 			indiceTextura = CanvasGame.TEX_ENEMY_MOTHER;
+			this.speed = speed.multiply(0.4);
+			scale = new Vector3f(0.5f, 0.5f, 0.5f);
+			radius*=5;
 		}
+		speedRegroup = speed.multiply(0.6);
+		speedMax = new Vector3f(speed);
 	}
 
 	@Override
@@ -190,7 +199,7 @@ public class EnemyShip extends GameObj{
 				canvas.glTranslatef(position.x, position.y, position.z);
 				Util.rotacionaGLViaVetores(canvas, frontV, rightV, upV);
 				canvas.glRotatef(-90, 0, 0, 1);
-				canvas.glScalef(0.1f, 0.1f, 0.1f);
+				canvas.glScalef(scale.x, scale.y, scale.z);
 				CanvasGame.textures[indiceTextura].enable();
 				CanvasGame.textures[indiceTextura].bind();
 				model.desenhase(canvas);
