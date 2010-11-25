@@ -57,7 +57,7 @@ public class CanvasGame extends PS_3DCanvas{
 
     public static Texture [] textures;
     //Ordem de textura para ser usada.
-    private final int numeroDetexturas = 15;
+    private final int numeroDetexturas = 18;
     public static final int TEX_NAVE_PLAYER = 0;
     public static final int TEX_TIRO_BLUE = 1;   
     public static final int TEX_TIRO_GREEN = 2;
@@ -66,13 +66,15 @@ public class CanvasGame extends PS_3DCanvas{
     public static final int TEX_TIRO_WHITE = 5;
     public static final int TEX_FOGO = 6;
     public static final int TEX_FOGO_AZUL = 7;
-    public static final int TEX_ENEMY_BOMBER = 8;
     public static final int TEX_SKYBOX_TOP = 9;
     public static final int TEX_SKYBOX_DOWN = 10;
     public static final int TEX_SKYBOX_LEFT = 11;
     public static final int TEX_SKYBOX_RIGT = 12;
     public static final int TEX_SKYBOX_FRONT = 13;
     public static final int TEX_SKYBOX_BACK = 14;
+    public static final int TEX_ENEMY_FIGHTER = 15;
+    public static final int TEX_ENEMY_BOMBER = 16;
+    public static final int TEX_ENEMY_MOTHER = 17;
     
     
     Random rnd = new Random();
@@ -141,7 +143,9 @@ public class CanvasGame extends PS_3DCanvas{
 	    	   textures [TEX_TIRO_RED] = load("StarRed.png",gl);
 	    	   textures [TEX_TIRO_WHITE] = load("Star.png",gl);
 	    	   textures [TEX_FOGO] = load("fogo1.png",gl);
+	    	   textures [TEX_ENEMY_FIGHTER] = load("FighterUVMap.png",gl);
 	    	   textures [TEX_ENEMY_BOMBER] = load("BomberUVMap.png",gl);
+	    	   textures [TEX_ENEMY_MOTHER] = load("MothershipUVMap.png",gl);
 	    	   textures [TEX_SKYBOX_TOP] = load("top.png",gl);
 	    	   textures [TEX_SKYBOX_DOWN] = load("down.png",gl);
 	    	   textures [TEX_SKYBOX_BACK] = load("back.png",gl);
@@ -155,10 +159,18 @@ public class CanvasGame extends PS_3DCanvas{
 			armaSelecionada =TEX_TIRO_BLUE;
 	       X = Y = 0;
 
+	       ObjModel modelA = new ObjModel();
+	       modelA.loadObj("/res/Asteroid2.obj");
+	       ObjModel modelA2 = new ObjModel();
+	       modelA.loadObj("/res/Asteroid4.obj");
 	       ObjModel modelP = new ObjModel();
 	       modelP.loadObj("/res/NaveManeira.obj");
-	       ObjModel model = new ObjModel();
-	       model.loadObj("/res/Bomber.obj");
+	       ObjModel modelB = new ObjModel();
+	       modelB.loadObj("/res/Bomber.obj");
+	       ObjModel modelF = new ObjModel();
+	       modelF.loadObj("/res/Fighter.obj");
+	       ObjModel modelM = new ObjModel();
+	       modelM.loadObj("/res/Mothersheep.obj");
 	       ObjModel modelStation = new ObjModel();
 	       modelStation.loadObj("/res/Station.obj");
 	       nave = new PlayerShip(0, -0.15f, 1f, 10, 10, 10, 5, 5, 5, modelP);
@@ -167,10 +179,47 @@ public class CanvasGame extends PS_3DCanvas{
 	       EnemyGroup engroup0 = new EnemyGroup();
 	       EnemyGroup engroup1 = new EnemyGroup();
 	       EnemyGroup engroup2 = new EnemyGroup();
-	       enemySheeps.add(new EnemyShip(20, 0, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup0));
-	       enemySheeps.add(new EnemyShip(-20, 0, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup0));
-	       enemySheeps.add(new EnemyShip(10, 10, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup0));
-	       enemySheeps.add(new EnemyShip(20, 10, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup0));
+	       enemySheeps.add(new EnemyShip(20, 0, 0, 0, 0, 0, 5, 5, 5, modelM, estacao,engroup0,EnemyShip.MOTHER));
+	       enemySheeps.add(new EnemyShip(-20, 0, 0, 0, 0, 0, 5, 5, 5, modelB, estacao,engroup0,EnemyShip.BOMBER));
+	       enemySheeps.add(new EnemyShip(10, 10, 0, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup0,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 0, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup0,EnemyShip.FIGHTER));
+	       
+	       enemySheeps.add(new EnemyShip(20, 0, 100, 0, 0, 0, 5, 5, 5, modelM, estacao,engroup1,EnemyShip.MOTHER));
+	       enemySheeps.add(new EnemyShip(-20, 0, 100, 0, 0, 0, 5, 5, 5, modelB, estacao,engroup1,EnemyShip.BOMBER));
+	       enemySheeps.add(new EnemyShip(-20, 0, 100, 0, 0, 0, 5, 5, 5, modelB, estacao,engroup1,EnemyShip.BOMBER));
+	       enemySheeps.add(new EnemyShip(10, 10, 100, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup1,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 100, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup1,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(10, 10, 100, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup1,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 100, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup1,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(10, 10, 100, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup1,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 100, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup1,EnemyShip.FIGHTER));
+	       
+	       enemySheeps.add(new EnemyShip(20, 0, 1000, 0, 0, 0, 5, 5, 5, modelM, estacao,engroup2,EnemyShip.MOTHER));
+	       enemySheeps.add(new EnemyShip(-20, 0, 1000, 0, 0, 0, 5, 5, 5, modelB, estacao,engroup2,EnemyShip.BOMBER));
+	       enemySheeps.add(new EnemyShip(-20, 0, 1000, 0, 0, 0, 5, 5, 5, modelB, estacao,engroup2,EnemyShip.BOMBER));
+	       enemySheeps.add(new EnemyShip(-20, 0, 1000, 0, 0, 0, 5, 5, 5, modelB, estacao,engroup2,EnemyShip.BOMBER));
+	       enemySheeps.add(new EnemyShip(-20, 0, 1000, 0, 0, 0, 5, 5, 5, modelB, estacao,engroup2,EnemyShip.BOMBER));
+	       enemySheeps.add(new EnemyShip(-20, 0, 1000, 0, 0, 0, 5, 5, 5, modelB, estacao,engroup2,EnemyShip.BOMBER));
+	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(10, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
+	       enemySheeps.add(new EnemyShip(20, 10, 1000, 0, 0, 0, 5, 5, 5, modelF, estacao,engroup2,EnemyShip.FIGHTER));
 	       
 //	       enemySheeps.add(new EnemyShip(-20, 0, 20, 0, 0, 0, 5, 5, 5, model, estacao,engroup0));
 //	  	   enemySheeps.add(new EnemyShip(0, 0, 0, 0, 0, 0, 5, 5, 5, model, estacao,engroup1));
@@ -190,8 +239,19 @@ public class CanvasGame extends PS_3DCanvas{
 	       camera.setCamInternals((float)FOVY, (float)(WIDTH * 1.0/ HEIGHT), (float)NEAR, (float)FAR);
 	        
 	       //Adiciona elementos de cenario, estaticos
-	        for (int i = 0; i < 40; i++) {
-	        	Obj8T obj = new GameObj(rnd.nextFloat()*1000-500, rnd.nextFloat()*1000-500, rnd.nextFloat()*1000-500, 1, 1, 1,rnd.nextFloat()*6-3,rnd.nextFloat()*6-3,rnd.nextFloat()*6-3,null);
+	        for (int i = 0; i < 1000; i++) {
+	        	Obj8T obj ;
+	        	int key = rnd.nextInt(4);
+	        	switch (key) {
+				case 1:
+		        	obj = new GameObj(rnd.nextFloat()*1000-500, rnd.nextFloat()*1000-500, rnd.nextFloat()*1000-500, 1, 1, 1,rnd.nextFloat()*6-3,rnd.nextFloat()*6-3,rnd.nextFloat()*6-3,modelA);
+					break;
+
+				default:
+		        	obj = new GameObj(rnd.nextFloat()*1000-500, rnd.nextFloat()*1000-500, rnd.nextFloat()*1000-500, 1, 1, 1,rnd.nextFloat()*6-3,rnd.nextFloat()*6-3,rnd.nextFloat()*6-3,modelA2);
+					break;
+				}
+	        	
 		        treemap.addElement(obj);
 		        //objetos.add(obj);
 			}
