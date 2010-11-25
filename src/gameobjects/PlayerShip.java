@@ -5,6 +5,8 @@ import frustum.FrustumV2;
 
 import javax.media.opengl.GL;
 
+import EfeitosParticulas.Propulsor;
+
 import main.CanvasGame;
 import matematcbase.Vector3f;
 import obj.ObjModel;
@@ -19,11 +21,8 @@ public class PlayerShip extends GameObj {
 	private int  indiceTextura =0;
 	Esfera escudo;
 	SkyBox skybox;
+	Propulsor propulsor;
 	
-	int shotState = 0;
-	int shotType = 2;
-	long timerLaser = 0;
-	int energy = 30;
 	
 
 	public PlayerShip(float x, float y, float z, float w, float h, float d, float vx, float vy, float vz, ObjModel model) {
@@ -32,14 +31,17 @@ public class PlayerShip extends GameObj {
 		ObjModel target = new ObjModel();
 		target.loadObj("/res/MiraLaser.obj");
 		//System.out.println("!?!");
+		this.radius = 1.0f;
 		weaponMain = new Laser(x, y, z, 0.2f,0.2f,2f, 20, 20, 20, null, 500, 1, 1000, target);
 		weaponMain.setPaiPlayerShip(this);
 		escudo = new Esfera(x, y,z,0.1f, 0.0f,this);
 		skybox = new SkyBox();
+		propulsor = new Propulsor(position, CanvasGame.textures[CanvasGame.TEX_FOGO], speed,0.08f, frontV, rightV, upV);
 	}
 	
 	@Override
 	public void simulate(long diffTime) {
+		
 		float dX =frontV.x*speed.x*diffTime/1000.0f;
 		float dY =frontV.y*speed.y*diffTime/1000.0f;
 		float dZ =frontV.z*speed.z*diffTime/1000.0f;
@@ -49,194 +51,56 @@ public class PlayerShip extends GameObj {
 		Vector3f posicao = new Vector3f(CanvasGame.X + position.x,CanvasGame.Y+position.y,CanvasGame.Z+position.z );
 		escudo.SetPosition(posicao);
 		escudo.Simulase((int)diffTime);
+		Vector3f posicaoPropulsor = new Vector3f(CanvasGame.X + position.x-frontV.x*0.3f,CanvasGame.Y+position.y-frontV.y*0.3f,CanvasGame.Z+position.z-frontV.z*0.3f );
+		propulsor.setPosicao(posicaoPropulsor);
+		propulsor.simulate((int)diffTime);
 		
-		
-		
-		if(shotType==1){
-			if(shotState==0){
-				if(shooting){
-					shotState = 1;
-					timerLaser = 10;
-						timerShot = weaponMain.cadence;
-						//aqui tenho que mexer 
-						
-						
-					}
+		if(shooting){
+			if(timerShot<=0){
+				timerShot = weaponMain.cadence;
+				//aqui tenho que mexer 
 				
-			}else if(shotState==1){
-				timerLaser-=diffTime;
-				if(timerLaser<0){
-					energy--;
-					timerLaser+=10;
-					float velX = 0;
-					float velY = 0;
-					float velZ = 0;
-					
-					if(speed.x<0)
-					{
-						velX = weaponMain.speed.x;
-					}else{
-						velX = speed.x+weaponMain.speed.x;
-					}
-					if(speed.y<0)
-					{
-						velY = weaponMain.speed.y;
-					}else{
-						velY = speed.y+weaponMain.speed.y;
-					}
-					if(speed.z<0)
-					{
-						velZ = weaponMain.speed.z;
-					}else{
-						velZ = speed.z+weaponMain.speed.z;
-					}
-					
-					Weapon w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
-					w.setPaiPlayerShip(this);
-					w.setRotation(frontV, rightV, upV);
-					
-					
-					//adiciona pro canvas
-					CanvasGame.shots.add(w);
-					if(energy==0){
-						shotState=2;
-					}
+				float velX = 0;
+				float velY = 0;
+				float velZ = 0;
+				
+				if(speed.x<0)
+				{
+					velX = weaponMain.speed.x;
+				}else{
+					velX = speed.x+weaponMain.speed.x;
+				}
+				if(speed.y<0)
+				{
+					velY = weaponMain.speed.y;
+				}else{
+					velY = speed.y+weaponMain.speed.y;
+				}
+				if(speed.z<0)
+				{
+					velZ = weaponMain.speed.z;
+				}else{
+					velZ = speed.z+weaponMain.speed.z;
 				}
 				
-			}else if(shotState==2){
+				Weapon w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
+				w.setPaiPlayerShip(this);
+				w.setTextureTiro(CanvasGame.textures[CanvasGame.armaSelecionada]);
+				w.setRotation(frontV, rightV, upV);
+				
+				//adiciona pro canvas
+				CanvasGame.shots.add(w);
+			}else{
 				timerShot-=diffTime;
-				if(timerShot<0){
-					shotState=0;
-					energy=30;
-				}
-			}
-		}else if(shotType==2){
-			if(shotState==0){
-				if(shooting){
-					shotState = 1;
-					timerLaser = 10;
-						timerShot = weaponMain.cadence/2;
-						//aqui tenho que mexer 
-						
-						
-					}
-				
-			}else if(shotState==1){
-				timerLaser-=diffTime;
-				if(timerLaser<0){
-					energy--;
-					timerLaser+=10;
-					float velX = 0;
-					float velY = 0;
-					float velZ = 0;
-					
-					if(speed.x<0)
-					{
-						velX = weaponMain.speed.x;
-					}else{
-						velX = speed.x+weaponMain.speed.x;
-					}
-					if(speed.y<0)
-					{
-						velY = weaponMain.speed.y;
-					}else{
-						velY = speed.y+weaponMain.speed.y;
-					}
-					if(speed.z<0)
-					{
-						velZ = weaponMain.speed.z;
-					}else{
-						velZ = speed.z+weaponMain.speed.z;
-					}
-					Weapon w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
-					w.setPaiPlayerShip(this);
-					w.setRotation(frontV, rightV, upV);
-					//adiciona pro canvas
-					CanvasGame.shots.add(w);
-					rotate(AXIS_Y, 5);
-					w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
-					w.setPaiPlayerShip(this);
-					w.setRotation(frontV, rightV, upV);
-					//adiciona pro canvas
-					CanvasGame.shots.add(w);
-					rotate(AXIS_Y, -10);
-					w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
-					w.setPaiPlayerShip(this);
-					w.setRotation(frontV, rightV, upV);
-					//adiciona pro canvas
-					CanvasGame.shots.add(w);
-					rotate(AXIS_Y, 5);
-
-					if(energy==0){
-						shotState=2;
-					}
-				}
-				
-			}else if(shotState==2){
-				timerShot-=diffTime;
-				if(timerShot<0){
-					shotState=0;
-					energy=5;
-				}
-			}
-		}else{
-			if(shotState==0){
-				if(shooting){
-					shotState = 1;
-					timerLaser = 1;
-					timerShot = weaponMain.cadence;
-					//aqui tenho que mexer 
-				}
-			}else if(shotState==1){
-				timerLaser-=diffTime;
-				if(timerLaser<0){
-					energy--;
-					timerLaser+=10;
-					float velX = 0;
-					float velY = 0;
-					float velZ = 0;
-					
-					if(speed.x<0)
-					{
-						velX = weaponMain.speed.x;
-					}else{
-						velX = speed.x+weaponMain.speed.x;
-					}
-					if(speed.y<0)
-					{
-						velY = weaponMain.speed.y;
-					}else{
-						velY = speed.y+weaponMain.speed.y;
-					}
-					if(speed.z<0)
-					{
-						velZ = weaponMain.speed.z;
-					}else{
-						velZ = speed.z+weaponMain.speed.z;
-					}
-					
-					Weapon w = new Weapon(CanvasGame.X+position.x+frontV.x*0.6f, CanvasGame.Y+position.y+frontV.y*0.6f, CanvasGame.Z+position.z+frontV.z*0.6f, weaponMain.size.x, weaponMain.size.y, weaponMain.size.z, velX, velY, velZ, weaponMain.model,weaponMain.target,weaponMain.range,weaponMain.damage,weaponMain.cadence);
-					w.setPaiPlayerShip(this);
-					w.setRotation(frontV, rightV, upV);
-					
-					//adiciona pro canvas
-					CanvasGame.shots.add(w);
-					if(energy==0){
-						shotState=2;
-					}
-				}
-				
-			}else if(shotState==2){
-				timerShot-=diffTime;
-				if(timerShot<0){
-					shotState=0;
-					energy=1;
-				}
 			}
 		}
 	}
 	@Override
 	public void draw(GL canvas, FrustumV2 camera) {
+		canvas.glPushMatrix();
+		canvas.glTranslatef(CanvasGame.X, CanvasGame.Y, CanvasGame.Z);
+		skybox.DesenhaSe(canvas);
+		canvas.glPopMatrix();
 		
 		canvas.glPushMatrix();
 		{
@@ -268,13 +132,16 @@ public class PlayerShip extends GameObj {
 			CanvasGame.textures [indiceTextura].disable();
 		}
 		canvas.glPopMatrix();
-		escudo.DesenhaSe(canvas);
-		
 		canvas.glPushMatrix();
-		canvas.glTranslatef(CanvasGame.X, CanvasGame.Y, CanvasGame.Z);
-		skybox.DesenhaSe(canvas);
+		escudo.DesenhaSe(canvas);
 		canvas.glPopMatrix();
-
+		canvas.glPushMatrix();
+		propulsor.Draw(canvas);
+		canvas.glPopMatrix();
+		
+		
+		
+		
 		
 	}
 	
