@@ -54,9 +54,9 @@ public class Esfera {
 				gl.glDisable(gl.GL_DEPTH_TEST);						// Disables Depth Testing
 				gl.glEnable(gl.GL_BLEND);							// Enable Blending
 				gl.glBlendFunc(gl.GL_SRC_ALPHA,gl.GL_ONE_MINUS_CONSTANT_ALPHA);					// Type Of Blending To Perform
-//				gl.glHint(gl.GL_PERSPECTIVE_CORRECTION_HINT,gl.GL_NICEST);			// Really Nice Perspective Calculations
-//				gl.glHint(gl.GL_POINT_SMOOTH_HINT,gl.GL_NICEST);	
-//				
+				gl.glHint(gl.GL_PERSPECTIVE_CORRECTION_HINT,gl.GL_NICEST);			// Really Nice Perspective Calculations
+				gl.glHint(gl.GL_SPHERE_MAP,gl.GL_NICEST);	
+				
 				//gl.glEnable(gl.GL_TEXTURE_2D);
 				gl.glTexGend(gl.GL_S, gl.GL_TEXTURE_GEN_MODE, gl.GL_SPHERE_MAP);
 				Texture textura = texturaEsfera;

@@ -3,14 +3,19 @@ package gameobjects;
 
 import frustum.FrustumV2;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.media.opengl.GL;
 
 import main.CanvasGame;
+import matematcbase.Vector3f;
 import obj.ObjModel;
 import util.Util;
 import EfeitosParticulas.Explosao;
+import EfeitosParticulas.Particula;
+import EfeitosParticulas.Propulsor;
 
 import com.sun.opengl.util.texture.Texture;
 
@@ -30,6 +35,10 @@ public class Weapon extends GameObj {
 	boolean explode = true;
 	EnemyShip paiEnemyShip;
 	PlayerShip paiPlayerShip;
+	
+	
+	
+	
 
 		
 	public Weapon(float x, float y, float z, float w, float h, float d, float vx,
@@ -38,9 +47,11 @@ public class Weapon extends GameObj {
 		this.range = range;
 		this.damage = damage;
 		this.cadence = cadence;				
-		textureTiro = CanvasGame.textures[rand.nextInt(5)+1];
 		
 		
+		
+		
+			
 	}
 
 	
@@ -51,16 +62,19 @@ public class Weapon extends GameObj {
 		this.range = range;
 		this.cadence = cadence;
 		this.damage = damage;
-		textureTiro = CanvasGame.textures[rand.nextInt(5)+1];		
+		
+		
 	}
 
 	@SuppressWarnings("static-access")
 	@Override
-	public void draw(GL canvas, FrustumV2 camera) {		
+	public void draw(GL canvas, FrustumV2 camera) {	
+		
 		if(colidiuObjeto){
 			explosao.DesenhaSe(canvas);
 		}else{
-			if(model==null){			
+			if(model==null){
+				
 				float X = getX();
 				float Y = getY();
 				float Z = getZ();
@@ -155,8 +169,10 @@ public class Weapon extends GameObj {
 						canvas.glDisable(canvas.GL_TEXTURE);					
 						canvas.glPopMatrix();
 					canvas.glEnd();
-	
+					
+					
 				canvas.glPopMatrix();
+				
 			}else{
 				canvas.glPushMatrix();
 				{
@@ -175,19 +191,21 @@ public class Weapon extends GameObj {
 		float dX =frontV.x*speed.x*diffTime/1000.0f;
 		float dY =frontV.y*speed.y*diffTime/1000.0f;
 		float dZ =frontV.z*speed.z*diffTime/1000.0f;
-		
+		//rastro.SimulaSe(diffTime);
 		if(!colidiuObjeto){	
 			
 			position.x+=dX;
 			position.y+=dY;
 			position.z+=dZ;
 			
+					
+			
 			if(paiPlayerShip == CanvasGame.nave){
 				for (int i = 0; i < CanvasGame.enemySheeps.size(); i++) {
 					EnemyShip inimigo = CanvasGame.enemySheeps.get(i);
 					if(ColideLaser(inimigo)){	
 						colidiuObjeto = true;			
-						explosao = new Explosao(this.getX(), this.getY(), this.getZ(), 1.0f);
+						explosao = new Explosao(this.getX(), this.getY(), this.getZ(), 2.0f);
 						
 						if(inimigo.escudo.getLife()>0){
 							inimigo.escudo.EfeitoColisaoEscudo(true, textureTiro, damage);
@@ -214,7 +232,7 @@ public class Weapon extends GameObj {
 				explosao.SimulaSe(diffTime);
 			}
 			else{
-				this.dead= true;
+				this.dead = true;
 			}
 		}
 		
@@ -286,8 +304,8 @@ public class Weapon extends GameObj {
 		double difX = inimigo.getX()+CanvasGame.X - this.getX();
 		double difY = inimigo.getY()+CanvasGame.Y - this.getY();
 		double difZ = inimigo.getZ()+CanvasGame.Z - this.getZ();
-		//System.out.println("inimigo.radius"+inimigo.radius);
-		double RaioQuadrado = inimigo.radius+inimigo.radius;
+		
+		double RaioQuadrado = inimigo.radius*inimigo.radius;
 		double somaDiferenca = (difX * difX)+(difY * difY)+(difZ * difZ);
 
 		if(RaioQuadrado>somaDiferenca){

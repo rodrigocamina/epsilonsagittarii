@@ -39,7 +39,7 @@ public class Explosao {
 			if(particulaDeExplosao.get(i).life<0){
 				particulaDeExplosao.remove(particulaDeExplosao.get(i));
 			}
-			particulaDeExplosao.get(i).SimulaSe(i,(int)diffTime );
+			particulaDeExplosao.get(i).SimulaSe((int)diffTime );
 			
 		}
 		timer -= diffTime/1000.0f;	
