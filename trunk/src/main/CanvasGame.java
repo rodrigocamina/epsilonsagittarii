@@ -110,7 +110,7 @@ public class CanvasGame extends PS_3DCanvas{
 	public static PlayerShip nave;
 	private Station estacao;
 
-	public static int armaSelecionada;
+	public static int armaSelecionada = 0;
 	
 
 	public static List<Weapon> shots = new ArrayList<Weapon>();
@@ -578,6 +578,8 @@ public class CanvasGame extends PS_3DCanvas{
     		S = true;
     	}
     	if(key == ConfigTeclado.teclas[8]){
+    		nave.setShotType(armaSelecionada);
+    		nave.getWeaponMain().setTextureTiro(textures[armaSelecionada]);
     		nave.setShooting(true);
     	} 
     	if(key == ConfigTeclado.teclas[9]){
@@ -588,28 +590,18 @@ public class CanvasGame extends PS_3DCanvas{
     	} 
     	if(key == ConfigTeclado.teclas[11]){
     		armaSelecionada = TEX_TIRO_BLUE;
-    		nave.getWeaponMain().setTextureTiro(textures[armaSelecionada]);
-    		nave.setShotType(armaSelecionada);
     	} 
     	if(key == ConfigTeclado.teclas[12]){
     		armaSelecionada = TEX_TIRO_GREEN;
-    		nave.getWeaponMain().setTextureTiro(textures[armaSelecionada]);
-    		nave.setShotType(armaSelecionada);
     	}
     	if(key == ConfigTeclado.teclas[13]){
     		armaSelecionada = TEX_TIRO_ORANGE;
-    		nave.getWeaponMain().setTextureTiro(textures[armaSelecionada]);
-    		nave.setShotType(armaSelecionada);
     	}
     	if(key == ConfigTeclado.teclas[14]){
     		armaSelecionada = TEX_TIRO_RED;
-    		nave.getWeaponMain().setTextureTiro(textures[armaSelecionada]);
-    		nave.setShotType(armaSelecionada);
     	}
     	if(key == ConfigTeclado.teclas[15]){
     		armaSelecionada = TEX_TIRO_WHITE;
-    		nave.getWeaponMain().setTextureTiro(textures[armaSelecionada]);
-    		nave.setShotType(armaSelecionada);
     	}
     	/*
     	if(key == KeyEvent.VK_O){
