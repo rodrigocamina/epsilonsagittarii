@@ -10,7 +10,6 @@ import obj.ObjModel;
 import octtree.AreaV2;
 import octtree.Obj8T;
 import util.Util;
-import frustum.Esfera;
 import frustum.FrustumV2;
 
 public class GameObj implements Obj8T{

@@ -2,19 +2,11 @@ package gameobjects;
 
 
 
-import frustum.FrustumV2;
-
 import javax.media.opengl.GL;
-
-import EfeitosParticulas.Particula;
-import util.Util;
-//import matematcbase.Util;
-import frustum.FrustumV2;
-
-
 
 import obj.ObjModel;
 import util.Util;
+import frustum.FrustumV2;
 
 public class Laser extends Weapon {
 	

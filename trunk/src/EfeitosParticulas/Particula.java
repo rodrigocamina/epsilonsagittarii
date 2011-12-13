@@ -4,7 +4,6 @@ package EfeitosParticulas;
 import java.util.Random;
 
 import javax.media.opengl.GL;
-import javax.swing.text.html.HTMLDocument.HTMLReader.SpecialAction;
 
 import main.CanvasGame;
 import matematcbase.Vector3f;

@@ -50,17 +50,18 @@ public class TileMap {
     		DataInputStream data = new DataInputStream(In); 
     		
     		
-    	
-    		int Versao = data.readInt(); // lê Versao
-        	Largura = ReadCInt(data);    // lê Largura
-        	Altura = ReadCInt(data);	// lê Largura
+
+    		//int Versao = data.readInt(); // Versao
+    		data.readInt(); // Versao
+        	Largura = ReadCInt(data);    // Largura
+        	Altura = ReadCInt(data);	// Largura
         	
         	System.out.println(" Largura "+Largura);
         	
            	System.out.println(" Altura "+Altura);
            	
-        	int ltilex =  ReadCInt(data);// lê Larg Tile
-        	int ltiley =  ReadCInt(data);// lê Altura Tile
+        	int ltilex =  ReadCInt(data);// Larg Tile
+        	int ltiley =  ReadCInt(data);// Altura Tile
         	
         	System.out.println(" ltilex "+ltilex);
         	
@@ -68,21 +69,24 @@ public class TileMap {
            	
         	byte nome[] = new byte[32]; 
 
-        	data.read(nome,0,32);       // lê Nome Tilemap
+        	data.read(nome,0,32);       // Nome Tilemap
         	data.read(nome,0,32); 
         	
-        	int numLayers =  ReadCInt(data);// lê numero de Layers
-        	int numTiles =  ReadCInt(data);// lê numero de Tiles
+        	int numLayers =  ReadCInt(data);// numero de Layers
+        	int numTiles =  ReadCInt(data);// numero de Tiles
         	
            	System.out.println(" numLayers "+numLayers);
            	System.out.println(" numTiles "+numTiles);
         	
-            int BytesPorTiles =  ReadCInt(data); // lê numero de bytes por tile;
+            int BytesPorTiles =  ReadCInt(data); // numero de bytes por tile;
             
            	System.out.println(" BytesPorTiles "+BytesPorTiles);
            	
-            int vago1 =  ReadCInt(data); // lê vago;
-            int vago2 =  ReadCInt(data); // lê vago;            
+           	/*
+            int vago1 =  ReadCInt(data); // vago;
+            int vago2 =  ReadCInt(data); // vago;   */   
+            ReadCInt(data); // vago1
+            ReadCInt(data); // vago2  
             
         	mapa = new int[Largura][Altura];
         	mapa2 = new int[Largura][Altura];
@@ -259,12 +263,11 @@ public class TileMap {
     }
     
     public int ReadCInt(DataInputStream data) throws IOException{
-        int dado;
     	int b1 = data.readByte();
     	int b2 = data.readByte(); 
     	int b3 = data.readByte(); 
     	int b4 = data.readByte();                     	
     	
-    	return dado = ((int)b1&0x00ff)|(((int)b2&0x00ff)<<8)|(((int)b3&0x00ff)<<16)|(((int)b4&0x00ff)<<24);            	    	
+    	return ((int)b1&0x00ff)|(((int)b2&0x00ff)<<8)|(((int)b3&0x00ff)<<16)|(((int)b4&0x00ff)<<24);            	    	
     }
 }

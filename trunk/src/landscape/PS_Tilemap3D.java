@@ -83,8 +83,8 @@ public class PS_Tilemap3D {
 		        	  //if(mapa.colision[mapa.mapa[j-1][i-1]]==0){
 		        	//	  alturas[j][i] = 0f;  
 		        	 // }else{
-		        		  float max = alturas[j+1][i];
-		        		  float min = alturas[j+1][i];
+		        		  //float max = alturas[j+1][i];
+		        		  //float min = alturas[j+1][i];
 		        		  
 		        		  float a[] = new float[8];
 		        		  a[0] = alturas[j][i+1];
@@ -225,7 +225,7 @@ public class PS_Tilemap3D {
     
     public void desenhase(GL gl){
 
-    	if(wireframe)gl.glPolygonMode(gl.GL_FRONT_AND_BACK, gl.GL_LINE);
+    	if(wireframe)gl.glPolygonMode(GL.GL_FRONT_AND_BACK, GL.GL_LINE);
     	
         for(int i = 0; i < nblocdraw; i++){
             for(int j = 0; j < nblocdraw; j++){
@@ -320,7 +320,7 @@ public class PS_Tilemap3D {
             }
         }
         
-        if(wireframe)gl.glPolygonMode(gl.GL_FRONT_AND_BACK, gl.GL_FILL);
+        if(wireframe)gl.glPolygonMode(GL.GL_FRONT_AND_BACK, GL.GL_FILL);
     }
 
 

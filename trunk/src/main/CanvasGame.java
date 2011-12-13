@@ -15,10 +15,11 @@ import obj.ObjModel;
 import octtree.Obj8T;
 import octtree.Tree;
 import util.ConfigTeclado;
-import EfeitosParticulas.Particula;
+
 import com.sun.opengl.util.texture.Texture;
 import com.sun.opengl.util.texture.TextureData;
 import com.sun.opengl.util.texture.TextureIO;
+
 import effects.CameraAnimator;
 import effects.CameraFrame;
 import frustum.FrustumV2;
@@ -28,7 +29,6 @@ import gameobjects.GameObj;
 import gameobjects.PlayerShip;
 import gameobjects.Station;
 import gameobjects.Weapon;
-import java.io.*;
 
 /*
  * Created on 21/03/2010

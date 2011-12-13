@@ -1,19 +1,9 @@
 package gameobjects;
 
 
-import java.io.File;
-import java.io.IOException;
-
 import javax.media.opengl.GL;
-import javax.media.opengl.GLException;
 
 import main.CanvasGame;
-import matematcbase.Vector2f;
-import matematcbase.Vector3f;
-
-import com.sun.opengl.util.texture.Texture;
-import com.sun.opengl.util.texture.TextureCoords;
-import com.sun.opengl.util.texture.TextureIO;
 
 public class SkyBox {
 

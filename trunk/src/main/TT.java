@@ -1,12 +1,10 @@
 package main;
 
-import matematcbase.Matrix4x4;
-import matematcbase.Vector3f;
 
 public class TT {
 
 	
-	
+	/*
 	public static void main(String[] args) {
 
 		Vector3f v1 = new Vector3f(0,0,1);
@@ -26,5 +24,5 @@ public class TT {
 
 		//System.out.println(v1.RotByMatrix(m1.toArray()));
 		//System.out.println(v2.RotByMatrix(m2.toArray()));
-	}
+	}*/
 }
