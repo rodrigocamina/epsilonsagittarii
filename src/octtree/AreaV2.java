@@ -59,14 +59,14 @@ public class AreaV2 {
 		posInicial.y<=obj.getY()&&posFinal.y>=obj.getY()+obj.getHeight()&&
 		posInicial.z<=obj.getZ()&&posFinal.z>=obj.getZ()+obj.getDepth();
 	}
-	
+	/*
 	private boolean touches(Obj8T obj){
 		return 
 		posInicial.x<=obj.getX()+obj.getWidth() &&posFinal.x>=obj.getX()&&
 		posInicial.y<=obj.getY()+obj.getHeight()&&posFinal.y>=obj.getY()&&
 		posInicial.z<=obj.getZ()+obj.getDepth() &&posFinal.z>=obj.getZ();
 	}
-	/*private boolean surrounds(Vector3f obj){
+	private boolean surrounds(Vector3f obj){
 		return 
 		posInicial.x<=obj.x&&posFinal.x>=obj.x &&
 		posInicial.y<=obj.y&&posFinal.y>=obj.y &&
@@ -223,7 +223,7 @@ public class AreaV2 {
 		
 		
 	}
-	
+	/*
 	private void drawLines(GL canvas){
 		if(elements.size()>0){
 		canvas.glPushMatrix();
@@ -253,5 +253,5 @@ public class AreaV2 {
 		canvas.glPopMatrix();
 		}
 	}
-	
+	*/
 }

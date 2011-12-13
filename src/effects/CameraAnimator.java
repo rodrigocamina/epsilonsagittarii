@@ -1,7 +1,6 @@
 package effects;
 
 import java.util.LinkedList;
-import java.util.List;
 
 import matematcbase.Vector3f;
 

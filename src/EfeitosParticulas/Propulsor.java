@@ -2,8 +2,6 @@ package EfeitosParticulas;
 
 import javax.media.opengl.GL;
 
-import util.Util;
-
 import main.CanvasGame;
 import matematcbase.Vector3f;
 
@@ -48,36 +46,36 @@ public class Propulsor {
 
 			//frente
 			canvas.glPushMatrix();
-				canvas.glEnable(canvas.GL_TEXTURE);
+				canvas.glEnable(GL.GL_TEXTURE);
 				Texture textura = getTextura();
 				textura.enable();
 				textura.bind();
 	
-				canvas.glShadeModel(canvas.GL_SMOOTH);						// Enables Smooth Shading
+				canvas.glShadeModel(GL.GL_SMOOTH);						// Enables Smooth Shading
 				canvas.glClearDepth(1.0f);							// Depth Buffer Setup
-				canvas.glDisable(canvas.GL_DEPTH_TEST);						// Disables Depth Testing
-				canvas.glEnable(canvas.GL_BLEND);							// Enable Blending
-				canvas.glBlendFunc(canvas.GL_SRC_ALPHA,canvas.GL_ONE);					// Type Of Blending To Perform
-				canvas.glHint(canvas.GL_PERSPECTIVE_CORRECTION_HINT,canvas.GL_4D_COLOR_TEXTURE);			// Really Nice Perspective Calculations
-				canvas.glHint(canvas.GL_POINT_SMOOTH_HINT,canvas.GL_NICEST);					// Really Nice Point Smoothing
+				canvas.glDisable(GL.GL_DEPTH_TEST);						// Disables Depth Testing
+				canvas.glEnable(GL.GL_BLEND);							// Enable Blending
+				canvas.glBlendFunc(GL.GL_SRC_ALPHA,GL.GL_ONE);					// Type Of Blending To Perform
+				canvas.glHint(GL.GL_PERSPECTIVE_CORRECTION_HINT,GL.GL_4D_COLOR_TEXTURE);			// Really Nice Perspective Calculations
+				canvas.glHint(GL.GL_POINT_SMOOTH_HINT,GL.GL_NICEST);					// Really Nice Point Smoothing
 				
 							
 									
-				canvas.glBegin(canvas.GL_QUADS);
+				canvas.glBegin(GL.GL_QUADS);
 					canvas.glTexCoord2d(1, 1); canvas.glVertex3f(X+size, Y+size, Z); //TOP Right
 					canvas.glTexCoord2d(0, 1); canvas.glVertex3f(X-size, Y+size, Z); //TOP Left
 					canvas.glTexCoord2d(1, 0); canvas.glVertex3f(X+size, Y-size, Z); //Botton Right
 					canvas.glTexCoord2d(0, 0); canvas.glVertex3f(X-size, Y-size, Z); //Botton Left
 				canvas.glEnd();	
 				
-				canvas.glBegin(canvas.GL_QUADS);
+				canvas.glBegin(GL.GL_QUADS);
 					canvas.glTexCoord2d(1, 1); canvas.glVertex3f(X+size, Y, Z+size); //TOP Right
 					canvas.glTexCoord2d(0, 1); canvas.glVertex3f(X-size, Y, Z+size); //TOP Left
 					canvas.glTexCoord2d(1, 0); canvas.glVertex3f(X+size, Y, Z-size); //Botton Right
 					canvas.glTexCoord2d(0, 0); canvas.glVertex3f(X-size, Y, Z-size); //Botton Left
 				canvas.glEnd();	
 				
-				canvas.glBegin(canvas.GL_QUADS);
+				canvas.glBegin(GL.GL_QUADS);
 					canvas.glTexCoord2d(1, 1); canvas.glVertex3f(X, Y+size, Z+size); //TOP Right
 					canvas.glTexCoord2d(0, 1); canvas.glVertex3f(X, Y+size, Z-size); //TOP Left
 					canvas.glTexCoord2d(1, 0); canvas.glVertex3f(X, Y-size, Z+size); //Botton Right
@@ -85,7 +83,7 @@ public class Propulsor {
 				canvas.glEnd();
 				//========================   ================================
 				
-				canvas.glBegin(canvas.GL_QUADS);
+				canvas.glBegin(GL.GL_QUADS);
 				canvas.glNormal3f(0, 0, -1);
 				canvas.glTexCoord2d(1, 1); canvas.glVertex3f(X+size, Y+size, Z); //TOP Right
 				canvas.glNormal3f(0, 0, -1);
@@ -96,7 +94,7 @@ public class Propulsor {
 				canvas.glTexCoord2d(0, 0); canvas.glVertex3f(X-size, Y-size, Z); //Botton Left
 				canvas.glEnd();	
 			
-				canvas.glBegin(canvas.GL_QUADS);
+				canvas.glBegin(GL.GL_QUADS);
 				canvas.glNormal3f(0, -1, 0);
 				canvas.glTexCoord2d(1, 1); canvas.glVertex3f(X+size, Y, Z+size); //TOP Right
 				canvas.glNormal3f(0, -1, 0);
@@ -107,7 +105,7 @@ public class Propulsor {
 				canvas.glTexCoord2d(0, 0); canvas.glVertex3f(X-size, Y, Z-size); //Botton Left
 				canvas.glEnd();	
 			
-				canvas.glBegin(canvas.GL_QUADS);
+				canvas.glBegin(GL.GL_QUADS);
 				canvas.glNormal3f(-1, 0, 0);
 				canvas.glTexCoord2d(1, 1); canvas.glVertex3f(X, Y+size, Z+size); //TOP Right
 				canvas.glNormal3f(-1, 0, 0);
@@ -120,12 +118,12 @@ public class Propulsor {
 			
 					
 	
-				canvas.glDisable(canvas.GL_SMOOTH);
-				canvas.glDisable(canvas.GL_BLEND);
-				canvas.glEnable(canvas.GL_DEPTH_TEST);		
+				canvas.glDisable(GL.GL_SMOOTH);
+				canvas.glDisable(GL.GL_BLEND);
+				canvas.glEnable(GL.GL_DEPTH_TEST);		
 	
 				textura.disable();//					
-				canvas.glDisable(canvas.GL_TEXTURE);					
+				canvas.glDisable(GL.GL_TEXTURE);					
 				canvas.glPopMatrix();
 			canvas.glEnd();
 			

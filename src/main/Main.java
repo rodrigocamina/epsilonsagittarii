@@ -1,14 +1,8 @@
 package main;
-import javax.swing.*;
-
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
 import java.awt.Cursor;
 
-import javax.media.opengl.GLCapabilities;
-import javax.media.opengl.GLCanvas;
-
-import com.sun.opengl.util.Animator;
+import javax.swing.JApplet;
 
 /*
  * Created on 21/03/2010
@@ -22,7 +16,12 @@ public class Main extends JApplet /*implements MouseWheelListener,KeyListener,Mo
 {
    //private static final int DEFAULT_FPS = 80;
 
-   private GameMain wp;        // where the worm is drawn
+   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3818567970932384088L;
+
+private GameMain wp;        // where the worm is drawn
    //private JTextField jtfBox;   // displays no.of boxes used
    //private JTextField jtfTime;  // displays time spent in game
 

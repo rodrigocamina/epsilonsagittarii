@@ -1,23 +1,18 @@
 package gameobjects;
 
 
-import frustum.FrustumV2;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import javax.media.opengl.GL;
 
 import main.CanvasGame;
-import matematcbase.Vector3f;
 import obj.ObjModel;
 import util.Util;
 import EfeitosParticulas.Explosao;
-import EfeitosParticulas.Particula;
-import EfeitosParticulas.Propulsor;
 
 import com.sun.opengl.util.texture.Texture;
+
+import frustum.FrustumV2;
 
 public class Weapon extends GameObj {
 

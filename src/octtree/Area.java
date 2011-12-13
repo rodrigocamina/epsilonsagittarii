@@ -5,7 +5,7 @@ import java.util.List;
 public class Area {
 
 	private Area parent;
-	private int elementsCount;
+	//private int elementsCount;
 	private List<Obj8T> elements; 
 	private Area[] children;
 	private int x;
@@ -290,7 +290,8 @@ public class Area {
 		}
 		return -1;
 	}
+	/*
 	private Area getChild(int n){
 		return children[n];
-	}
+	}*/
 }

@@ -1,6 +1,5 @@
 package octtree;
 
-import java.util.List;
 
 public class AreaV1 {
 /*
